@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { CartItem, Product } from "@/ui/state/types";
-import { sellers } from "@/ui/state/mock";
+import { useCatalogStore } from "@/ui/state/catalogStore";
 
 type CartViewMode = string;
 
@@ -22,7 +22,7 @@ type CartState = {
 };
 
 function getSellerName(sellerId: string): string {
-  return sellers.find((s) => s.id === sellerId)?.name ?? "Продавец";
+  return useCatalogStore.getState().sellers.find((s) => s.id === sellerId)?.name ?? "Продавец";
 }
 
 function makeKey(productId: string, sellerId: string, variantId?: string): string {

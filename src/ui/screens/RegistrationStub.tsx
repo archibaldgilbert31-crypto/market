@@ -53,7 +53,7 @@ export function RegistrationStub() {
 
       <div className="px-4 pb-8">
         <button
-          onClick={() => nav("/addresses")}
+          onClick={() => nav("/home")}
           disabled={!canContinue}
           className="w-full bg-[var(--fresh-green)] disabled:opacity-50 text-white rounded-2xl py-4 font-semibold flex items-center justify-center gap-2"
         >

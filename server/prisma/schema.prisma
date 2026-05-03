@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  phone        String?   @unique
+  role         Role      @default(USER)
+  avatarUrl    String?
+  sellerShopId String?   @unique
+  sellerShop   Seller?   @relation(fields: [sellerShopId], references: [id], onDelete: SetNull)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  sessions     Session[]
+
+  @@map("users")
+}
+
+model Seller {
+  id                 String    @id
+  name               String
+  commissionRate     Float
+  logo               String?
+  bannerUrl          String?
+  rating             Float?
+  reviewsCount       Int?
+  deliveryEtaMinutes Int?
+  description        String?
+  products           Product[]
+  sellerUsers        User[]
+}
+
+model Product {
+  id                 String   @id
+  sellerId           String
+  seller             Seller   @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  vitrineType        String
+  categoryIds        String[]
+  title              String
+  description        String?
+  images             String[]
+  price              Int
+  oldPrice           Int?
+  unitLabel          String
+  rating             Float?
+  reviewsCount       Int?
+  badge              String?
+  inStock            Boolean  @default(true)
+  deliveryEtaMinutes Int?
+  brand              String?
+  attributes         Json?
+  reviews            Json?
+
+  @@index([sellerId])
+}
+
+model CatalogSettings {
+  id           Int  @id @default(1)
+  filterConfig Json
+}
+
+enum Role {
+  USER
+  SELLER
+  ADMIN
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshToken String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+}

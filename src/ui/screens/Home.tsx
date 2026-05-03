@@ -2,11 +2,14 @@ import { Search as SearchIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { Header } from "@/ui/shared/Header";
+import { DeliveryAddressPicker } from "@/ui/shared/DeliveryAddressPicker";
 import { ProductCard } from "@/ui/shared/ProductCard";
-import { products } from "@/ui/state/mock";
+import { useCatalogStore } from "@/ui/state/catalogStore";
 
 export function Home() {
   const nav = useNavigate();
+  const products = useCatalogStore((s) => s.products);
+  const loaded = useCatalogStore((s) => s.loaded);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
@@ -17,19 +20,24 @@ export function Home() {
       result = result.filter((p) => p.title.toLowerCase().includes(q));
     }
     return result;
-  }, [searchQuery]);
+  }, [searchQuery, products]);
 
   const searchSuggestions = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     if (!q) return [];
     return products.filter((p) => p.title.toLowerCase().includes(q)).slice(0, 5);
-  }, [searchQuery]);
+  }, [searchQuery, products]);
 
   return (
     <div className="bg-[var(--fresh-bg)] text-blue-900">
-      <Header title="Главная" onBack={() => nav("/addresses")} />
+      <Header title="Главная" showBack={false} />
 
-      <div className="px-4 py-3 bg-white z-20 relative">
+      {/* z-index выше блока поиска — иначе сосед с тем же z-20 перекрывает выпадающий список адресов */}
+      <div className="px-4 pt-2 pb-3 bg-white border-b border-gray-100 relative z-[45]">
+        <DeliveryAddressPicker />
+      </div>
+
+      <div className="px-4 py-3 bg-white relative z-10">
         <div className="relative">
           <SearchIcon size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10 pointer-events-none" />
           <input
@@ -87,11 +95,15 @@ export function Home() {
 
       <div className="px-4 py-2">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Рекомендуем для вас</h2>
-        <div className="grid grid-cols-2 gap-3">
-          {filtered.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
+        {!loaded ? (
+          <p className="text-gray-500 text-sm py-6 text-center">Загрузка каталога…</p>
+        ) : (
+          <div className="grid grid-cols-2 gap-3">
+            {filtered.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

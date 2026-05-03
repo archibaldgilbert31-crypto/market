@@ -1,15 +1,18 @@
-import { Star, MessageSquare, ChevronLeft } from "lucide-react";
+import { Star } from "lucide-react";
 import { useParams, useNavigate } from "react-router";
 import { Header } from "@/ui/shared/Header";
-import { products } from "@/ui/state/mock";
 import { useMemo } from "react";
+import { useCatalogStore } from "@/ui/state/catalogStore";
+import type { Review } from "@/ui/state/types";
 
 export function Reviews() {
   const { id } = useParams();
   const nav = useNavigate();
-  const product = products.find((p) => p.id === id);
+  const products = useCatalogStore((s) => s.products);
+  const loaded = useCatalogStore((s) => s.loaded);
+  const product = useMemo(() => products.find((p) => p.id === id), [id, products]);
 
-  const reviews = useMemo(() => product?.reviews || [], [product]);
+  const reviews = useMemo(() => (product?.reviews as Review[] | undefined) ?? [], [product]);
   const averageRating = useMemo(() => {
     if (reviews.length === 0) return 5.0;
     const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
@@ -25,6 +28,15 @@ export function Reviews() {
     });
     return stats;
   }, [reviews]);
+
+  if (!loaded) {
+    return (
+      <div className="min-h-screen bg-[var(--fresh-bg)]">
+        <Header title="Отзывы" onBack={() => nav(-1)} />
+        <div className="p-10 text-center text-gray-500">Загрузка…</div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (

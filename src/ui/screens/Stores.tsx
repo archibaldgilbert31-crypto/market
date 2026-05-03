@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { sellers } from "@/ui/state/mock";
+import { useCatalogStore } from "@/ui/state/catalogStore";
+import { isRestaurantSeller } from "@/ui/constants/sellers";
 import { Star, X, Clock, ChevronRight } from "lucide-react";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -59,6 +60,7 @@ const PINS: PinData[] = [
 
 export function Stores() {
   const nav = useNavigate();
+  const sellers = useCatalogStore((s) => s.sellers);
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersRef = useRef<L.FeatureGroup | null>(null);
@@ -224,7 +226,7 @@ export function Stores() {
                 className="w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-[0.98]"
                 style={{ background: APP_GREEN, color: "white" }}
               >
-                {["seller-5", "seller-6", "seller-7", "seller-8"].includes(activeSel.id) ? "Перейти в Ресторан" : "Перейти в Магазин"}
+                {isRestaurantSeller(activeSel.id) ? "Перейти в Ресторан" : "Перейти в Магазин"}
                 <ChevronRight size={18} />
               </button>
             </div>

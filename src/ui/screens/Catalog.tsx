@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { Header } from "@/ui/shared/Header";
 import { ProductCard } from "@/ui/shared/ProductCard";
-import { products, filterConfig, sellers } from "@/ui/state/mock";
+import { useCatalogStore } from "@/ui/state/catalogStore";
 import type { VitrineType } from "@/ui/state/types";
 import { Star } from "lucide-react";
 
@@ -18,8 +18,8 @@ const mainVitrines: MenuNode[] = [
 ];
 
 const foodVitrines: MenuNode[] = [
-  { id: "groceries", title: "Продукты", emoji: "🛒", subtitle: "Свежие продукты из магазинов" },
-  { id: "ready_food", title: "Готовая еда", emoji: "🍱", subtitle: "Свежие блюда, только разогреть" },
+  { id: "groceriesMenu", title: "Продукты", emoji: "🛒", subtitle: "Свежие продукты из магазинов", isFolder: true },
+  { id: "readyFoodMenu", title: "Готовая еда", emoji: "🍱", subtitle: "Свежие блюда, только разогреть", isFolder: true },
   { id: "restaurantsMenu", title: "Рестораны/ФастФуд", emoji: "🍔", subtitle: "Доставка из любимых заведений", isFolder: true },
 ];
 
@@ -35,18 +35,40 @@ const clothesVitrines: MenuNode[] = [
   { id: "seller-12", title: "Roobl", emoji: "👟", subtitle: "Брендовая обувь и аксессуары" },
   { id: "seller-3", title: "Пешеход", emoji: "🧢", subtitle: "Стильная одежда для жизни в городе" },
 ];
+const groceryStoreVitrines: MenuNode[] = [
+  { id: "seller-1", title: "Провиант", emoji: "🛒", subtitle: "Свежие фермерские продукты" },
+  { id: "seller-13", title: "Зелёная лавка", emoji: "🥬", subtitle: "Овощи и фрукты с проверенных грядок" },
+  { id: "seller-14", title: "Домашний гастроном", emoji: "🧀", subtitle: "Деликатесы и закуски" },
+];
+
+const readyFoodStoreVitrines: MenuNode[] = [
+  { id: "seller-2", title: "Пекарня у дома", emoji: "🍱", subtitle: "Готовые блюда и свежая выпечка" },
+];
+
 const toolsVitrines: MenuNode[] = [
-  { id: "tools", title: "Инструменты", emoji: "🔧", subtitle: "Для ремонта" },
-  { id: "components", title: "Комплектующие", emoji: "⚙️", subtitle: "Для бытовой техники" },
+  { id: "seller-4", title: "СтройИнструмент", emoji: "🔧", subtitle: "Всё для ремонта и строительства" },
+  { id: "seller-9", title: "Метизыч", emoji: "⚙️", subtitle: "Инструменты и комплектующие" },
 ];
 const electronicsVitrines: MenuNode[] = [
   { id: "seller-10", title: "Плазма", emoji: "📱", subtitle: "Гаджеты и техника" },
 ];
 
+/** Вкладки ленты на экране «Все товары» — фильтруют выдачу, без перехода к выбору магазина */
+type CatalogTabId = "all" | "foodMenu" | "clothesMenu" | "electronicsMenu" | "toolsMenu";
+
+const FOOD_VITRINES: Exclude<VitrineType, "all">[] = ["groceries", "ready_food", "sushi", "burgers", "pizza", "georgian"];
+
 export function Catalog() {
   const nav = useNavigate();
-  const [viewLevel, setViewLevel] = useState<"root" | "foodMenu" | "restaurantsMenu" | "clothesMenu" | "toolsMenu" | "electronicsMenu" | "products">("root");
+  const sellers = useCatalogStore((s) => s.sellers);
+  const products = useCatalogStore((s) => s.products);
+  const filterConfig = useCatalogStore((s) => s.filterConfig);
+  const loaded = useCatalogStore((s) => s.loaded);
+  const loadError = useCatalogStore((s) => s.loadError);
+  const fetchBootstrap = useCatalogStore((s) => s.fetchBootstrap);
+  const [viewLevel, setViewLevel] = useState<"root" | "foodMenu" | "groceriesMenu" | "readyFoodMenu" | "restaurantsMenu" | "clothesMenu" | "toolsMenu" | "electronicsMenu" | "products">("root");
   const [selected, setSelected] = useState<VitrineType | null>(null);
+  const [catalogTab, setCatalogTab] = useState<CatalogTabId>("all");
   
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [activeFilters, setActiveFilters] = useState<{ categoryId: string | null; attributes: Record<string, string[]> }>({ categoryId: null, attributes: {} });
@@ -69,33 +91,74 @@ export function Catalog() {
     setIsFilterOpen(false);
   };
 
+  const filterDrawerKey = useMemo(() => {
+    if (catalogTab === "clothesMenu") return "clothes" as const;
+    if (catalogTab === "electronicsMenu") return "electronics" as const;
+    if (catalogTab === "toolsMenu") return "tools" as const;
+    return null;
+  }, [catalogTab]);
+
   const filtered = useMemo(() => {
-    if (!selected) return [];
-    let result = selected === "all" ? products : products.filter((p) => p.vitrineType === selected);
+    if (viewLevel !== "products") return [];
+
+    let result = products.filter((p) => {
+      if (catalogTab === "all") return true;
+      if (catalogTab === "foodMenu") return FOOD_VITRINES.includes(p.vitrineType);
+      if (catalogTab === "clothesMenu") return p.vitrineType === "clothes";
+      if (catalogTab === "electronicsMenu") return p.vitrineType === "electronics";
+      if (catalogTab === "toolsMenu") return p.vitrineType === "tools" || p.vitrineType === "components";
+      return true;
+    });
 
     if (activeFilters.categoryId) {
       result = result.filter((p) => p.categoryIds.includes(activeFilters.categoryId!));
     }
-    
+
     for (const [attrId, values] of Object.entries(activeFilters.attributes)) {
       if (values.length > 0) {
         result = result.filter((p) => {
           if (!p.attributes || !p.attributes[attrId]) return false;
           const pValues = Array.isArray(p.attributes[attrId]) ? p.attributes[attrId] : [p.attributes[attrId]];
-          return pValues.some(v => values.includes(v as string));
+          return pValues.some((v) => values.includes(v as string));
         });
       }
     }
 
-    return result;
-  }, [selected, activeFilters]);
+    return [...result].sort((a, b) => a.title.localeCompare(b.title, "ru"));
+  }, [viewLevel, catalogTab, activeFilters, products]);
 
   const relevantSellers = useMemo(() => {
-    if (!selected) return [];
-    if (selected === "all") return sellers;
-    const ids = new Set(products.filter(p => p.vitrineType === selected).map(p => p.sellerId));
-    return sellers.filter(s => ids.has(s.id));
-  }, [selected]);
+    if (viewLevel !== "products" || catalogTab !== "all") return [];
+    return sellers;
+  }, [viewLevel, catalogTab, sellers]);
+
+  if (loadError) {
+    return (
+      <div className="bg-[var(--fresh-bg)] min-h-screen">
+        <Header title="Каталог" onBack={() => nav("/home")} />
+        <div className="px-4 py-6 space-y-4">
+          <p className="text-red-600 text-sm">{loadError}</p>
+          <p className="text-gray-600 text-sm">Запустите API сервер: в папке server выполните npm run dev.</p>
+          <button
+            type="button"
+            onClick={() => void fetchBootstrap()}
+            className="w-full py-3 rounded-2xl bg-[var(--fresh-green)] text-white font-semibold"
+          >
+            Повторить
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!loaded) {
+    return (
+      <div className="bg-[var(--fresh-bg)] min-h-screen">
+        <Header title="Каталог" onBack={() => nav("/home")} />
+        <div className="px-4 py-10 text-center text-gray-600">Загрузка каталога…</div>
+      </div>
+    );
+  }
 
   const handleSelect = (node: MenuNode) => {
     if (node.id.startsWith("seller-")) {
@@ -104,6 +167,10 @@ export function Catalog() {
     }
     if (node.id === "foodMenu") {
       setViewLevel("foodMenu");
+    } else if (node.id === "groceriesMenu") {
+      setViewLevel("groceriesMenu");
+    } else if (node.id === "readyFoodMenu") {
+      setViewLevel("readyFoodMenu");
     } else if (node.id === "restaurantsMenu") {
       setViewLevel("restaurantsMenu");
     } else if (node.id === "clothesMenu") {
@@ -115,8 +182,21 @@ export function Catalog() {
     } else {
       setSelected(node.id as VitrineType);
       setViewLevel("products");
+      setCatalogTab("all");
       setActiveFilters({ categoryId: null, attributes: {} });
     }
+  };
+
+  const handleCatalogChip = (node: MenuNode) => {
+    if (node.id === "all") {
+      setCatalogTab("all");
+      setSelected("all");
+    } else if (node.id === "foodMenu" || node.id === "clothesMenu" || node.id === "electronicsMenu" || node.id === "toolsMenu") {
+      setCatalogTab(node.id as CatalogTabId);
+      setSelected("all");
+    }
+    setActiveFilters({ categoryId: null, attributes: {} });
+    setTempFilters({ categoryId: null, attributes: {} });
   };
 
   const handleBackToNav = () => {
@@ -126,12 +206,15 @@ export function Catalog() {
       setViewLevel("foodMenu");
     } else if (selected && ["tools", "components"].includes(selected)) {
       setViewLevel("toolsMenu");
+    } else if (viewLevel === "groceriesMenu" || viewLevel === "readyFoodMenu") {
+      setViewLevel("foodMenu");
     } else if (viewLevel === "electronicsMenu") {
       setViewLevel("root");
     } else {
       setViewLevel("root");
     }
     setSelected(null);
+    setCatalogTab("all");
   };
 
   const renderGrid = (items: MenuNode[], title: string, subtitle: string, onBack: () => void, currentViewLevel?: string) => (
@@ -219,6 +302,12 @@ export function Catalog() {
     </div>
   );
 
+  if (viewLevel === "groceriesMenu") {
+    return renderRestaurantGrid(groceryStoreVitrines, "Продукты", "Выберите магазин", () => setViewLevel("foodMenu"));
+  }
+  if (viewLevel === "readyFoodMenu") {
+    return renderRestaurantGrid(readyFoodStoreVitrines, "Готовая еда", "Выберите магазин", () => setViewLevel("foodMenu"));
+  }
   if (viewLevel === "restaurantsMenu") {
     return renderRestaurantGrid(restaurantVitrines, "Рестораны/ФастФуд", "Доставка из любимых заведений", () => setViewLevel("foodMenu"));
   }
@@ -229,7 +318,7 @@ export function Catalog() {
     return renderRestaurantGrid(electronicsVitrines, "Электроника", "Магазины электроники", () => setViewLevel("root"));
   }
   if (viewLevel === "toolsMenu") {
-    return renderGrid(toolsVitrines, "Инструменты", "Всё для ремонта и техники", () => setViewLevel("root"), "toolsMenu");
+    return renderRestaurantGrid(toolsVitrines, "Инструменты", "Выберите магазин", () => setViewLevel("root"));
   }
 
   return (
@@ -247,13 +336,12 @@ export function Catalog() {
 
         <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {mainVitrines.map((v) => {
-            const active = selected === v.id || 
-                           (v.id === "foodMenu" && ["groceries", "ready_food", "sushi", "burgers", "pizza", "georgian"].includes(selected || ""));
+            const active = catalogTab === v.id;
             const label = v.id === "all" ? "Все" : v.title;
             return (
               <button
                 key={v.id}
-                onClick={() => handleSelect(v)}
+                onClick={() => handleCatalogChip(v)}
                 className={`whitespace-nowrap px-4 py-2 rounded-2xl text-sm font-medium border ${
                   active
                     ? "bg-[var(--fresh-green)] text-white border-[var(--fresh-green)]"
@@ -326,14 +414,14 @@ export function Catalog() {
             </div>
             
             <div className="flex-1 overflow-y-auto p-5 pb-32">
-               {selected !== "all" && selected && filterConfig[selected] ? (
+               {filterDrawerKey && filterConfig[filterDrawerKey] ? (
                  <div className="mb-6">
                    <h3 className="font-semibold mb-3">Подкатегория</h3>
                    <div className="flex flex-wrap gap-2">
-                     {filterConfig[selected].categories.map((cat: any) => (
+                     {filterConfig[filterDrawerKey].categories.map((cat: { id: string; label: string }) => (
                        <button
                          key={cat.id}
-                         onClick={() => setTempFilters(prev => ({ categoryId: prev.categoryId === cat.id ? null : cat.id, attributes: {} }))}
+                         onClick={() => setTempFilters((prev) => ({ categoryId: prev.categoryId === cat.id ? null : cat.id, attributes: {} }))}
                          className={`px-4 py-2 rounded-xl text-sm font-medium border transition-colors ${
                            tempFilters.categoryId === cat.id
                              ? "bg-[var(--fresh-green)] text-white border-[var(--fresh-green)]"
@@ -346,22 +434,24 @@ export function Catalog() {
                    </div>
                  </div>
                ) : null}
-               
-               {selected !== "all" && selected && filterConfig[selected] && tempFilters.categoryId && (
+
+               {filterDrawerKey && filterConfig[filterDrawerKey] && tempFilters.categoryId && (
                  <>
-                   {filterConfig[selected].categories.find((c: any) => c.id === tempFilters.categoryId)?.attributes?.map((attr: any) => (
+                   {filterConfig[filterDrawerKey].categories
+                     .find((c: { id: string }) => c.id === tempFilters.categoryId)
+                     ?.attributes?.map((attr: { id: string; label: string; options: { id: string; label: string }[] }) => (
                      <div key={attr.id} className="mb-6">
                        <h3 className="font-semibold mb-3">{attr.label}</h3>
                        <div className="flex flex-wrap gap-2">
-                         {attr.options.map((opt: any) => {
+                         {attr.options.map((opt: { id: string; label: string }) => {
                            const isSelected = tempFilters.attributes[attr.id]?.includes(opt.id);
                            return (
                              <button
                                key={opt.id}
                                onClick={() => {
-                                 setTempFilters(prev => {
+                                 setTempFilters((prev) => {
                                    const current = prev.attributes[attr.id] || [];
-                                   const next = isSelected ? current.filter(id => id !== opt.id) : [...current, opt.id];
+                                   const next = isSelected ? current.filter((id) => id !== opt.id) : [...current, opt.id];
                                    return { ...prev, attributes: { ...prev.attributes, [attr.id]: next } };
                                  });
                                }}
@@ -381,8 +471,11 @@ export function Catalog() {
                  </>
                )}
 
-               {selected === "all" && (
-                 <p className="text-gray-500 text-sm">Выберите другую вкладку (Продукты, Готовая еда и т.д.) вместо "Все", чтобы увидеть доступные параметры фильтрации.</p>
+               {catalogTab === "all" && (
+                 <p className="text-gray-500 text-sm">Выберите категорию (Еда, Одежда и т.д.), чтобы открыть фильтры по подкатегориям.</p>
+               )}
+               {catalogTab === "foodMenu" && (
+                 <p className="text-gray-500 text-sm">Во вкладке «Еда» показаны все товары этой группы. Точные фильтры доступны внутри каждого магазина.</p>
                )}
             </div>
             

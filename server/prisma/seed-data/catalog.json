@@ -1,0 +1,2449 @@
+{
+  "sellers": [
+    {
+      "id": "seller-1",
+      "name": "Провиант",
+      "commissionRate": 0.1,
+      "logo": "/assets/proviant/logo.png",
+      "bannerUrl": "/assets/proviant/banner.png",
+      "rating": 4.8,
+      "reviewsCount": 120,
+      "deliveryEtaMinutes": 15,
+      "description": "Свежие фермерские продукты с ежедневной доставкой прямо к вашему столу."
+    },
+    {
+      "id": "seller-2",
+      "name": "Пекарня у дома",
+      "commissionRate": 0.1,
+      "logo": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=150&q=80",
+      "rating": 4.7,
+      "reviewsCount": 85,
+      "deliveryEtaMinutes": 20,
+      "description": "Ароматный хлеб, вкусная выпечка и десерты от местных кондитеров."
+    },
+    {
+      "id": "seller-3",
+      "name": "Пешеход",
+      "commissionRate": 0.1,
+      "logo": "/assets/urban_wear/logo.png",
+      "bannerUrl": "/assets/urban_wear/banner.png",
+      "rating": 4.5,
+      "reviewsCount": 300,
+      "deliveryEtaMinutes": 120,
+      "description": "Надёжная обувь и одежда для длительных прогулок и городской жизни."
+    },
+    {
+      "id": "seller-4",
+      "name": "СтройИнструмент",
+      "commissionRate": 0.1,
+      "logo": "https://images.unsplash.com/photo-1581147036324-c1e19ca9bbed?auto=format&fit=crop&w=150&q=80",
+      "rating": 4.6,
+      "reviewsCount": 50,
+      "deliveryEtaMinutes": 90,
+      "description": "Всё необходимое для ремонта и строительства по лучшим ценам."
+    },
+    {
+      "id": "seller-5",
+      "name": "Семейное кафе Кексбери",
+      "commissionRate": 0.15,
+      "logo": "/assets/keksberi/avatar.png",
+      "bannerUrl": "/assets/keksberi/banner.png",
+      "rating": 4.9,
+      "reviewsCount": 154,
+      "deliveryEtaMinutes": 45,
+      "description": "Уютное семейное кафе с широким выбором роллов, пиццы и бургеров. Готовим с любовью и доставляем быстро!"
+    },
+    {
+      "id": "seller-6",
+      "name": "Бургер Хаус",
+      "commissionRate": 0.15,
+      "logo": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=150&q=80",
+      "bannerUrl": "/assets/burger_house/banner.png",
+      "rating": 4.8,
+      "reviewsCount": 420,
+      "deliveryEtaMinutes": 30,
+      "description": "Самые сочные крафтовые бургеры в городе."
+    },
+    {
+      "id": "seller-7",
+      "name": "ПиццаФабрика",
+      "commissionRate": 0.15,
+      "logo": "/assets/pizzafabrika/logo.png",
+      "bannerUrl": "/assets/pizzafabrika/banner.png",
+      "rating": 4.9,
+      "reviewsCount": 890,
+      "deliveryEtaMinutes": 45
+    },
+    {
+      "id": "seller-8",
+      "name": "Грузинский Дворик",
+      "commissionRate": 0.15,
+      "logo": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=150&q=80",
+      "bannerUrl": "/assets/georgian/banner.png",
+      "rating": 4.9,
+      "reviewsCount": 156,
+      "deliveryEtaMinutes": 50,
+      "description": "Лучшие хинкали, хачапури и другие блюда грузинской кухни по старинным рецептам."
+    },
+    {
+      "id": "seller-9",
+      "name": "Метизыч",
+      "commissionRate": 0.1,
+      "logo": "https://images.unsplash.com/photo-1581147036324-c1e19ca9bbed?auto=format&fit=crop&w=150&q=80",
+      "bannerUrl": "/assets/metizych/banner.png",
+      "rating": 4.8,
+      "reviewsCount": 312,
+      "deliveryEtaMinutes": 120,
+      "description": "Всё для строительства, ремонта и обслуживания техники."
+    },
+    {
+      "id": "seller-10",
+      "name": "Плазма",
+      "commissionRate": 0.1,
+      "logo": "/assets/plazma/Logo.png",
+      "bannerUrl": "/assets/plazma/Banner.png",
+      "rating": 4.8,
+      "reviewsCount": 200,
+      "deliveryEtaMinutes": 120
+    },
+    {
+      "id": "seller-11",
+      "name": "Trend Zone",
+      "commissionRate": 0.15,
+      "logo": "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=150&q=80",
+      "bannerUrl": "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=800&q=80",
+      "rating": 4.8,
+      "reviewsCount": 120,
+      "deliveryEtaMinutes": 120,
+      "description": "Самая модная одежда для мужчин и женщин. Широкий выбор футболок, курток и обуви."
+    },
+    {
+      "id": "seller-12",
+      "name": "Roobl",
+      "commissionRate": 0.15,
+      "logo": "/assets/modern_style/logo.png",
+      "bannerUrl": "/assets/modern_style/banner.png",
+      "rating": 4.9,
+      "reviewsCount": 345,
+      "deliveryEtaMinutes": 90,
+      "description": "Премиальная одежда и аксессуары для тех, кто ценит качество и стиль."
+    },
+    {
+      "id": "seller-13",
+      "name": "Зелёная лавка",
+      "commissionRate": 0.1,
+      "logo": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=150&q=80",
+      "bannerUrl": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=900&q=80",
+      "rating": 4.7,
+      "reviewsCount": 64,
+      "deliveryEtaMinutes": 25,
+      "description": "Овощи и фрукты с проверенных грядок — каждый день свежий привоз."
+    },
+    {
+      "id": "seller-14",
+      "name": "Домашний гастроном",
+      "commissionRate": 0.1,
+      "logo": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=150&q=80",
+      "bannerUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80",
+      "rating": 4.8,
+      "reviewsCount": 41,
+      "deliveryEtaMinutes": 35,
+      "description": "Деликатесы, соусы и закуски для праздничного и буднего стола."
+    }
+  ],
+  "products": [
+    {
+      "id": "food-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "dairy",
+        "milk"
+      ],
+      "title": "Молоко Простоквашино 3.2%",
+      "brand": "Простоквашино",
+      "price": 89,
+      "oldPrice": 120,
+      "images": [
+        "/assets/proviant/milk.png"
+      ],
+      "unitLabel": "1 л",
+      "rating": 4.8,
+      "reviewsCount": 342,
+      "badge": "-25%",
+      "inStock": true,
+      "deliveryEtaMinutes": 15,
+      "description": "Натуральное пастеризованное молоко высшего качества. Произведено из отборного сырья.",
+      "attributes": {
+        "fat": [
+          "high"
+        ]
+      },
+      "reviews": [
+        {
+          "id": "rev-e081v2ajd",
+          "userName": "Ольга",
+          "rating": 4,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "01.05.2026"
+        },
+        {
+          "id": "rev-ptb3tel1h",
+          "userName": "Татьяна",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "26.04.2026"
+        },
+        {
+          "id": "rev-wbb778olz",
+          "userName": "Мария",
+          "rating": 5,
+          "text": "Отличное качество, всё подошло идеально!",
+          "date": "24.04.2026"
+        },
+        {
+          "id": "rev-nanarcdox",
+          "userName": "Анна",
+          "rating": 5,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-gba883c2c",
+          "userName": "Дмитрий",
+          "rating": 4,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "28.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "food-2",
+      "sellerId": "seller-2",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "bakery"
+      ],
+      "title": "Хлеб Бородинский",
+      "price": 45,
+      "images": [
+        "/assets/pekarnya/bread.png"
+      ],
+      "unitLabel": "400 г",
+      "rating": 4.9,
+      "reviewsCount": 118,
+      "inStock": true,
+      "deliveryEtaMinutes": 15,
+      "attributes": {
+        "flour": [
+          "rye"
+        ]
+      },
+      "reviews": [
+        {
+          "id": "rev-ed1sotpoc",
+          "userName": "Дмитрий",
+          "rating": 5,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "01.05.2026"
+        },
+        {
+          "id": "rev-1xqfnrd11",
+          "userName": "Анна",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "03.05.2026"
+        },
+        {
+          "id": "rev-utf0jp0y6",
+          "userName": "Ольга",
+          "rating": 5,
+          "text": "Очень удобная вещь, стоит своих денег.",
+          "date": "03.05.2026"
+        }
+      ]
+    },
+    {
+      "id": "food-3",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "fruits"
+      ],
+      "title": "Яблоки Гренни Смит",
+      "price": 159,
+      "oldPrice": 199,
+      "images": [
+        "/assets/proviant/apples.png"
+      ],
+      "unitLabel": "1 кг",
+      "rating": 4.7,
+      "reviewsCount": 51,
+      "badge": "-20%",
+      "inStock": true,
+      "deliveryEtaMinutes": 15,
+      "attributes": {
+        "color": [
+          "green"
+        ],
+        "package": [
+          "loose"
+        ]
+      },
+      "reviews": [
+        {
+          "id": "rev-q4og2yqku",
+          "userName": "Анна",
+          "rating": 4,
+          "text": "Доставили быстро, упаковка целая. Рекомендую.",
+          "date": "26.04.2026"
+        },
+        {
+          "id": "rev-fucb8vmlo",
+          "userName": "Мария",
+          "rating": 5,
+          "text": "За свою цену — находка. Буду заказывать ещё.",
+          "date": "03.05.2026"
+        },
+        {
+          "id": "rev-q6lbdf3es",
+          "userName": "Павел",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "23.04.2026"
+        },
+        {
+          "id": "rev-ophkcjtvr",
+          "userName": "Татьяна",
+          "rating": 5,
+          "text": "Цвет немного отличается, но не критично.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-n1oo8hk2b",
+          "userName": "Елена",
+          "rating": 5,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "03.05.2026"
+        },
+        {
+          "id": "rev-jrzwusjpc",
+          "userName": "Елена",
+          "rating": 5,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-jtlnqoq18",
+          "userName": "Мария",
+          "rating": 5,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "30.04.2026"
+        },
+        {
+          "id": "rev-54rcwy5qq",
+          "userName": "Анна",
+          "rating": 5,
+          "text": "Цвет немного отличается, но не критично.",
+          "date": "24.04.2026"
+        },
+        {
+          "id": "rev-lwz4mi96w",
+          "userName": "Татьяна",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-8g34drae8",
+          "userName": "Ольга",
+          "rating": 4,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "30.04.2026"
+        },
+        {
+          "id": "rev-dxh8q2q2v",
+          "userName": "Елена",
+          "rating": 5,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "29.04.2026"
+        },
+        {
+          "id": "rev-gncsm4nnk",
+          "userName": "Татьяна",
+          "rating": 5,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "01.05.2026"
+        }
+      ]
+    },
+    {
+      "id": "food-eggs-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "eggs"
+      ],
+      "title": "Яйца куриные С0 10шт",
+      "price": 120,
+      "images": [
+        "/assets/proviant/eggs.png"
+      ],
+      "unitLabel": "1 пачка",
+      "rating": 4.8,
+      "reviewsCount": 231,
+      "inStock": true,
+      "description": "Крупные отборные яйца высшей категории.",
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-cheese-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "dairy",
+        "cheese"
+      ],
+      "title": "Сыр Гауда 45%",
+      "price": 340,
+      "images": [
+        "/assets/proviant/cheese.png"
+      ],
+      "unitLabel": "200 г",
+      "rating": 4.9,
+      "reviewsCount": 164,
+      "inStock": true,
+      "description": "Натуральный сыр с приятным мягким вкусом.",
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-juice-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "drinks"
+      ],
+      "title": "Сок яблочный прямого отжима 1 л",
+      "price": 149,
+      "images": [
+        "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "1 л",
+      "rating": 4.6,
+      "reviewsCount": 28,
+      "inStock": true,
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "clothes-1",
+      "sellerId": "seller-3",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "tshirts",
+        "top_tshirt"
+      ],
+      "title": "Футболка базовая белая",
+      "price": 890,
+      "oldPrice": 1290,
+      "images": [
+        "/assets/urban_wear/t_shirt.png"
+      ],
+      "unitLabel": "M",
+      "rating": 4.7,
+      "reviewsCount": 87,
+      "badge": "-30%",
+      "inStock": true,
+      "deliveryEtaMinutes": 30,
+      "attributes": {
+        "size": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "color": [
+          "white"
+        ]
+      },
+      "reviews": [
+        {
+          "id": "rev-fqxtj4qys",
+          "userName": "Елена",
+          "rating": 5,
+          "text": "Материал приятный к телу, швы ровные.",
+          "date": "02.05.2026"
+        },
+        {
+          "id": "rev-2fjr4i1nx",
+          "userName": "Татьяна",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "01.05.2026"
+        },
+        {
+          "id": "rev-yvdzg205w",
+          "userName": "Мария",
+          "rating": 5,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-ac2mzqq4k",
+          "userName": "Анна",
+          "rating": 4,
+          "text": "Отличное качество, всё подошло идеально!",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-4im22gfl9",
+          "userName": "Ольга",
+          "rating": 4,
+          "text": "Очень удобная вещь, стоит своих денег.",
+          "date": "25.04.2026"
+        },
+        {
+          "id": "rev-v5d0gvxcq",
+          "userName": "Александр",
+          "rating": 4,
+          "text": "Очень удобная вещь, стоит своих денег.",
+          "date": "30.04.2026"
+        },
+        {
+          "id": "rev-1dpgro2kh",
+          "userName": "Елена",
+          "rating": 5,
+          "text": "Цвет немного отличается, но не критично.",
+          "date": "23.04.2026"
+        },
+        {
+          "id": "rev-fjmxvgreq",
+          "userName": "Дмитрий",
+          "rating": 5,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "24.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "clothes-2",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "outerwear",
+        "coat_jacket",
+        "jacket_demiseason",
+        "outerwear_sale"
+      ],
+      "title": "Куртка демисезонная",
+      "price": 4500,
+      "oldPrice": 6000,
+      "images": [
+        "/assets/trend_zone/kurtka_demisezon.png"
+      ],
+      "unitLabel": "L",
+      "rating": 4.8,
+      "reviewsCount": 45,
+      "inStock": true,
+      "deliveryEtaMinutes": 120,
+      "description": "Лёгкая демисезонная куртка для прохладной погоды. Ветрозащитная пропитка.",
+      "attributes": {
+        "size": [
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "reviews": [
+        {
+          "id": "rev-t5hslkzd4",
+          "userName": "Елена",
+          "rating": 4,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-9yi8qs2l5",
+          "userName": "Елена",
+          "rating": 4,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-1udu6t4oj",
+          "userName": "Елена",
+          "rating": 5,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "30.04.2026"
+        },
+        {
+          "id": "rev-b3p2rboge",
+          "userName": "Ольга",
+          "rating": 4,
+          "text": "Очень удобная вещь, стоит своих денег.",
+          "date": "29.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "clothes-tz-2",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "outerwear",
+        "coat_jacket"
+      ],
+      "title": "Куртка с принтом сердца",
+      "price": 3900,
+      "images": [
+        "/assets/trend_zone/kurtka_serdce.png"
+      ],
+      "unitLabel": "M",
+      "rating": 4.7,
+      "reviewsCount": 18,
+      "inStock": true,
+      "deliveryEtaMinutes": 120,
+      "description": "Яркая куртка с авторским принтом — выделись из толпы.",
+      "attributes": {
+        "size": [
+          "S",
+          "M",
+          "L"
+        ]
+      },
+      "reviews": [
+        {
+          "id": "rev-we2zkeu06",
+          "userName": "Мария",
+          "rating": 5,
+          "text": "Очень удобная вещь, стоит своих денег.",
+          "date": "01.05.2026"
+        },
+        {
+          "id": "rev-0r3mzqmsm",
+          "userName": "Елена",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "24.04.2026"
+        },
+        {
+          "id": "rev-d6b4y98gk",
+          "userName": "Татьяна",
+          "rating": 5,
+          "text": "Доставили быстро, упаковка целая. Рекомендую.",
+          "date": "25.04.2026"
+        },
+        {
+          "id": "rev-8ptj8vjpm",
+          "userName": "Павел",
+          "rating": 5,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-45jteqcye",
+          "userName": "Павел",
+          "rating": 4,
+          "text": "Отличное качество, всё подошло идеально!",
+          "date": "25.04.2026"
+        },
+        {
+          "id": "rev-5vybj77vb",
+          "userName": "Иван",
+          "rating": 5,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "29.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "clothes-tz-3",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "outerwear",
+        "windbreaker"
+      ],
+      "title": "Ветровка лёгкая",
+      "price": 2800,
+      "images": [
+        "/assets/trend_zone/vetrovka.png"
+      ],
+      "unitLabel": "L",
+      "rating": 4.6,
+      "reviewsCount": 31,
+      "inStock": true,
+      "deliveryEtaMinutes": 120,
+      "description": "Лёгкая ветровка на молнии — идеальна для межсезонья."
+    },
+    {
+      "id": "clothes-tz-4",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "accessories",
+        "acc_gloves"
+      ],
+      "title": "Перчатки кожаные чёрные",
+      "price": 1200,
+      "images": [
+        "/assets/trend_zone/Gloves.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.8,
+      "reviewsCount": 56,
+      "inStock": true,
+      "deliveryEtaMinutes": 120,
+      "description": "Классические кожаные перчатки на утеплённой подкладке."
+    },
+    {
+      "id": "clothes-tz-5",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "accessories",
+        "acc_gloves"
+      ],
+      "title": "Перчатки серые",
+      "price": 990,
+      "images": [
+        "/assets/trend_zone/Gloves_Grey.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.6,
+      "reviewsCount": 23,
+      "inStock": true,
+      "deliveryEtaMinutes": 120
+    },
+    {
+      "id": "clothes-tz-6",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "accessories",
+        "acc_gloves",
+        "pricedrop"
+      ],
+      "title": "Перчатки красные",
+      "price": 990,
+      "oldPrice": 1200,
+      "badge": "-17%",
+      "images": [
+        "/assets/trend_zone/Gloves_Red.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.7,
+      "reviewsCount": 14,
+      "inStock": true,
+      "deliveryEtaMinutes": 120
+    },
+    {
+      "id": "clothes-tz-7",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "headwear",
+        "hat_knit"
+      ],
+      "title": "Шапка вязаная",
+      "price": 750,
+      "images": [
+        "/assets/trend_zone/Hat.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.8,
+      "reviewsCount": 42,
+      "inStock": true,
+      "deliveryEtaMinutes": 120
+    },
+    {
+      "id": "clothes-tz-8",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "headwear",
+        "hat_knit"
+      ],
+      "title": "Шапка зелёная",
+      "price": 750,
+      "images": [
+        "/assets/trend_zone/Hat_Green.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.7,
+      "reviewsCount": 19,
+      "inStock": true,
+      "deliveryEtaMinutes": 120
+    },
+    {
+      "id": "clothes-tz-9",
+      "sellerId": "seller-11",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "headwear",
+        "hat_knit"
+      ],
+      "title": "Шапка синяя",
+      "price": 750,
+      "images": [
+        "/assets/trend_zone/Hat_blue.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.6,
+      "reviewsCount": 11,
+      "inStock": true,
+      "deliveryEtaMinutes": 120
+    },
+    {
+      "id": "clothes-uw-2",
+      "sellerId": "seller-3",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "shoes",
+        "shoes_sneakers"
+      ],
+      "title": "Кроссовки белые",
+      "price": 3200,
+      "images": [
+        "/assets/urban_wear/sneakers_white.png"
+      ],
+      "unitLabel": "42",
+      "rating": 4.9,
+      "reviewsCount": 112,
+      "inStock": true,
+      "deliveryEtaMinutes": 30,
+      "description": "Лёгкие классические кроссовки — подойдут к любому образу.",
+      "attributes": {
+        "size": [
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      }
+    },
+    {
+      "id": "clothes-uw-3",
+      "sellerId": "seller-3",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "shoes",
+        "shoes_sneakers"
+      ],
+      "title": "Кроссовки чёрные",
+      "price": 3400,
+      "images": [
+        "/assets/urban_wear/sneakers_black.png"
+      ],
+      "unitLabel": "42",
+      "rating": 4.8,
+      "reviewsCount": 74,
+      "attributes": {
+        "size": [
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      },
+      "inStock": true,
+      "deliveryEtaMinutes": 30,
+      "reviews": [
+        {
+          "id": "rev-mvh711494",
+          "userName": "Александр",
+          "rating": 4,
+          "text": "Материал приятный к телу, швы ровные.",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-irfttf2yk",
+          "userName": "Татьяна",
+          "rating": 4,
+          "text": "Доставили быстро, упаковка целая. Рекомендую.",
+          "date": "25.04.2026"
+        },
+        {
+          "id": "rev-7r6b7rsn6",
+          "userName": "Мария",
+          "rating": 4,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-fbla6kg72",
+          "userName": "Павел",
+          "rating": 4,
+          "text": "Материал приятный к телу, швы ровные.",
+          "date": "23.04.2026"
+        },
+        {
+          "id": "rev-j47nhh2kn",
+          "userName": "Елена",
+          "rating": 4,
+          "text": "Цвет немного отличается, но не критично.",
+          "date": "03.05.2026"
+        },
+        {
+          "id": "rev-gpjbu5hdv",
+          "userName": "Мария",
+          "rating": 5,
+          "text": "Отличное качество, всё подошло идеально!",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-gy7cjai00",
+          "userName": "Анна",
+          "rating": 4,
+          "text": "Доставили быстро, упаковка целая. Рекомендую.",
+          "date": "26.04.2026"
+        },
+        {
+          "id": "rev-u2s17p8im",
+          "userName": "Мария",
+          "rating": 5,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "02.05.2026"
+        },
+        {
+          "id": "rev-cgyivpt15",
+          "userName": "Дмитрий",
+          "rating": 5,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "03.05.2026"
+        },
+        {
+          "id": "rev-o6tpjha5f",
+          "userName": "Павел",
+          "rating": 4,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "30.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "clothes-uw-4",
+      "sellerId": "seller-3",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "shoes",
+        "shoes_sneakers",
+        "shoes_sale"
+      ],
+      "title": "Кроссовки синие",
+      "price": 3100,
+      "oldPrice": 3600,
+      "badge": "-14%",
+      "images": [
+        "/assets/urban_wear/sneakers_blue.png"
+      ],
+      "unitLabel": "41",
+      "rating": 4.7,
+      "reviewsCount": 38,
+      "attributes": {
+        "size": [
+          "38",
+          "39",
+          "40",
+          "41",
+          "42"
+        ]
+      },
+      "inStock": true,
+      "deliveryEtaMinutes": 30,
+      "reviews": [
+        {
+          "id": "rev-vf1tgb696",
+          "userName": "Ольга",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-ibpqnxc5k",
+          "userName": "Сергей",
+          "rating": 5,
+          "text": "За свою цену — находка. Буду заказывать ещё.",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-7t9v2tno8",
+          "userName": "Ольга",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "29.04.2026"
+        },
+        {
+          "id": "rev-pstsiiuh0",
+          "userName": "Александр",
+          "rating": 4,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-lfor33whk",
+          "userName": "Александр",
+          "rating": 4,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "25.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "clothes-4",
+      "sellerId": "seller-12",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "headwear",
+        "cap_black"
+      ],
+      "title": "Кепка чёрная",
+      "price": 800,
+      "images": [
+        "/assets/modern_style/cap_black.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.7,
+      "reviewsCount": 28,
+      "inStock": true,
+      "deliveryEtaMinutes": 90,
+      "description": "Стильная кепка с регулируемым ремешком — подходит для любого размера головы.",
+      "attributes": {
+        "size": [
+          "One Size"
+        ]
+      }
+    },
+    {
+      "id": "clothes-ms-2",
+      "sellerId": "seller-12",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "headwear",
+        "cap_color"
+      ],
+      "title": "Кепка фиолетовая",
+      "price": 850,
+      "images": [
+        "/assets/modern_style/cap_purple.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.8,
+      "reviewsCount": 17,
+      "inStock": true,
+      "deliveryEtaMinutes": 90,
+      "attributes": {
+        "size": [
+          "One Size"
+        ]
+      }
+    },
+    {
+      "id": "clothes-ms-3",
+      "sellerId": "seller-12",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "headwear",
+        "cap_color",
+        "pricedrop"
+      ],
+      "title": "Кепка красная",
+      "price": 850,
+      "oldPrice": 1000,
+      "badge": "-15%",
+      "images": [
+        "/assets/modern_style/cap_red.png"
+      ],
+      "unitLabel": "Универсальный",
+      "rating": 4.6,
+      "reviewsCount": 9,
+      "inStock": true,
+      "deliveryEtaMinutes": 90,
+      "attributes": {
+        "size": [
+          "One Size"
+        ]
+      }
+    },
+    {
+      "id": "clothes-ms-4",
+      "sellerId": "seller-12",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "outerwear",
+        "hoodie_pullover"
+      ],
+      "title": "Худи чёрное",
+      "price": 2200,
+      "images": [
+        "/assets/modern_style/hoody_black.png"
+      ],
+      "unitLabel": "L",
+      "rating": 4.9,
+      "reviewsCount": 61,
+      "inStock": true,
+      "deliveryEtaMinutes": 90,
+      "description": "Тёплое худи из плотного флиса с карманом-кенгуру.",
+      "attributes": {
+        "size": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "color": [
+          "black"
+        ]
+      },
+      "reviews": [
+        {
+          "id": "rev-my6b5myht",
+          "userName": "Павел",
+          "rating": 5,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "02.05.2026"
+        },
+        {
+          "id": "rev-qs9kafbcl",
+          "userName": "Татьяна",
+          "rating": 4,
+          "text": "За свою цену — находка. Буду заказывать ещё.",
+          "date": "29.04.2026"
+        },
+        {
+          "id": "rev-6sgw6cq1q",
+          "userName": "Дмитрий",
+          "rating": 5,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-vegbt93ev",
+          "userName": "Анна",
+          "rating": 5,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "02.05.2026"
+        },
+        {
+          "id": "rev-seyw5xyrf",
+          "userName": "Ольга",
+          "rating": 5,
+          "text": "Очень удобная вещь, стоит своих денег.",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-8kinfpuwp",
+          "userName": "Иван",
+          "rating": 5,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "30.04.2026"
+        },
+        {
+          "id": "rev-mc56gboiz",
+          "userName": "Иван",
+          "rating": 5,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "02.05.2026"
+        },
+        {
+          "id": "rev-vp2ygks88",
+          "userName": "Анна",
+          "rating": 5,
+          "text": "Отличное качество, всё подошло идеально!",
+          "date": "29.04.2026"
+        },
+        {
+          "id": "rev-m999esmwm",
+          "userName": "Татьяна",
+          "rating": 5,
+          "text": "За свою цену — находка. Буду заказывать ещё.",
+          "date": "24.04.2026"
+        },
+        {
+          "id": "rev-xxon8r8az",
+          "userName": "Елена",
+          "rating": 5,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-mpvd82ta7",
+          "userName": "Ольга",
+          "rating": 4,
+          "text": "Доставили быстро, упаковка целая. Рекомендую.",
+          "date": "30.04.2026"
+        },
+        {
+          "id": "rev-iyhq32n3n",
+          "userName": "Ольга",
+          "rating": 5,
+          "text": "Материал приятный к телу, швы ровные.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-i23cnx7lp",
+          "userName": "Павел",
+          "rating": 4,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-stph1d7au",
+          "userName": "Анна",
+          "rating": 5,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "03.05.2026"
+        },
+        {
+          "id": "rev-igxuijel1",
+          "userName": "Сергей",
+          "rating": 5,
+          "text": "Цвет немного отличается, но не критично.",
+          "date": "28.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "clothes-ms-5",
+      "sellerId": "seller-12",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "outerwear",
+        "hoodie_pullover",
+        "pricedrop"
+      ],
+      "title": "Худи синее",
+      "price": 2200,
+      "oldPrice": 2600,
+      "badge": "-15%",
+      "images": [
+        "/assets/modern_style/hoody_blue.png"
+      ],
+      "unitLabel": "M",
+      "rating": 4.8,
+      "reviewsCount": 44,
+      "inStock": true,
+      "deliveryEtaMinutes": 90,
+      "attributes": {
+        "size": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "color": [
+          "white"
+        ]
+      },
+      "reviews": [
+        {
+          "id": "rev-3ptvkrgun",
+          "userName": "Татьяна",
+          "rating": 4,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "29.04.2026"
+        },
+        {
+          "id": "rev-u4ik246kq",
+          "userName": "Елена",
+          "rating": 4,
+          "text": "Доставили быстро, упаковка целая. Рекомендую.",
+          "date": "02.05.2026"
+        },
+        {
+          "id": "rev-6nsqyg21b",
+          "userName": "Дмитрий",
+          "rating": 5,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-r62m9ny28",
+          "userName": "Александр",
+          "rating": 4,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-sga5exjvv",
+          "userName": "Александр",
+          "rating": 4,
+          "text": "Очень удобная вещь, стоит своих денег.",
+          "date": "01.05.2026"
+        },
+        {
+          "id": "rev-wufh6wjc8",
+          "userName": "Татьяна",
+          "rating": 5,
+          "text": "Отличное качество, всё подошло идеально!",
+          "date": "22.04.2026"
+        },
+        {
+          "id": "rev-jto9307vv",
+          "userName": "Сергей",
+          "rating": 5,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "30.04.2026"
+        },
+        {
+          "id": "rev-c689n0dno",
+          "userName": "Ольга",
+          "rating": 5,
+          "text": "Материал приятный к телу, швы ровные.",
+          "date": "02.05.2026"
+        }
+      ]
+    },
+    {
+      "id": "clothes-ms-6",
+      "sellerId": "seller-12",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "accessories",
+        "socks_black"
+      ],
+      "title": "Носки чёрные",
+      "price": 250,
+      "images": [
+        "/assets/modern_style/socks_black.png"
+      ],
+      "unitLabel": "Пара",
+      "rating": 4.7,
+      "reviewsCount": 103,
+      "inStock": true,
+      "deliveryEtaMinutes": 90,
+      "attributes": {
+        "size": [
+          "36-39",
+          "40-43"
+        ]
+      }
+    },
+    {
+      "id": "clothes-ms-7",
+      "sellerId": "seller-12",
+      "vitrineType": "clothes",
+      "categoryIds": [
+        "accessories",
+        "socks_white"
+      ],
+      "title": "Носки белые",
+      "price": 250,
+      "images": [
+        "/assets/modern_style/socks_white.png"
+      ],
+      "unitLabel": "Пара",
+      "rating": 4.8,
+      "reviewsCount": 88,
+      "inStock": true,
+      "deliveryEtaMinutes": 90,
+      "attributes": {
+        "size": [
+          "36-39",
+          "40-43"
+        ]
+      }
+    },
+    {
+      "id": "tools-1",
+      "sellerId": "seller-4",
+      "vitrineType": "tools",
+      "categoryIds": [
+        "tools",
+        "hand"
+      ],
+      "title": "Молоток строительный",
+      "price": 349,
+      "oldPrice": 499,
+      "images": [
+        "/assets/stroyinstrument/a_hammer.png"
+      ],
+      "unitLabel": "500 г",
+      "rating": 4.8,
+      "reviewsCount": 23,
+      "badge": "-30%",
+      "inStock": true,
+      "deliveryEtaMinutes": 30,
+      "attributes": {
+        "type": [
+          "hammer"
+        ]
+      }
+    },
+    {
+      "id": "food-4",
+      "sellerId": "seller-5",
+      "vitrineType": "sushi",
+      "categoryIds": [
+        "rolls"
+      ],
+      "title": "Лава Лайт",
+      "price": 380,
+      "images": [
+        "/assets/keksberi/lava_lite.png"
+      ],
+      "unitLabel": "1 порция",
+      "rating": 5,
+      "reviewsCount": 8,
+      "inStock": true,
+      "deliveryEtaMinutes": 45,
+      "description": "Роллы ⭐️\nСостав: Краб,нори,рис,творожный сыр,огурец,соус лава,кунжут 🍚\n*в стоимость не входят:васаби, имбирь и соус*"
+    },
+    {
+      "id": "food-5",
+      "sellerId": "seller-5",
+      "vitrineType": "sushi",
+      "categoryIds": [
+        "rolls"
+      ],
+      "title": "Эби Чиз",
+      "price": 590,
+      "images": [
+        "/assets/keksberi/aby_cheese.png"
+      ],
+      "unitLabel": "1 порция",
+      "rating": 5,
+      "reviewsCount": 12,
+      "inStock": true,
+      "deliveryEtaMinutes": 45,
+      "description": "🌶️ Острые роллы ⭐️\nСостав: Нори,рис,креветка,творожный сыр,чедер, соус спайси 🌶️\n*в стоимость не входят:васаби, имбирь и соус*"
+    },
+    {
+      "id": "food-6",
+      "sellerId": "seller-5",
+      "vitrineType": "sushi",
+      "categoryIds": [
+        "rolls"
+      ],
+      "title": "Чикен Том-Ям",
+      "price": 440,
+      "images": [
+        "/assets/keksberi/chiken_tomyam.png"
+      ],
+      "unitLabel": "1 порция",
+      "rating": 0,
+      "reviewsCount": 0,
+      "inStock": true,
+      "deliveryEtaMinutes": 45,
+      "description": "Роллы 🔥\nСостав: нори, рис,соус «том ям», курица, болгарский перец, кунжут,творожный сыр,масага ✨\n*в стоимость не входят:васаби, имбирь и соус*"
+    },
+    {
+      "id": "food-7",
+      "sellerId": "seller-5",
+      "vitrineType": "sushi",
+      "categoryIds": [
+        "rolls"
+      ],
+      "title": "Киото 🔥",
+      "price": 400,
+      "images": [
+        "/assets/keksberi/kioto.png"
+      ],
+      "unitLabel": "1 порция",
+      "rating": 0,
+      "reviewsCount": 0,
+      "inStock": true,
+      "deliveryEtaMinutes": 45,
+      "description": "🔥 Острые роллы ⭐️\nСостав: Нори, рис, тунец,огурец, творожный сыр, соус шрирача 🌶️\n*в стоимость не входят: васаби, имбирь и соус*"
+    },
+    {
+      "id": "food-8",
+      "sellerId": "seller-5",
+      "vitrineType": "sushi",
+      "categoryIds": [
+        "rolls"
+      ],
+      "title": "Кунсей",
+      "price": 850,
+      "images": [
+        "/assets/keksberi/kynsei.png"
+      ],
+      "unitLabel": "1 порция",
+      "rating": 0,
+      "reviewsCount": 0,
+      "inStock": true,
+      "deliveryEtaMinutes": 45,
+      "description": "Роллы ⭐️\nСостав: Нори, рис, творожный сыр,чука,лосось, креветка 🍣\n*в стоимость не входят:васаби, имбирь и соус*"
+    },
+    {
+      "id": "ready-1",
+      "sellerId": "seller-2",
+      "vitrineType": "ready_food",
+      "categoryIds": [
+        "ready_food",
+        "soups"
+      ],
+      "title": "Борщ с говядиной",
+      "price": 180,
+      "images": [
+        "/assets/pekarnya/borcsh.png"
+      ],
+      "unitLabel": "300 г",
+      "rating": 4.6,
+      "reviewsCount": 30,
+      "inStock": true,
+      "deliveryEtaMinutes": 15,
+      "description": "Наваристый борщ по домашнему рецепту. Только разогреть!"
+    },
+    {
+      "id": "ready-2",
+      "sellerId": "seller-2",
+      "vitrineType": "ready_food",
+      "categoryIds": [
+        "ready_food",
+        "second_courses"
+      ],
+      "title": "Пюре с котлетой",
+      "price": 210,
+      "images": [
+        "/assets/pekarnya/mash.png"
+      ],
+      "unitLabel": "350 г",
+      "rating": 4.8,
+      "reviewsCount": 50,
+      "inStock": true,
+      "deliveryEtaMinutes": 15,
+      "description": "Классическое картофельное пюре с домашней мясной котлетой."
+    },
+    {
+      "id": "ready-3",
+      "sellerId": "seller-2",
+      "vitrineType": "ready_food",
+      "categoryIds": [
+        "ready_food",
+        "salads"
+      ],
+      "title": "Салат «Цезарь» с курицей",
+      "price": 220,
+      "images": [
+        "https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "200 г",
+      "rating": 4.7,
+      "reviewsCount": 62,
+      "inStock": true,
+      "deliveryEtaMinutes": 15,
+      "description": "Сочная курица, салат романо, пармезан и фирменный соус."
+    },
+    {
+      "id": "pizza-1",
+      "sellerId": "seller-7",
+      "vitrineType": "pizza",
+      "categoryIds": [
+        "pizza"
+      ],
+      "title": "Вок",
+      "price": 1009,
+      "images": [
+        "/assets/pizzafabrika/pizza_wok.png"
+      ],
+      "unitLabel": "760 г",
+      "rating": 4.9,
+      "reviewsCount": 200,
+      "inStock": true,
+      "deliveryEtaMinutes": 40,
+      "description": "Соус ранч, соус сладкий чили, моцарелла, куриное филе, помидоры, овощи вок (цукини, болгарский перец, лук порей), базилик сушеный."
+    },
+    {
+      "id": "pizza-2",
+      "sellerId": "seller-7",
+      "vitrineType": "pizza",
+      "categoryIds": [
+        "pizza"
+      ],
+      "title": "Том ям с курицей",
+      "price": 1029,
+      "images": [
+        "/assets/pizzafabrika/tomyam.png"
+      ],
+      "unitLabel": "850 г",
+      "rating": 4.9,
+      "reviewsCount": 156,
+      "inStock": true,
+      "deliveryEtaMinutes": 40,
+      "description": "Соус том ям, моцарелла, куриное филе, шампиньоны, рисовые шарики том ям, помидоры черри, кокосовое молоко, кинза."
+    },
+    {
+      "id": "pizza-3",
+      "sellerId": "seller-7",
+      "vitrineType": "pizza",
+      "categoryIds": [
+        "pizza"
+      ],
+      "title": "Батя",
+      "price": 999,
+      "images": [
+        "/assets/pizzafabrika/batya.png"
+      ],
+      "unitLabel": "930 г",
+      "rating": 5,
+      "reviewsCount": 384,
+      "inStock": true,
+      "deliveryEtaMinutes": 40,
+      "description": "Соус фирменный, моцарелла, бекон, охотничьи колбаски, шампиньоны, картофель беби, маринованные огурцы, лук криспи, соус сырный чили, зелень."
+    },
+    {
+      "id": "georgian-1",
+      "sellerId": "seller-8",
+      "vitrineType": "georgian",
+      "categoryIds": [
+        "hot_dishes"
+      ],
+      "title": "Хинкали с говядиной и свининой",
+      "price": 350,
+      "images": [
+        "/assets/georgian/khinkali.png"
+      ],
+      "unitLabel": "5 шт",
+      "rating": 5,
+      "reviewsCount": 85,
+      "inStock": true,
+      "deliveryEtaMinutes": 50,
+      "description": "Тонкое тесто, много сочного мяса и ароматных специй. Подаются горячими."
+    },
+    {
+      "id": "met-tools-1",
+      "sellerId": "seller-9",
+      "vitrineType": "tools",
+      "categoryIds": [
+        "tools",
+        "hand_tools"
+      ],
+      "title": "Набор отверток профессиональный",
+      "brand": "PlazmaTech",
+      "price": 1250,
+      "images": [
+        "/assets/metizych/screwdrivers.png"
+      ],
+      "unitLabel": "1 наб.",
+      "rating": 4.8,
+      "reviewsCount": 34,
+      "inStock": true,
+      "description": "Набор из 12 отверток с магнитным наконечником и прорезиненными ручками."
+    },
+    {
+      "id": "tools-2",
+      "sellerId": "seller-9",
+      "vitrineType": "tools",
+      "categoryIds": [
+        "tools",
+        "power_tools"
+      ],
+      "title": "Дрель ударная 800Вт",
+      "brand": "PlazmaPro",
+      "price": 4500,
+      "oldPrice": 5200,
+      "images": [
+        "/assets/metizych/drill.png"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 4.9,
+      "reviewsCount": 120,
+      "inStock": true,
+      "description": "Надежная ударная дрель для работ по бетону и кирпичу."
+    },
+    {
+      "id": "component-1",
+      "sellerId": "seller-9",
+      "vitrineType": "components",
+      "categoryIds": [
+        "components",
+        "washing_machine"
+      ],
+      "title": "Насос сливной для стиральной машины",
+      "brand": "Askoll",
+      "price": 950,
+      "images": [
+        "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=60"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 4.7,
+      "reviewsCount": 15,
+      "inStock": true,
+      "description": "Универсальный сливной насос (помпа) Askoll 40 Вт."
+    },
+    {
+      "id": "component-2",
+      "sellerId": "seller-9",
+      "vitrineType": "components",
+      "categoryIds": [
+        "components",
+        "fridge"
+      ],
+      "title": "Терморегулятор для холодильника",
+      "brand": "PlazmaTech",
+      "price": 650,
+      "images": [
+        "/assets/metizych/thermostat.png"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 5,
+      "reviewsCount": 8,
+      "inStock": true,
+      "description": "Универсальный терморегулятор К-59."
+    },
+    {
+      "id": "tech-1",
+      "sellerId": "seller-10",
+      "vitrineType": "electronics",
+      "categoryIds": [
+        "electronics",
+        "personal_care",
+        "hair_care"
+      ],
+      "title": "Фен профессиональный",
+      "price": 3500,
+      "images": [
+        "/assets/plazma/hairdryer_proffesional.png"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 4.7,
+      "reviewsCount": 15,
+      "inStock": true,
+      "description": "Мощный фен с несколькими режимами и ионизацией.",
+      "reviews": [
+        {
+          "id": "rev-ixn0v74xj",
+          "userName": "Татьяна",
+          "rating": 5,
+          "text": "Материал приятный к телу, швы ровные.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-dvlh3kq3u",
+          "userName": "Александр",
+          "rating": 5,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "29.04.2026"
+        },
+        {
+          "id": "rev-phtk337qi",
+          "userName": "Павел",
+          "rating": 5,
+          "text": "Отличное качество, всё подошло идеально!",
+          "date": "27.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "tech-2",
+      "sellerId": "seller-10",
+      "vitrineType": "electronics",
+      "categoryIds": [
+        "electronics",
+        "watches",
+        "digital_watch"
+      ],
+      "title": "Электронные часы LED",
+      "price": 1200,
+      "images": [
+        "/assets/plazma/watch_electro.png"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 4.5,
+      "reviewsCount": 8,
+      "inStock": true,
+      "description": "Настольные часы с будильником и термометром.",
+      "reviews": [
+        {
+          "id": "rev-i3tbkw04z",
+          "userName": "Елена",
+          "rating": 4,
+          "text": "Доставили быстро, упаковка целая. Рекомендую.",
+          "date": "29.04.2026"
+        },
+        {
+          "id": "rev-9m281y1xv",
+          "userName": "Татьяна",
+          "rating": 4,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-kroycqspc",
+          "userName": "Анна",
+          "rating": 4,
+          "text": "Качество материалов на высоте, очень приятно пользоваться.",
+          "date": "01.05.2026"
+        }
+      ]
+    },
+    {
+      "id": "tech-3",
+      "sellerId": "seller-10",
+      "vitrineType": "electronics",
+      "categoryIds": [
+        "electronics",
+        "accessories",
+        "charging_cable"
+      ],
+      "title": "Зарядное устройство Type-C",
+      "price": 800,
+      "images": [
+        "/assets/plazma/type-c.png"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 4.9,
+      "reviewsCount": 42,
+      "inStock": true,
+      "description": "Быстрая зарядка 20W для смартфонов и планшетов.",
+      "reviews": [
+        {
+          "id": "rev-ae01v4p9v",
+          "userName": "Анна",
+          "rating": 5,
+          "text": "Немного маломерит, но в целом всё супер.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-lejy37sqm",
+          "userName": "Анна",
+          "rating": 4,
+          "text": "Очень удобная вещь, стоит своих денег.",
+          "date": "23.04.2026"
+        },
+        {
+          "id": "rev-o5r8vp0h2",
+          "userName": "Дмитрий",
+          "rating": 4,
+          "text": "Отличное качество, всё подошло идеально!",
+          "date": "28.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "tech-4",
+      "sellerId": "seller-10",
+      "vitrineType": "electronics",
+      "categoryIds": [
+        "electronics",
+        "gadgets",
+        "action_camera"
+      ],
+      "title": "Видеокамера Action Pro",
+      "price": 15000,
+      "images": [
+        "/assets/plazma/action_camera.png"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 4.8,
+      "reviewsCount": 22,
+      "inStock": true,
+      "description": "Экшн камера с поддержкой 4K и защитой от воды.",
+      "reviews": [
+        {
+          "id": "rev-i1txvde59",
+          "userName": "Мария",
+          "rating": 4,
+          "text": "Цвет немного отличается, но не критично.",
+          "date": "24.04.2026"
+        },
+        {
+          "id": "rev-35yxun7th",
+          "userName": "Татьяна",
+          "rating": 5,
+          "text": "Материал приятный к телу, швы ровные.",
+          "date": "24.04.2026"
+        },
+        {
+          "id": "rev-xhz7d5kjt",
+          "userName": "Елена",
+          "rating": 5,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "23.04.2026"
+        }
+      ]
+    },
+    {
+      "id": "tech-5",
+      "sellerId": "seller-10",
+      "vitrineType": "electronics",
+      "categoryIds": [
+        "electronics",
+        "personal_care",
+        "electric_shaver"
+      ],
+      "title": "Электробритва мужская",
+      "price": 4500,
+      "images": [
+        "/assets/plazma/man_razor.png"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 4.6,
+      "reviewsCount": 19,
+      "inStock": true,
+      "description": "Беспроводная электробритва с плавающими головками.",
+      "reviews": [
+        {
+          "id": "rev-gs540ziib",
+          "userName": "Александр",
+          "rating": 5,
+          "text": "Материал приятный к телу, швы ровные.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-c6f10eaza",
+          "userName": "Сергей",
+          "rating": 5,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "27.04.2026"
+        },
+        {
+          "id": "rev-vnkxq551j",
+          "userName": "Александр",
+          "rating": 5,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "02.05.2026"
+        }
+      ]
+    },
+    {
+      "id": "tech-6",
+      "sellerId": "seller-10",
+      "vitrineType": "electronics",
+      "categoryIds": [
+        "electronics",
+        "watches",
+        "classic_watch"
+      ],
+      "title": "Механические часы Classic",
+      "price": 8500,
+      "images": [
+        "/assets/plazma/watch_classic.png"
+      ],
+      "unitLabel": "1 шт.",
+      "rating": 4.9,
+      "reviewsCount": 55,
+      "inStock": true,
+      "description": "Стильные механические часы с кожаным ремешком.",
+      "reviews": [
+        {
+          "id": "rev-bskbhy3j8",
+          "userName": "Татьяна",
+          "rating": 4,
+          "text": "В жизни выглядит даже лучше, чем на фото.",
+          "date": "03.05.2026"
+        },
+        {
+          "id": "rev-6oas217bg",
+          "userName": "Анна",
+          "rating": 4,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "28.04.2026"
+        },
+        {
+          "id": "rev-7s0bsuux8",
+          "userName": "Ольга",
+          "rating": 5,
+          "text": "Всегда покупаю у этого продавца, никогда не подводили.",
+          "date": "03.05.2026"
+        }
+      ]
+    },
+    {
+      "id": "green-veg-1",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "vegetables"
+      ],
+      "title": "Помидоры черри на ветке",
+      "price": 189,
+      "images": [
+        "https://images.unsplash.com/photo-1592841200221-a6898f307baa?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "250 г",
+      "rating": 4.8,
+      "reviewsCount": 19,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-greens-1",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "greens"
+      ],
+      "title": "Укроп и петрушка (пучок)",
+      "price": 69,
+      "images": [
+        "https://images.unsplash.com/photo-1618377385554-6011979d227f?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "1 пуч.",
+      "rating": 4.6,
+      "reviewsCount": 11,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-1",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "fruits"
+      ],
+      "title": "Бананы Эквадор",
+      "price": 129,
+      "images": [
+        "https://images.unsplash.com/photo-1603833665858-e61d17a86224?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "1 кг",
+      "rating": 4.7,
+      "reviewsCount": 44,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-grocery-1",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "grocery"
+      ],
+      "title": "Гречка ядрица 900 г",
+      "price": 95,
+      "images": [
+        "https://images.unsplash.com/photo-1586201375740-3fce21a77383?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "1 уп.",
+      "rating": 4.9,
+      "reviewsCount": 33,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "gastro-deli-1",
+      "sellerId": "seller-14",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "deli"
+      ],
+      "title": "Прошутто пармская нарезка",
+      "price": 420,
+      "images": [
+        "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "100 г",
+      "rating": 4.8,
+      "reviewsCount": 17,
+      "inStock": true,
+      "deliveryEtaMinutes": 35
+    },
+    {
+      "id": "gastro-sauce-1",
+      "sellerId": "seller-14",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "sauces"
+      ],
+      "title": "Соус песто базиликовый",
+      "price": 210,
+      "images": [
+        "https://images.unsplash.com/photo-1472476443507-c7a392903add?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "190 г",
+      "rating": 4.5,
+      "reviewsCount": 9,
+      "inStock": true,
+      "deliveryEtaMinutes": 35
+    },
+    {
+      "id": "gastro-deli-2",
+      "sellerId": "seller-14",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "deli"
+      ],
+      "title": "Оливки каламата без косточки",
+      "price": 185,
+      "images": [
+        "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "280 г",
+      "rating": 4.6,
+      "reviewsCount": 15,
+      "inStock": true,
+      "deliveryEtaMinutes": 35
+    }
+  ],
+  "filterConfig": {
+    "groceries": {
+      "categories": [
+        {
+          "id": "dairy",
+          "label": "Молочные продукты",
+          "attributes": [
+            {
+              "id": "fat",
+              "label": "Жирность",
+              "options": [
+                {
+                  "id": "low",
+                  "label": "Обезжиренное"
+                },
+                {
+                  "id": "high",
+                  "label": "Жирное"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "milk",
+          "label": "Молоко и кефир"
+        },
+        {
+          "id": "eggs",
+          "label": "Яйца"
+        },
+        {
+          "id": "cheese",
+          "label": "Сыры"
+        },
+        {
+          "id": "bakery",
+          "label": "Хлеб и выпечка",
+          "attributes": [
+            {
+              "id": "flour",
+              "label": "Мука",
+              "options": [
+                {
+                  "id": "wheat",
+                  "label": "Пшеничная"
+                },
+                {
+                  "id": "rye",
+                  "label": "Ржаная"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fruits",
+          "label": "Фрукты",
+          "attributes": [
+            {
+              "id": "color",
+              "label": "Цвет",
+              "options": [
+                {
+                  "id": "green",
+                  "label": "Зеленые"
+                },
+                {
+                  "id": "red",
+                  "label": "Красные"
+                }
+              ]
+            },
+            {
+              "id": "package",
+              "label": "Упаковка",
+              "options": [
+                {
+                  "id": "loose",
+                  "label": "На развес"
+                },
+                {
+                  "id": "packed",
+                  "label": "Фасованные"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "drinks",
+          "label": "Напитки"
+        },
+        {
+          "id": "vegetables",
+          "label": "Овощи"
+        },
+        {
+          "id": "greens",
+          "label": "Зелень"
+        },
+        {
+          "id": "grocery",
+          "label": "Бакалея"
+        },
+        {
+          "id": "deli",
+          "label": "Деликатесы"
+        },
+        {
+          "id": "sauces",
+          "label": "Соусы и заправки"
+        }
+      ]
+    },
+    "ready_food": {
+      "categories": [
+        {
+          "id": "soups",
+          "label": "Супы"
+        },
+        {
+          "id": "second_courses",
+          "label": "Вторые блюда"
+        },
+        {
+          "id": "salads",
+          "label": "Салаты"
+        }
+      ]
+    },
+    "sushi": {
+      "categories": [
+        {
+          "id": "sushi",
+          "label": "Суши и роллы"
+        }
+      ]
+    },
+    "burgers": {
+      "categories": [
+        {
+          "id": "beef",
+          "label": "С говядиной"
+        },
+        {
+          "id": "chicken",
+          "label": "С курицей"
+        }
+      ]
+    },
+    "pizza": {
+      "categories": [
+        {
+          "id": "meat",
+          "label": "Мясная"
+        },
+        {
+          "id": "cheese",
+          "label": "Сырная"
+        }
+      ]
+    },
+    "georgian": {
+      "categories": [
+        {
+          "id": "khinkali",
+          "label": "Хинкали"
+        },
+        {
+          "id": "khachapuri",
+          "label": "Хачапури"
+        }
+      ]
+    },
+    "clothes": {
+      "categories": [
+        {
+          "id": "tshirts",
+          "label": "Футболки",
+          "attributes": [
+            {
+              "id": "size",
+              "label": "Размер",
+              "options": [
+                {
+                  "id": "S",
+                  "label": "S"
+                },
+                {
+                  "id": "M",
+                  "label": "M"
+                },
+                {
+                  "id": "L",
+                  "label": "L"
+                },
+                {
+                  "id": "XL",
+                  "label": "XL"
+                }
+              ]
+            },
+            {
+              "id": "color",
+              "label": "Цвет",
+              "options": [
+                {
+                  "id": "white",
+                  "label": "Белый"
+                },
+                {
+                  "id": "black",
+                  "label": "Черный"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "outerwear",
+          "label": "Верхняя одежда",
+          "attributes": [
+            {
+              "id": "size",
+              "label": "Размер",
+              "options": [
+                {
+                  "id": "S",
+                  "label": "S"
+                },
+                {
+                  "id": "M",
+                  "label": "M"
+                },
+                {
+                  "id": "L",
+                  "label": "L"
+                },
+                {
+                  "id": "XL",
+                  "label": "XL"
+                },
+                {
+                  "id": "XXL",
+                  "label": "XXL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "shoes",
+          "label": "Обувь",
+          "attributes": [
+            {
+              "id": "size",
+              "label": "Размер",
+              "options": [
+                {
+                  "id": "38",
+                  "label": "38"
+                },
+                {
+                  "id": "39",
+                  "label": "39"
+                },
+                {
+                  "id": "40",
+                  "label": "40"
+                },
+                {
+                  "id": "41",
+                  "label": "41"
+                },
+                {
+                  "id": "42",
+                  "label": "42"
+                },
+                {
+                  "id": "43",
+                  "label": "43"
+                },
+                {
+                  "id": "44",
+                  "label": "44"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "headwear",
+          "label": "Головные уборы"
+        },
+        {
+          "id": "accessories",
+          "label": "Аксессуары"
+        }
+      ]
+    },
+    "tools": {
+      "categories": [
+        {
+          "id": "hand",
+          "label": "Ручной инструмент",
+          "attributes": [
+            {
+              "id": "type",
+              "label": "Тип",
+              "options": [
+                {
+                  "id": "hammer",
+                  "label": "Молотки"
+                },
+                {
+                  "id": "screwdriver",
+                  "label": "Отвертки"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "electronics": {
+      "categories": [
+        {
+          "id": "gadgets",
+          "label": "Гаджеты"
+        },
+        {
+          "id": "watches",
+          "label": "Часы"
+        },
+        {
+          "id": "personal_care",
+          "label": "Уход за собой"
+        },
+        {
+          "id": "accessories",
+          "label": "Аксессуары"
+        }
+      ]
+    },
+    "components": {
+      "categories": [
+        {
+          "id": "washing_machine",
+          "label": "Для стиральной машины"
+        },
+        {
+          "id": "fridge",
+          "label": "Для холодильника"
+        },
+        {
+          "id": "components",
+          "label": "Все комплектующие"
+        }
+      ]
+    }
+  }
+}

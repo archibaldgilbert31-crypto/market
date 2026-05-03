@@ -1,10 +1,13 @@
-import { CreditCard, MapPin, QrCode, ChevronRight } from "lucide-react";
+import { CreditCard, MapPin, QrCode, Check, Pencil } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useMemo, useState } from "react";
 import { Header } from "@/ui/shared/Header";
 import { useCartStore } from "@/ui/state/cartStore";
 import { getCartTotals, getGroupedBySeller } from "@/ui/state/cartSelectors";
 import { useOrdersStore } from "@/ui/state/ordersStore";
+import { displayTag, formatAddressPickerSecondary, useDeliveryStore } from "@/ui/state/deliveryStore";
+import { useAuthStore } from "@/ui/state/authStore";
+import { loginPathWithReturn } from "@/ui/auth/returnPath";
 
 const deliverySlots = [
   { id: "1", time: "Сейчас (15-25 мин)", available: true },
@@ -17,6 +20,7 @@ type PaymentMethod = "card" | "sbp";
 
 export function Checkout() {
   const nav = useNavigate();
+  const accessToken = useAuthStore((s) => s.accessToken);
   const [slot, setSlot] = useState("1");
   const [payment, setPayment] = useState<PaymentMethod>("card");
   const [processing, setProcessing] = useState(false);
@@ -27,6 +31,10 @@ export function Checkout() {
   const totals = useMemo(() => getCartTotals(items, promoCode, tips), [items, promoCode, tips]);
   const clearCart = useCartStore((s) => s.clearCart);
   const createOrder = useOrdersStore((s) => s.createOrder);
+  const addresses = useDeliveryStore((s) => s.addresses);
+  const deliverySelectedId = useDeliveryStore((s) => s.selectedId);
+  const selectedAddress = addresses.find((a) => a.id === deliverySelectedId);
+  const selectedAddressSub = selectedAddress ? formatAddressPickerSecondary(selectedAddress) : "";
 
   if (groupedBySeller.length === 0) {
     return (
@@ -70,15 +78,44 @@ export function Checkout() {
       <div className="px-4 py-6 space-y-3">
         <div className="bg-white rounded-2xl border border-gray-100 p-4">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 bg-[var(--fresh-green)]/10 rounded-xl flex items-center justify-center text-[var(--fresh-green)]">
+            <div className="w-10 h-10 bg-[var(--fresh-green)]/10 rounded-xl flex items-center justify-center text-[var(--fresh-green)] shrink-0">
               <MapPin size={20} />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <p className="text-xs text-gray-500 mb-1">Адрес доставки</p>
-              <p className="font-semibold">ул. Тверская, 12</p>
-              <p className="text-sm text-gray-600">Подъезд 3, этаж 5, кв. 42</p>
+              {selectedAddress ? (
+                <>
+                  <p className="font-bold text-gray-900">{displayTag(selectedAddress)}</p>
+                  {selectedAddressSub ? (
+                    <p className="text-sm text-gray-600 mt-0.5">{selectedAddressSub}</p>
+                  ) : null}
+                </>
+              ) : (
+                <>
+                  <p className="font-semibold text-[var(--fresh-green)]">Адрес не выбран</p>
+                  <p className="text-sm text-gray-600 mt-0.5">Выберите на главной или отредактируйте ниже</p>
+                </>
+              )}
             </div>
-            <ChevronRight className="text-gray-400" size={20} />
+            <div className="flex items-center gap-0.5 shrink-0 self-center">
+              {selectedAddress ? (
+                <Check size={20} className="text-[var(--fresh-green)]" strokeWidth={2.5} aria-hidden />
+              ) : null}
+              <button
+                type="button"
+                onClick={() => {
+                  if (!accessToken) {
+                    nav(loginPathWithReturn("/checkout"));
+                    return;
+                  }
+                  nav(selectedAddress ? `/addresses/${selectedAddress.id}/edit` : "/addresses/new");
+                }}
+                className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 active:scale-95"
+                aria-label="Изменить адрес"
+              >
+                <Pencil size={16} strokeWidth={2} />
+              </button>
+            </div>
           </div>
         </div>
 

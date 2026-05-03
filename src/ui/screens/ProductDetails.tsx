@@ -1,14 +1,17 @@
 import { Heart, Share2, Star, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Header } from "@/ui/shared/Header";
 import { QuantityStepper } from "@/ui/shared/QuantityStepper";
 import { useCartStore } from "@/ui/state/cartStore";
-import { products, sellers } from "@/ui/state/mock";
+import { useCatalogStore } from "@/ui/state/catalogStore";
 
 export function ProductDetails() {
   const nav = useNavigate();
   const { id } = useParams();
+  const products = useCatalogStore((s) => s.products);
+  const sellers = useCatalogStore((s) => s.sellers);
+  const loaded = useCatalogStore((s) => s.loaded);
   const [favorite, setFavorite] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
   const addProduct = useCartStore((s) => s.addProduct);
@@ -17,15 +20,29 @@ export function ProductDetails() {
   const getItemQty = useCartStore((s) => s.getItemQty);
   const items = useCartStore((s) => s.items);
 
-  const product = useMemo(() => products.find((p) => p.id === id), [id]);
-  const seller = useMemo(() => sellers.find((s) => s.id === product?.sellerId), [product]);
+  const product = useMemo(() => products.find((p) => p.id === id), [id, products]);
+  const seller = useMemo(() => sellers.find((s) => s.id === product?.sellerId), [product?.sellerId, sellers]);
 
-  const [selectedSize, setSelectedSize] = useState<string | null>(
-    product?.attributes?.size && Array.isArray(product.attributes.size)
-      ? String(product.attributes.size[0])
-      : null
-  );
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showSizeTable, setShowSizeTable] = useState(false);
+
+  useEffect(() => {
+    if (!product?.attributes?.size) {
+      setSelectedSize(null);
+      return;
+    }
+    const sz = product.attributes.size;
+    setSelectedSize(Array.isArray(sz) ? String(sz[0]) : String(sz));
+  }, [product?.id]);
+
+  if (!loaded) {
+    return (
+      <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+        <Header title="Товар" onBack={() => nav(-1)} />
+        <div className="p-6 text-center text-gray-600">Загрузка…</div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (

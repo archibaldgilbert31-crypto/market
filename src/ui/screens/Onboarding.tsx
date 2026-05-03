@@ -46,7 +46,7 @@ export function Onboarding() {
         </div>
 
         <button
-          onClick={() => nav("/register")}
+          onClick={() => nav("/home")}
           className="w-full bg-[var(--fresh-green)] text-white rounded-2xl py-4 font-semibold flex items-center justify-center gap-2"
         >
           Продолжить <ChevronRight size={20} />

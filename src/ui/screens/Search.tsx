@@ -2,20 +2,21 @@ import { Clock, Search as SearchIcon, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { ProductCard } from "@/ui/shared/ProductCard";
-import { products } from "@/ui/state/mock";
+import { useCatalogStore } from "@/ui/state/catalogStore";
 
 const recentSearches = ["Молоко", "Хлеб", "Яблоки", "Курица"];
 const popularSearches = ["Молочные продукты", "Фрукты", "Хлеб и выпечка", "Мясо"];
 
 export function Search() {
   const nav = useNavigate();
+  const products = useCatalogStore((s) => s.products);
   const [query, setQuery] = useState("");
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
     return products.filter((p) => p.title.toLowerCase().includes(q)).slice(0, 20);
-  }, [query]);
+  }, [query, products]);
 
   const hasResults = query.trim().length > 0;
 
