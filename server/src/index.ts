@@ -7,6 +7,11 @@ import { catalogRouter } from "./routes/catalog.js";
 
 dotenv.config();
 
+if (!process.env.JWT_SECRET?.trim()) {
+  console.error("[server] Укажите JWT_SECRET в переменных окружения.");
+  process.exit(1);
+}
+
 const app = express();
 const PORT = Number(process.env.PORT) || 3001;
 
