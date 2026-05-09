@@ -68,3 +68,11 @@ npm run db:seed
 ### Кабинет продавца
 
 Отдельный Vite-проект в **`admin-panel/`**. Сборка **`npm run admin:build`** из корня или из этой папки; второй сервис Railway с Root Directory **`admin-panel`** и переменной **`VITE_API_URL`**. Подробности — **SELLER_ADMIN.md**.
+
+#### CORS: «Access-Control-Allow-Origin» / preflight с отдельного домена
+
+Если админка открывается с **`https://<ваш-admin>.up.railway.app`**, а API — с **`https://<ваш-api>.up.railway.app`**, на **сервисе backend** в **`CORS_ORIGINS`** нужно через запятую перечислить **полный origin админки** (как в адресной строке, без `/` в конце), например:
+
+`https://powerful-balance-production-4616.up.railway.app`
+
+При необходимости добавьте туда же origin основного витринного фронта. После сохранения переменных **перезапустите backend**. Без этого логин с админки падает с `net::ERR_FAILED` после preflight.
