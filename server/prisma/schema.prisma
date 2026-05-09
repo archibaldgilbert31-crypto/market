@@ -53,12 +53,59 @@ model Product {
   reviewsCount       Int?
   badge              String?
   inStock            Boolean  @default(true)
+  stockQty           Int      @default(0)
   deliveryEtaMinutes Int?
   brand              String?
   attributes         Json?
   reviews            Json?
 
   @@index([sellerId])
+}
+
+/// Агрегированные просмотры карточки товара (для seller-аналитики)
+model ProductView {
+  id         String   @id @default(uuid())
+  productId  String
+  sellerId   String
+  viewerKey  String?
+  createdAt  DateTime @default(now())
+
+  @@index([sellerId])
+  @@index([productId])
+  @@map("product_views")
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  userId          String?
+  paymentMethod   String
+  totalsSubtotal  Int
+  totalsDelivery  Int
+  totalsDiscount  Int
+  totalsTips      Int
+  totalsGrand     Int
+  createdAt       DateTime    @default(now())
+  items           OrderItem[]
+
+  @@index([createdAt])
+  @@map("orders")
+}
+
+model OrderItem {
+  id            String @id @default(uuid())
+  orderId       String
+  order         Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String
+  sellerId      String
+  titleSnapshot String
+  quantity      Int
+  unitPrice     Int
+  lineTotal     Int
+
+  @@index([sellerId])
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
 }
 
 model CatalogSettings {

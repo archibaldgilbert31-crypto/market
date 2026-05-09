@@ -37,6 +37,8 @@ export type Product = {
   reviews?: Review[];
   badge?: string;
   inStock: boolean;
+  /** Остаток на складе (сервер) */
+  stockQty?: number;
   deliveryEtaMinutes?: number;
   brand?: string;
   attributes?: Record<string, string | string[]>;

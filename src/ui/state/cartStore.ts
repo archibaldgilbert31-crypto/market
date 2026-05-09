@@ -14,6 +14,7 @@ type CartState = {
   increase: (itemId: string) => void;
   decrease: (itemId: string) => void;
   remove: (itemId: string) => void;
+  removeItemsBySellerId: (sellerId: string) => void;
   clearCart: () => void;
   addSnapshotItems: (items: CartItem[]) => void;
   setPromoCode: (code: string) => void;
@@ -75,7 +76,14 @@ export const useCartStore = create<CartState>((set, get) => ({
 
   remove: (itemId) => set((state) => ({ items: state.items.filter((i) => i.id !== itemId) })),
 
-  clearCart: () => set({ items: [], promoCode: "", tips: 0 }),
+  /** После заказа по одному магазину — убрать только его строки из корзины */
+  removeItemsBySellerId: (sellerId: string) =>
+    set((state) => ({
+      items: state.items.filter((i) => i.sellerId !== sellerId),
+      tips: 0,
+    })),
+
+  clearCart: () => set({ items: [], promoCode: "", tips: 0, viewMode: "all" }),
 
   addSnapshotItems: (snapshotItems) =>
     set((state) => {

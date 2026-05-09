@@ -5,6 +5,7 @@ import { Header } from "@/ui/shared/Header";
 import { QuantityStepper } from "@/ui/shared/QuantityStepper";
 import { useCartStore } from "@/ui/state/cartStore";
 import { useCatalogStore } from "@/ui/state/catalogStore";
+import { API_BASE_URL } from "@/ui/constants/apiBase";
 
 export function ProductDetails() {
   const nav = useNavigate();
@@ -34,6 +35,20 @@ export function ProductDetails() {
     const sz = product.attributes.size;
     setSelectedSize(Array.isArray(sz) ? String(sz[0]) : String(sz));
   }, [product?.id]);
+
+  useEffect(() => {
+    if (!loaded || !product?.id) return;
+    let key = sessionStorage.getItem("marketplace_product_view_key");
+    if (!key) {
+      key = crypto.randomUUID();
+      sessionStorage.setItem("marketplace_product_view_key", key);
+    }
+    void fetch(`${API_BASE_URL}/api/catalog/products/${encodeURIComponent(product.id)}/view`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ viewerKey: key }),
+    }).catch(() => {});
+  }, [loaded, product?.id]);
 
   if (!loaded) {
     return (

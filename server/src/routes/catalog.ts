@@ -40,6 +40,7 @@ catalogRouter.get("/bootstrap", async (_req, res) => {
         reviewsCount: p.reviewsCount ?? undefined,
         badge: p.badge ?? undefined,
         inStock: p.inStock,
+        stockQty: p.stockQty,
         deliveryEtaMinutes: p.deliveryEtaMinutes ?? undefined,
         brand: p.brand ?? undefined,
         attributes: p.attributes ?? undefined,
@@ -50,5 +51,38 @@ catalogRouter.get("/bootstrap", async (_req, res) => {
   } catch (err) {
     console.error("[catalog/bootstrap]", err);
     res.status(500).json({ error: "Не удалось загрузить каталог" });
+  }
+});
+
+catalogRouter.post("/products/:productId/view", async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const viewerKey =
+      typeof (req.body as { viewerKey?: unknown })?.viewerKey === "string"
+        ? String((req.body as { viewerKey: string }).viewerKey).slice(0, 128)
+        : null;
+
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      select: { id: true, sellerId: true },
+    });
+
+    if (!product) {
+      res.status(404).json({ error: "Товар не найден" });
+      return;
+    }
+
+    await prisma.productView.create({
+      data: {
+        productId: product.id,
+        sellerId: product.sellerId,
+        viewerKey,
+      },
+    });
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("[catalog/product/view]", err);
+    res.status(500).json({ error: "Не удалось зафиксировать просмотр" });
   }
 });

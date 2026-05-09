@@ -170,10 +170,6 @@ export function Cart() {
                   </div>
                 ))}
               </div>
-              <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-sm text-gray-600">Подытог продавца</span>
-                <span className="font-semibold">{group.subtotal} ₽</span>
-              </div>
             </div>
           ))
         )}

@@ -22,6 +22,9 @@ import { Register } from "@/ui/screens/Register";
 import { AdminLayout } from "@/ui/screens/admin/AdminLayout";
 import { AdminDashboard } from "@/ui/screens/admin/AdminDashboard";
 import { AdminUsers } from "@/ui/screens/admin/AdminUsers";
+import { SellerCabinetAnalytics } from "@/ui/screens/seller-cabinet/SellerCabinetAnalytics";
+import { SellerCabinetFinance } from "@/ui/screens/seller-cabinet/SellerCabinetFinance";
+import { SellerCabinetLayout } from "@/ui/screens/seller-cabinet/SellerCabinetLayout";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +47,15 @@ export const router = createBrowserRouter([
       { path: "tracking/:orderId", Component: Tracking },
       { path: "orders", Component: Orders },
       { path: "profile", Component: Profile },
+      {
+        path: "seller-cabinet",
+        Component: SellerCabinetLayout,
+        children: [
+          { index: true, element: <Navigate to="analytics" replace /> },
+          { path: "analytics", Component: SellerCabinetAnalytics },
+          { path: "finance", Component: SellerCabinetFinance },
+        ],
+      },
       { path: "seller/:id", Component: SellerPage },
       { path: "stores", Component: Stores },
       { path: "login", Component: Login },

@@ -11,6 +11,7 @@ export interface AuthUser {
   phone: string | null;
   role: "USER" | "SELLER" | "ADMIN";
   avatarUrl: string | null;
+  sellerShopId?: string | null;
 }
 
 interface AuthState {

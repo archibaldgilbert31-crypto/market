@@ -173,7 +173,16 @@ authRouter.get("/me", authenticate, async (req: Request, res: Response) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.user!.userId },
-      select: { id: true, email: true, name: true, phone: true, role: true, avatarUrl: true, createdAt: true },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+        role: true,
+        avatarUrl: true,
+        sellerShopId: true,
+        createdAt: true,
+      },
     });
 
     if (!user) {

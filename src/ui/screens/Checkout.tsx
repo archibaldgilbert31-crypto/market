@@ -8,6 +8,7 @@ import { useOrdersStore } from "@/ui/state/ordersStore";
 import { displayTag, formatAddressPickerSecondary, useDeliveryStore } from "@/ui/state/deliveryStore";
 import { useAuthStore } from "@/ui/state/authStore";
 import { loginPathWithReturn } from "@/ui/auth/returnPath";
+import { API_BASE_URL } from "@/ui/constants/apiBase";
 
 const deliverySlots = [
   { id: "1", time: "Сейчас (15-25 мин)", available: true },
@@ -25,18 +26,25 @@ export function Checkout() {
   const [payment, setPayment] = useState<PaymentMethod>("card");
   const [processing, setProcessing] = useState(false);
   const items = useCartStore((s) => s.items);
+  const viewMode = useCartStore((s) => s.viewMode);
+  const setViewMode = useCartStore((s) => s.setViewMode);
   const promoCode = useCartStore((s) => s.promoCode);
   const tips = useCartStore((s) => s.tips);
-  const groupedBySeller = useMemo(() => getGroupedBySeller(items), [items]);
-  const totals = useMemo(() => getCartTotals(items, promoCode, tips), [items, promoCode, tips]);
+  const checkoutItems = useMemo(
+    () => (viewMode === "all" ? items : items.filter((i) => i.sellerId === viewMode)),
+    [items, viewMode],
+  );
+  const groupedBySeller = useMemo(() => getGroupedBySeller(checkoutItems), [checkoutItems]);
+  const totals = useMemo(() => getCartTotals(checkoutItems, promoCode, tips), [checkoutItems, promoCode, tips]);
   const clearCart = useCartStore((s) => s.clearCart);
+  const removeItemsBySellerId = useCartStore((s) => s.removeItemsBySellerId);
   const createOrder = useOrdersStore((s) => s.createOrder);
   const addresses = useDeliveryStore((s) => s.addresses);
   const deliverySelectedId = useDeliveryStore((s) => s.selectedId);
   const selectedAddress = addresses.find((a) => a.id === deliverySelectedId);
   const selectedAddressSub = selectedAddress ? formatAddressPickerSecondary(selectedAddress) : "";
 
-  if (groupedBySeller.length === 0) {
+  if (checkoutItems.length === 0) {
     return (
       <div className="bg-[var(--fresh-bg)]">
         <Header title="Оформление заказа" onBack={() => nav("/cart")} />
@@ -61,13 +69,53 @@ export function Checkout() {
 
   const placeOrder = () => {
     setProcessing(true);
+    const linesFlat = groupedBySeller.flatMap((g) =>
+      g.items.map((item) => ({
+        productId: item.productId,
+        sellerId: item.sellerId,
+        titleSnapshot: item.titleSnapshot,
+        quantity: item.qty,
+        unitPrice: item.priceSnapshot,
+      })),
+    );
+    void (async () => {
+      try {
+        const headers: Record<string, string> = { "Content-Type": "application/json" };
+        const token = useAuthStore.getState().accessToken;
+        if (token) headers.Authorization = `Bearer ${token}`;
+        await fetch(`${API_BASE_URL}/api/orders`, {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            paymentMethod: payment,
+            lines: linesFlat,
+            totals: {
+              subtotal: totals.subtotal,
+              deliveryFee: totals.deliveryFee,
+              discount: totals.discount,
+              tips: totals.tips,
+              grandTotal: totals.grandTotal,
+            },
+          }),
+        }).catch(() => {});
+      } catch {
+        /* запись заказа на сервер необязательна для UX */
+      }
+    })();
+
     setTimeout(() => {
       const order = createOrder({
         paymentMethod: payment,
         groupedBySeller,
         totals,
       });
-      clearCart();
+      if (viewMode === "all") {
+        clearCart();
+      } else {
+        removeItemsBySellerId(viewMode);
+        setViewMode("all");
+      }
+      setProcessing(false);
       nav(`/tracking/${order.id}`);
     }, 1200);
   };
