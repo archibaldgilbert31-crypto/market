@@ -29,4 +29,8 @@ export default defineConfig({
       },
     },
   },
+  /** Иначе `vite preview` на Railway (*.up.railway.app) отклоняет запрос по заголовку Host. */
+  preview: {
+    allowedHosts: true,
+  },
 });
