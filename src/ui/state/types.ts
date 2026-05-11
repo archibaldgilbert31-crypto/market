@@ -10,6 +10,8 @@ export type Seller = {
   deliveryEtaMinutes?: number;
   description?: string;
   bannerUrl?: string;
+  /** Категории, созданные магазином (подписи для client) */
+  customCategories?: { id: string; label: string }[];
 };
 
 export type Review = {
@@ -41,7 +43,8 @@ export type Product = {
   stockQty?: number;
   deliveryEtaMinutes?: number;
   brand?: string;
-  attributes?: Record<string, string | string[]>;
+  /** например size, color, sizeStock: Record<string, number> */
+  attributes?: Record<string, string | string[] | Record<string, number>>;
 };
 
 export type FilterOption = { id: string; label: string };
@@ -61,6 +64,9 @@ export type CartItem = {
   qty: number;
   variantId?: string;
 };
+
+/** Карточка в избранном (совпадает с корзиной, без количества) */
+export type FavoriteEntry = Omit<CartItem, "qty">;
 
 export type SellerCartGroup = {
   sellerId: string;

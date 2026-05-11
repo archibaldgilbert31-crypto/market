@@ -57,6 +57,58 @@ type CatalogFile = {
   filterConfig: Record<string, unknown>;
 };
 
+/** Одежда с `size`, но без sizeStock → заполняем дефолтным остатком; иначе stockQty синхронизируем с матрицей. */
+function materializeStockForProduct(p: CatalogProduct): {
+  attributes: object | undefined;
+  stockQty: number;
+  inStock: boolean;
+} {
+  const attrsRaw = p.attributes;
+  const defaultShelf = 100;
+
+  if (!attrsRaw || typeof attrsRaw !== "object" || Array.isArray(attrsRaw)) {
+    return {
+      attributes: attrsRaw === undefined ? undefined : (attrsRaw as object),
+      stockQty: defaultShelf,
+      inStock: p.inStock ?? true,
+    };
+  }
+
+  const attrs = { ...(attrsRaw as Record<string, unknown>) };
+
+  if (p.vitrineType !== "clothes") {
+    return { attributes: attrs as object, stockQty: defaultShelf, inStock: p.inStock ?? true };
+  }
+
+  const sz = attrs.size;
+  if (!Array.isArray(sz) || sz.length === 0) {
+    return { attributes: attrs as object, stockQty: defaultShelf, inStock: p.inStock ?? true };
+  }
+
+  const existing = attrs.sizeStock;
+  if (!existing || typeof existing !== "object" || Array.isArray(existing)) {
+    const generated: Record<string, number> = {};
+    for (const s of sz) {
+      const k = String(s).trim();
+      if (k) generated[k] = 10;
+    }
+    attrs.sizeStock = generated;
+  }
+
+  const map = attrs.sizeStock as Record<string, unknown>;
+  let sum = 0;
+  for (const v of Object.values(map)) {
+    const n = typeof v === "number" ? v : Number(String(v));
+    if (Number.isFinite(n)) sum += Math.max(0, Math.floor(n));
+  }
+
+  return {
+    attributes: attrs as object,
+    stockQty: sum,
+    inStock: sum > 0 ? (p.inStock ?? true) : false,
+  };
+}
+
 async function seedCatalog(data: CatalogFile) {
   console.log(`[seed] продавцы: ${data.sellers.length}, товары: ${data.products.length}`);
 
@@ -88,6 +140,7 @@ async function seedCatalog(data: CatalogFile) {
   }
 
   for (const p of data.products) {
+    const mat = materializeStockForProduct(p);
     await prisma.product.upsert({
       where: { id: p.id },
       create: {
@@ -104,11 +157,11 @@ async function seedCatalog(data: CatalogFile) {
         rating: p.rating ?? null,
         reviewsCount: p.reviewsCount ?? null,
         badge: p.badge ?? null,
-        inStock: p.inStock ?? true,
-        stockQty: 100,
+        inStock: mat.inStock,
+        stockQty: mat.stockQty,
         deliveryEtaMinutes: p.deliveryEtaMinutes ?? null,
         brand: p.brand ?? null,
-        attributes: p.attributes === undefined ? undefined : (p.attributes as object),
+        attributes: mat.attributes,
         reviews: p.reviews === undefined ? undefined : (p.reviews as object),
       },
       update: {
@@ -124,11 +177,11 @@ async function seedCatalog(data: CatalogFile) {
         rating: p.rating ?? null,
         reviewsCount: p.reviewsCount ?? null,
         badge: p.badge ?? null,
-        inStock: p.inStock ?? true,
-        stockQty: 100,
+        inStock: mat.inStock,
+        stockQty: mat.stockQty,
         deliveryEtaMinutes: p.deliveryEtaMinutes ?? null,
         brand: p.brand ?? null,
-        attributes: p.attributes === undefined ? undefined : (p.attributes as object),
+        attributes: mat.attributes,
         reviews: p.reviews === undefined ? undefined : (p.reviews as object),
       },
     });
@@ -160,16 +213,24 @@ async function ensureUser(params: {
 
   const existing = await prisma.user.findUnique({ where: { email: params.email } });
   if (existing) {
-    if (normalizedPhone && !existing.phone) {
-      await prisma.user
-        .update({
-          where: { id: existing.id },
-          data: { phone: normalizedPhone },
-        })
-        .catch(() => console.warn(`[seed] не удалось обновить телефон для ${params.email}`));
+    const passwordHash = await bcrypt.hash(params.passwordPlain, 10);
+    try {
+      const updated = await prisma.user.update({
+        where: { id: existing.id },
+        data: {
+          passwordHash,
+          name: params.name,
+          role: params.role,
+          phone: normalizedPhone ?? existing.phone,
+          sellerShopId: params.sellerShopId !== undefined ? params.sellerShopId : existing.sellerShopId,
+        },
+      });
+      console.log(`[seed] пользователь синхронизирован: ${params.email}`);
+      return updated;
+    } catch (e) {
+      console.warn(`[seed] не удалось обновить ${params.email}`, e);
+      return existing;
     }
-    console.log(`[seed] пользователь уже есть: ${params.email}`);
-    return existing;
   }
   const passwordHash = await bcrypt.hash(params.passwordPlain, 10);
   const user = await prisma.user.create({
@@ -193,6 +254,7 @@ async function seedDemoAccounts(sellers: CatalogSeller[]) {
     name: "Администратор",
     role: "ADMIN",
     phone: "+79000000001",
+    sellerShopId: null,
   });
 
   for (let i = 1; i <= 3; i++) {
@@ -202,6 +264,7 @@ async function seedDemoAccounts(sellers: CatalogSeller[]) {
       name: `Покупатель ${i}`,
       role: "USER",
       phone: `+7900100100${i}`,
+      sellerShopId: null,
     });
   }
 

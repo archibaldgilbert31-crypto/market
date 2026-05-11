@@ -6,6 +6,19 @@ import { QuantityStepper } from "@/ui/shared/QuantityStepper";
 import { useCartStore } from "@/ui/state/cartStore";
 import { useCatalogStore } from "@/ui/state/catalogStore";
 import { API_BASE_URL } from "@/ui/constants/apiBase";
+import {
+  firstAvailableSize,
+  isSizeOptionSoldOut,
+  isVariantAvailable,
+  OUT_OF_STOCK_LABEL,
+  productHasSizeOptions,
+} from "@/ui/lib/stockAvailability";
+import {
+  resolveSizeGridKind,
+  sizeChartRowsForKind,
+  sizeChartTableLabels,
+  sizeChartUsesThirdColumn,
+} from "@/ui/lib/clothingSizeGridKind";
 
 export function ProductDetails() {
   const nav = useNavigate();
@@ -24,16 +37,24 @@ export function ProductDetails() {
   const product = useMemo(() => products.find((p) => p.id === id), [id, products]);
   const seller = useMemo(() => sellers.find((s) => s.id === product?.sellerId), [product?.sellerId, sellers]);
 
+  const sizeChartGuide = useMemo(() => {
+    if (!product) return null;
+    const kind = resolveSizeGridKind(product);
+    return { kind, ...sizeChartRowsForKind(kind) };
+  }, [product]);
+
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showSizeTable, setShowSizeTable] = useState(false);
 
   useEffect(() => {
-    if (!product?.attributes?.size) {
+    if (!product) return;
+    if (!productHasSizeOptions(product)) {
       setSelectedSize(null);
       return;
     }
-    const sz = product.attributes.size;
-    setSelectedSize(Array.isArray(sz) ? String(sz[0]) : String(sz));
+    const pick = firstAvailableSize(product);
+    const sizes = product.attributes!.size as string[];
+    setSelectedSize(pick ?? (sizes[0] != null ? String(sizes[0]).trim() : null));
   }, [product?.id]);
 
   useEffect(() => {
@@ -76,6 +97,9 @@ export function ProductDetails() {
       i.sellerId === product.sellerId &&
       i.variantId === variantId
   );
+
+  const lineUnavailable = !isVariantAvailable(product, variantId);
+  const cannotAddMore = lineUnavailable;
 
   return (
     <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
@@ -139,20 +163,43 @@ export function ProductDetails() {
               <span className="font-bold text-gray-900">{product.rating ?? 4.8}</span>
               <span className="text-sm text-gray-400">({product.reviewsCount ?? 0})</span>
             </button>
-            <span className="text-[10px] px-2.5 py-1 rounded-lg bg-green-50 text-green-700 font-bold uppercase tracking-wider">
-              В наличии
+            <span
+              className={`text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider ${
+                lineUnavailable
+                  ? "bg-gray-100 text-gray-600"
+                  : "bg-green-50 text-green-700"
+              }`}
+            >
+              {lineUnavailable ? "Нет в наличии" : "В наличии"}
             </span>
-            <span className="text-[10px] px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 font-bold uppercase tracking-wider">
+            <span
+              className={`text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider ${
+                lineUnavailable ? "opacity-60" : ""
+              } bg-blue-50 text-blue-700`}
+            >
               🚀 {product.deliveryEtaMinutes ?? 15} мин
             </span>
           </div>
 
-          <div className="flex items-end gap-3 mt-4">
-            <span className="text-3xl font-bold text-gray-900">{product.price} ₽</span>
-            {product.oldPrice && (
-              <span className="text-xl text-gray-400 line-through pb-1 decoration-gray-300">{product.oldPrice} ₽</span>
+          <div className="flex items-end gap-3 mt-4 min-h-[2.75rem]">
+            {lineUnavailable ? (
+              <span className="text-xl font-bold text-gray-800 tracking-tight">{OUT_OF_STOCK_LABEL}</span>
+            ) : (
+              <>
+                <span className="text-3xl font-bold text-gray-900">{product.price} ₽</span>
+                {product.oldPrice && (
+                  <span className="text-xl text-gray-400 line-through pb-1 decoration-gray-300">{product.oldPrice} ₽</span>
+                )}
+              </>
             )}
           </div>
+
+          {product.attributes?.size && Array.isArray(product.attributes.size) && lineUnavailable &&
+            !product.attributes.size.some((sz) => !isSizeOptionSoldOut(product, String(sz))) ? (
+            <p className="mt-3 text-xs text-gray-500">
+              По всем размерам временно закончилось — загляните позже или выберите похожий товар в каталоге.
+            </p>
+          ) : null}
         </div>
 
         {/* Size Selection Section - Moved above Description */}
@@ -168,20 +215,63 @@ export function ProductDetails() {
               </button>
             </div>
             <div className="flex flex-wrap gap-2">
-              {product.attributes.size.map((size) => (
-                <button
-                  key={size as string}
-                  onClick={() => setSelectedSize(String(size))}
-                  className={`min-w-[56px] h-12 flex items-center justify-center rounded-xl text-sm font-bold transition-all border-2 ${
-                    selectedSize === String(size)
-                      ? "bg-[var(--fresh-green)] text-white border-[var(--fresh-green)] shadow-lg shadow-green-500/20"
-                      : "bg-gray-50 text-gray-600 border-transparent hover:border-gray-200"
-                  }`}
-                >
-                  {size as string}
-                </button>
-              ))}
+              {product.attributes.size.map((size) => {
+                const id = String(size);
+                const soldOut = isSizeOptionSoldOut(product, id);
+                const active = selectedSize === id;
+                const baseChip =
+                  "min-w-[52px] h-11 sm:min-w-[56px] sm:h-12 flex flex-col items-center justify-center rounded-xl text-sm font-bold transition-all border-2 shrink-0";
+                if (soldOut && active) {
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => setSelectedSize(id)}
+                      aria-pressed="true"
+                      aria-label={`Размер ${id}, нет в наличии`}
+                      className={`${baseChip} border-[var(--fresh-green)] bg-white text-gray-400 shadow-inner`}
+                    >
+                      <span className="line-through decoration-[1.5px] decoration-gray-400">{id}</span>
+                    </button>
+                  );
+                }
+                if (soldOut) {
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => setSelectedSize(id)}
+                      aria-pressed="false"
+                      aria-label={`Размер ${id}, нет в наличии`}
+                      className={`${baseChip} border-transparent bg-gray-100/95 text-gray-400 hover:bg-gray-100`}
+                    >
+                      <span className="line-through decoration-[1.5px] decoration-gray-400">{id}</span>
+                    </button>
+                  );
+                }
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => setSelectedSize(id)}
+                    className={`${baseChip} ${
+                      active
+                        ? "bg-[var(--fresh-green)] text-white border-[var(--fresh-green)] shadow-md shadow-green-500/25"
+                        : "bg-gray-50 text-gray-700 border-transparent hover:border-gray-200"
+                    }`}
+                  >
+                    {id}
+                  </button>
+                );
+              })}
             </div>
+
+            {lineUnavailable &&
+              product.attributes.size.some((sz) => !isSizeOptionSoldOut(product, String(sz))) ? (
+              <p className="mt-3 text-xs text-gray-500 leading-snug">
+                Выберите другой доступный размер.
+              </p>
+            ) : null}
           </div>
         )}
 
@@ -231,7 +321,9 @@ export function ProductDetails() {
         <div className="flex items-center gap-3">
           <QuantityStepper
             value={qty}
+            disableIncrease={cannotAddMore}
             onIncrease={() => {
+              if (cannotAddMore) return;
               if (cartItem) increase(cartItem.id);
               else addProduct(product, variantId);
             }}
@@ -240,13 +332,26 @@ export function ProductDetails() {
             }}
           />
           <button
+            type="button"
+            disabled={cannotAddMore && qty === 0}
             onClick={() => {
-              if (qty === 0) addProduct(product, variantId);
+              if (cannotAddMore && qty === 0) return;
+              if (qty === 0 && !cannotAddMore) addProduct(product, variantId);
               nav("/cart");
             }}
-            className="flex-1 bg-[var(--fresh-green)] text-white h-14 rounded-2xl font-bold shadow-lg shadow-green-500/20 active:scale-95 transition-transform flex items-center justify-center gap-2"
+            className={`flex-1 h-14 rounded-2xl font-bold transition-transform flex items-center justify-center gap-2 ${
+              cannotAddMore && qty === 0
+                ? "border-2 border-gray-200 bg-gray-50 text-gray-600 cursor-not-allowed shadow-none"
+                : "bg-[var(--fresh-green)] text-white shadow-lg shadow-green-500/20 active:scale-95"
+            }`}
           >
-            {qty > 0 ? `В корзину · ${qty * product.price} ₽` : `В корзину · ${product.price} ₽`}
+            {cannotAddMore && qty === 0 ? (
+              OUT_OF_STOCK_LABEL
+            ) : qty > 0 ? (
+              `В корзину · ${qty * product.price} ₽`
+            ) : (
+              `В корзину · ${product.price} ₽`
+            )}
           </button>
         </div>
       </div>
@@ -263,30 +368,45 @@ export function ProductDetails() {
               </button>
             </div>
             <div className="p-6">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-gray-400 text-[10px] uppercase tracking-wider font-bold">
-                    <th className="text-left pb-4 font-bold">Размер</th>
-                    <th className="text-center pb-4 font-bold">Обхват груди</th>
-                    <th className="text-right pb-4 font-bold">Рост</th>
-                  </tr>
-                </thead>
-                <tbody className="text-gray-900">
-                  {[
-                    { s: "S", b: "88-92", h: "164-170" },
-                    { s: "M", b: "96-100", h: "170-176" },
-                    { s: "L", b: "104-108", h: "176-182" },
-                    { s: "XL", b: "112-116", h: "182-188" },
-                    { s: "XXL", b: "120-124", h: "188-194" },
-                  ].map((row, i) => (
-                    <tr key={i} className="border-t border-gray-50">
-                      <td className="py-4 font-bold text-[var(--fresh-green)]">{row.s}</td>
-                      <td className="py-4 text-center font-medium">{row.b} см</td>
-                      <td className="py-4 text-right font-medium">{row.h} см</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              {sizeChartGuide ? (
+                <>
+                  <p className="text-xs text-gray-500 mb-4 leading-relaxed">{sizeChartGuide.title}</p>
+                  {sizeChartGuide.kind === "one_size" ? (
+                    <p className="text-sm text-gray-800 leading-relaxed">{sizeChartGuide.rows[0]?.b}</p>
+                  ) : (
+                    (() => {
+                      const labels = sizeChartTableLabels(sizeChartGuide.kind);
+                      const third = sizeChartUsesThirdColumn(sizeChartGuide.kind);
+                      return (
+                        <table className="w-full text-sm">
+                          <thead>
+                            <tr className="text-gray-400 text-[10px] uppercase tracking-wider font-bold">
+                              <th className="text-left pb-4 font-bold">{labels.h1}</th>
+                              <th className={`pb-4 font-bold ${third ? "text-center" : "text-right"}`}>{labels.h2}</th>
+                              {third && labels.h3 ? (
+                                <th className="text-right pb-4 font-bold">{labels.h3}</th>
+                              ) : null}
+                            </tr>
+                          </thead>
+                          <tbody className="text-gray-900">
+                            {sizeChartGuide.rows.map((row, i) => (
+                              <tr key={i} className="border-t border-gray-50">
+                                <td className="py-3 font-bold text-[var(--fresh-green)]">{row.a}</td>
+                                <td className={`py-3 font-medium ${third ? "text-center" : "text-right"}`}>{row.b}</td>
+                                {third && labels.h3 ? (
+                                  <td className="py-3 text-right font-medium">{row.c ?? "—"}</td>
+                                ) : null}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      );
+                    })()
+                  )}
+                </>
+              ) : (
+                <p className="text-sm text-gray-600">Нет данных таблицы.</p>
+              )}
               <button 
                 onClick={() => setShowSizeTable(false)}
                 className="w-full mt-8 py-4 bg-[var(--fresh-green)] text-white rounded-2xl font-bold shadow-lg shadow-green-500/20 active:scale-95 transition-transform"

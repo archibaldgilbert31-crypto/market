@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { prisma } from "../utils/prisma.js";
+import { parseSellerCustomCategories } from "../utils/sellerCategories.js";
 
 export const catalogRouter = Router();
 
@@ -24,6 +25,7 @@ catalogRouter.get("/bootstrap", async (_req, res) => {
         reviewsCount: s.reviewsCount ?? undefined,
         deliveryEtaMinutes: s.deliveryEtaMinutes ?? undefined,
         description: s.description ?? undefined,
+        customCategories: parseSellerCustomCategories(s.customCategories),
       })),
       products: products.map((p) => ({
         id: p.id,

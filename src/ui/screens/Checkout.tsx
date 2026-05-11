@@ -76,6 +76,7 @@ export function Checkout() {
         titleSnapshot: item.titleSnapshot,
         quantity: item.qty,
         unitPrice: item.priceSnapshot,
+        variantId: item.variantId ?? null,
       })),
     );
     void (async () => {

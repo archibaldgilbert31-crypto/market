@@ -49,7 +49,20 @@ export function LoginPage() {
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl shadow-sm p-8">
         <h1 className="text-xl font-bold text-slate-900 mb-1">Вход продавца</h1>
-        <p className="text-sm text-slate-500 mb-6">Отдельное Vite-приложение. Локально: backend на :3001, админка на :5180 с прокси /api.</p>
+        <p className="text-sm text-slate-500 mb-4">
+          Отдельное Vite-приложение. Локально: backend на :3001, админка на :5180 с прокси <code className="text-slate-600">/api</code>.
+        </p>
+        <div className="rounded-lg bg-slate-50 border border-slate-100 px-3 py-2 mb-6 text-[11px] text-slate-600 leading-snug space-y-1">
+          <p>
+            После сброса БД нужны демо-аккаунты: в каталоге <code className="text-slate-800">server</code> выполните{" "}
+            <code className="text-slate-800">npm run db:seed</code>.
+          </p>
+          <p>
+            Продавец «Провиант»: номер <span className="font-mono text-slate-800">+79110000001</span>, пароль{" "}
+            <span className="font-mono text-slate-800">Seller123!</span> (англ.). У остальных магазинов тот же пароль и номера{" "}
+            <span className="font-mono">+79110000002 …</span> по порядку в <code className="text-slate-800">catalog.json</code>.
+          </p>
+        </div>
         <form onSubmit={submit} className="space-y-4">
           <div>
             <label className="block text-xs font-medium text-slate-600 mb-1">Телефон</label>

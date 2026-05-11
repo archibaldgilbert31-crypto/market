@@ -3,16 +3,24 @@ type Props = {
   onIncrease: () => void;
   onDecrease: () => void;
   compact?: boolean;
+  /** Нельзя добавить ещё (нет в наличии и т.п.); уменьшить можно */
+  disableIncrease?: boolean;
 };
 
-export function QuantityStepper({ value, onIncrease, onDecrease, compact }: Props) {
+export function QuantityStepper({ value, onIncrease, onDecrease, compact, disableIncrease }: Props) {
   if (value <= 0) {
     return (
       <button
-        onClick={onIncrease}
-        className={`${
-          compact ? "px-2 py-1 text-xs" : "px-3 py-1.5 text-sm"
-        } rounded-xl bg-[var(--fresh-green)] text-white font-semibold`}
+        type="button"
+        onClick={() => {
+          if (!disableIncrease) onIncrease();
+        }}
+        disabled={disableIncrease}
+        className={`${compact ? "px-2 py-1 text-xs" : "px-3 py-1.5 text-sm"} rounded-xl font-semibold ${
+          disableIncrease
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-[var(--fresh-green)] text-white"
+        }`}
       >
         +
       </button>
@@ -22,6 +30,7 @@ export function QuantityStepper({ value, onIncrease, onDecrease, compact }: Prop
   return (
     <div className={`flex items-center ${compact ? "gap-1.5" : "gap-2"}`}>
       <button
+        type="button"
         onClick={onDecrease}
         className={`${
           compact ? "w-6 h-6 text-xs" : "w-7 h-7 text-sm"
@@ -33,10 +42,16 @@ export function QuantityStepper({ value, onIncrease, onDecrease, compact }: Prop
         {value}
       </span>
       <button
-        onClick={onIncrease}
+        type="button"
+        onClick={() => {
+          if (!disableIncrease) onIncrease();
+        }}
+        disabled={disableIncrease}
         className={`${
           compact ? "w-6 h-6 text-xs" : "w-7 h-7 text-sm"
-        } rounded-lg bg-[var(--fresh-green)] text-white font-semibold`}
+        } rounded-lg font-semibold ${
+          disableIncrease ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "bg-[var(--fresh-green)] text-white"
+        }`}
       >
         +
       </button>

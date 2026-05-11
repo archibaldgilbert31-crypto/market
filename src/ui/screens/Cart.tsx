@@ -2,7 +2,11 @@ import { useMemo, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Header } from "@/ui/shared/Header";
 import { QuantityStepper } from "@/ui/shared/QuantityStepper";
+import { SwipeRevealRow } from "@/ui/shared/SwipeRevealRow";
 import { useCartStore } from "@/ui/state/cartStore";
+import { useFavoritesStore } from "@/ui/state/favoritesStore";
+import { useCatalogStore } from "@/ui/state/catalogStore";
+import { isCartLineUnavailable, OUT_OF_STOCK_LABEL } from "@/ui/lib/stockAvailability";
 import { getCartTotals, getGroupedBySeller } from "@/ui/state/cartSelectors";
 
 export function Cart() {
@@ -13,10 +17,13 @@ export function Cart() {
   const increase = useCartStore((s) => s.increase);
   const decrease = useCartStore((s) => s.decrease);
   const remove = useCartStore((s) => s.remove);
+  const hasFavorite = useFavoritesStore((s) => s.has);
+  const toggleFromCartItem = useFavoritesStore((s) => s.toggleFromCartItem);
   const promoCode = useCartStore((s) => s.promoCode);
   const setPromoCode = useCartStore((s) => s.setPromoCode);
   const tips = useCartStore((s) => s.tips);
   const setTips = useCartStore((s) => s.setTips);
+  const products = useCatalogStore((s) => s.products);
   const groupedBySeller = useMemo(() => getGroupedBySeller(items), [items]);
   const visibleItems = useMemo(() => {
     if (viewMode === "all") return items;
@@ -90,45 +97,60 @@ export function Cart() {
 
       <div className="px-4 py-4 space-y-3">
         {viewMode === "all" ? (
-          items.map((item) => (
-            <div key={item.id} className="bg-white rounded-2xl border border-gray-100 p-3">
-              <div className="flex gap-3">
-                <img
-                  src={item.imageSnapshot}
-                  alt={item.titleSnapshot}
-                  className="w-20 h-20 object-cover rounded-xl"
-                />
-                <div className="flex-1">
-                  <p className="text-xs text-gray-500 mb-1">{item.sellerName}</p>
-                  <p className="text-sm font-medium text-gray-900 mb-1 line-clamp-2">
-                    {item.titleSnapshot}
-                  </p>
-                  <div className="flex items-center gap-2 mb-1">
-                    <p className="text-xs text-gray-500">{item.unitLabelSnapshot}</p>
-                    {item.variantId && (
-                      <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-600">
-                        Размер: {item.variantId}
-                      </span>
-                    )}
+          items.map((item) => {
+            const catalogProduct = products.find(
+              (p) => p.id === item.productId && p.sellerId === item.sellerId
+            );
+            const lineOos = isCartLineUnavailable(item, catalogProduct);
+            return (
+            <SwipeRevealRow
+              key={item.id}
+              swipeKey={item.id}
+              inFavorites={hasFavorite(item.id)}
+              onFavorite={() => toggleFromCartItem(item)}
+              onDelete={() => remove(item.id)}
+            >
+              <div className="p-3">
+                <div className="flex gap-3">
+                  <img
+                    src={item.imageSnapshot}
+                    alt={item.titleSnapshot}
+                    className="w-20 h-20 object-cover rounded-xl"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs text-gray-500 mb-1">{item.sellerName}</p>
+                    <p className="text-sm font-medium text-gray-900 mb-1 line-clamp-2">
+                      {item.titleSnapshot}
+                    </p>
+                    <div className="flex items-center gap-2 mb-1">
+                      <p className="text-xs text-gray-500">{item.unitLabelSnapshot}</p>
+                      {item.variantId && (
+                        <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-600">
+                          Размер: {item.variantId}
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between gap-2">
+                      {lineOos ? (
+                        <span className="text-xs font-semibold text-gray-500 shrink max-w-[60%] leading-snug">
+                          {OUT_OF_STOCK_LABEL}
+                        </span>
+                      ) : (
+                        <span className="font-bold shrink-0">{item.priceSnapshot} ₽</span>
+                      )}
+                      <QuantityStepper
+                        value={item.qty}
+                        disableIncrease={lineOos}
+                        onIncrease={() => increase(item.id)}
+                        onDecrease={() => decrease(item.id)}
+                      />
+                    </div>
                   </div>
-                  <div className="mt-2 flex items-center justify-between">
-                    <span className="font-bold">{item.priceSnapshot} ₽</span>
-                    <QuantityStepper
-                      value={item.qty}
-                      onIncrease={() => increase(item.id)}
-                      onDecrease={() => decrease(item.id)}
-                    />
-                  </div>
-                  <button
-                    onClick={() => remove(item.id)}
-                    className="mt-2 text-xs text-red-600 hover:underline"
-                  >
-                    Удалить
-                  </button>
                 </div>
               </div>
-            </div>
-          ))
+            </SwipeRevealRow>
+            );
+          })
         ) : (
           groupedBySeller
             .filter((g) => g.sellerId === viewMode)
@@ -139,36 +161,58 @@ export function Cart() {
                 <span className="text-sm text-gray-600">{group.itemsCount} шт.</span>
               </div>
               <div className="space-y-3">
-                {group.items.map((item) => (
-                  <div key={item.id} className="flex gap-3">
-                    <img
-                      src={item.imageSnapshot}
-                      alt={item.titleSnapshot}
-                      className="w-16 h-16 object-cover rounded-xl"
-                    />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900 line-clamp-2">
-                        {item.titleSnapshot}
-                      </p>
-                      <div className="flex items-center gap-2">
-                        <p className="text-xs text-gray-500">{item.unitLabelSnapshot}</p>
-                        {item.variantId && (
-                          <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-600">
-                            Размер: {item.variantId}
-                          </span>
-                        )}
-                      </div>
-                      <div className="mt-1 flex items-center justify-between">
-                        <span className="font-semibold">{item.priceSnapshot} ₽</span>
-                        <QuantityStepper
-                          value={item.qty}
-                          onIncrease={() => increase(item.id)}
-                          onDecrease={() => decrease(item.id)}
-                        />
+                {group.items.map((item) => {
+                  const catalogProduct = products.find(
+                    (p) => p.id === item.productId && p.sellerId === item.sellerId
+                  );
+                  const lineOos = isCartLineUnavailable(item, catalogProduct);
+                  return (
+                  <SwipeRevealRow
+                    key={item.id}
+                    swipeKey={item.id}
+                    inFavorites={hasFavorite(item.id)}
+                    onFavorite={() => toggleFromCartItem(item)}
+                    onDelete={() => remove(item.id)}
+                  >
+                    <div className="flex gap-3">
+                      <img
+                        src={item.imageSnapshot}
+                        alt={item.titleSnapshot}
+                        className="w-16 h-16 object-cover rounded-xl shrink-0"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 line-clamp-2">
+                          {item.titleSnapshot}
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs text-gray-500">{item.unitLabelSnapshot}</p>
+                          {item.variantId && (
+                            <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-600">
+                              Размер: {item.variantId}
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-1 flex items-center justify-between gap-2">
+                          {lineOos ? (
+                            <span className="text-[11px] font-semibold text-gray-500 shrink max-w-[58%] leading-snug">
+                              {OUT_OF_STOCK_LABEL}
+                            </span>
+                          ) : (
+                            <span className="font-semibold shrink-0">{item.priceSnapshot} ₽</span>
+                          )}
+                          <QuantityStepper
+                            compact
+                            value={item.qty}
+                            disableIncrease={lineOos}
+                            onIncrease={() => increase(item.id)}
+                            onDecrease={() => decrease(item.id)}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  </SwipeRevealRow>
+                  );
+                })}
               </div>
             </div>
           ))

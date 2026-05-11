@@ -52,10 +52,10 @@ CREATE INDEX "Product_sellerId_idx" ON "Product"("sellerId");
 ALTER TABLE "Product" ADD CONSTRAINT "Product_sellerId_fkey" FOREIGN KEY ("sellerId") REFERENCES "Seller"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AlterTable
-ALTER TABLE "User" ADD COLUMN "sellerShopId" TEXT;
+ALTER TABLE "users" ADD COLUMN "sellerShopId" TEXT;
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_sellerShopId_key" ON "User"("sellerShopId");
+CREATE UNIQUE INDEX "users_sellerShopId_key" ON "users"("sellerShopId");
 
 -- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_sellerShopId_fkey" FOREIGN KEY ("sellerShopId") REFERENCES "Seller"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "users" ADD CONSTRAINT "users_sellerShopId_fkey" FOREIGN KEY ("sellerShopId") REFERENCES "Seller"("id") ON DELETE SET NULL ON UPDATE CASCADE;

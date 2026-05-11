@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { QuantityStepper } from "@/ui/shared/QuantityStepper";
 import { useCartStore } from "@/ui/state/cartStore";
 import type { Product } from "@/ui/state/types";
+import { hasAnyPurchasableVariant, OUT_OF_STOCK_LABEL } from "@/ui/lib/stockAvailability";
 
 interface ProductCardProps {
   product: Product;
@@ -21,6 +22,9 @@ export function ProductCard({ product }: ProductCardProps) {
   const cartItem = items.find(
     (i) => i.productId === product.id && i.sellerId === product.sellerId
   );
+
+  const canBuyAny = hasAnyPurchasableVariant(product);
+  const listUnavailable = !canBuyAny;
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-3 text-left flex flex-col h-full shadow-sm">
@@ -63,18 +67,23 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.unitLabel}
         </p>
 
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <div className="flex flex-col">
-            {product.oldPrice && (
+        <div className="mt-auto flex items-center justify-between pt-2 gap-2">
+          <div className="flex flex-col min-w-0 flex-1">
+            {!listUnavailable && product.oldPrice ? (
               <span className="text-[10px] text-gray-400 line-through leading-none mb-0.5">
                 {product.oldPrice} ₽
               </span>
+            ) : null}
+            {listUnavailable ? (
+              <span className="font-bold text-sm text-gray-600 leading-snug">{OUT_OF_STOCK_LABEL}</span>
+            ) : (
+              <span className="font-bold text-base text-gray-900">{product.price} ₽</span>
             )}
-            <span className="font-bold text-base text-gray-900">{product.price} ₽</span>
           </div>
           <QuantityStepper
             value={qty}
             compact
+            disableIncrease={listUnavailable}
             onIncrease={() => {
               if (cartItem) increase(cartItem.id);
               else addProduct(product);

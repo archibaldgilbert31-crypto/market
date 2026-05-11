@@ -14,6 +14,7 @@ import { Checkout } from "@/ui/screens/Checkout";
 import { Tracking } from "@/ui/screens/Tracking";
 import { Orders } from "@/ui/screens/Orders";
 import { Profile } from "@/ui/screens/Profile";
+import { Favorites } from "@/ui/screens/Favorites";
 import { SellerPage } from "@/ui/screens/SellerPage";
 import { Stores } from "@/ui/screens/Stores";
 import { Reviews } from "@/ui/screens/Reviews";
@@ -47,6 +48,7 @@ export const router = createBrowserRouter([
       { path: "tracking/:orderId", Component: Tracking },
       { path: "orders", Component: Orders },
       { path: "profile", Component: Profile },
+      { path: "favorites", Component: Favorites },
       {
         path: "seller-cabinet",
         Component: SellerCabinetLayout,

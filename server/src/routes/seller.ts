@@ -1,36 +1,169 @@
 import { Router, Request, Response } from "express";
 import { randomUUID } from "node:crypto";
-import type { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { prisma } from "../utils/prisma.js";
 import { publicBaseUrl } from "../utils/publicUrl.js";
 import { productImageMulter } from "../utils/productImageUpload.js";
 import { authenticate } from "../middleware/authenticate.js";
 import { requireRole } from "../middleware/requireRole.js";
 import { attachSellerShop } from "../middleware/attachSellerShop.js";
+import {
+  excludingHiddenIds,
+  mergeSellerMetaCategories,
+  parseSellerCustomCategories,
+} from "../utils/sellerCategories.js";
+import {
+  isClothingVitrine,
+  normalizeProductAttributes,
+} from "../utils/productSizeStock.js";
 
 export const sellerRouter = Router();
 
 sellerRouter.use(authenticate, requireRole("SELLER"), attachSellerShop);
 
-sellerRouter.get("/meta/categories", async (_req: Request, res: Response) => {
+sellerRouter.get("/meta/categories", async (req: Request, res: Response) => {
   try {
-    const settings = await prisma.catalogSettings.findUnique({ where: { id: 1 } });
-    const fc = settings?.filterConfig as
-      | Record<string, { categories?: Array<{ id: string; label: string }> }>
-      | null
-      | undefined;
-    const seen = new Map<string, string>();
-    for (const block of Object.values(fc ?? {})) {
-      if (block?.categories) {
-        for (const c of block.categories) {
-          if (c.id && c.label) seen.set(c.id, c.label);
-        }
-      }
-    }
-    res.json({ categories: [...seen.entries()].map(([id, label]) => ({ id, label })) });
+    const shopId = req.sellerShopId!;
+    const [settings, sellerRow] = await Promise.all([
+      prisma.catalogSettings.findUnique({ where: { id: 1 } }),
+      prisma.seller.findUnique({
+        where: { id: shopId },
+        select: { customCategories: true, hiddenCategoryIds: true },
+      }),
+    ]);
+    const fc = (settings?.filterConfig ?? {}) as Record<string, unknown>;
+    const customs = parseSellerCustomCategories(sellerRow?.customCategories);
+    const merged = mergeSellerMetaCategories(fc, customs);
+    const categories = excludingHiddenIds(merged, sellerRow?.hiddenCategoryIds ?? []);
+    res.json({ categories });
   } catch (e) {
     console.error("[seller/meta/categories]", e);
     res.status(500).json({ error: "Не удалось загрузить категории" });
+  }
+});
+
+sellerRouter.post("/meta/categories", async (req: Request, res: Response) => {
+  try {
+    const shopId = req.sellerShopId!;
+    const label =
+      typeof (req.body as { label?: unknown })?.label === "string"
+        ? (req.body as { label: string }).label.trim()
+        : "";
+    if (!label) {
+      res.status(400).json({ error: "Укажите название категории (поле label)" });
+      return;
+    }
+
+    const sellerRow = await prisma.seller.findUnique({
+      where: { id: shopId },
+      select: { customCategories: true },
+    });
+    if (!sellerRow) {
+      res.status(404).json({ error: "Магазин не найден" });
+      return;
+    }
+
+    const list = parseSellerCustomCategories(sellerRow.customCategories);
+    const id = `c_${randomUUID().replace(/-/g, "").slice(0, 14)}`;
+    list.push({ id, label });
+
+    await prisma.seller.update({
+      where: { id: shopId },
+      data: { customCategories: list },
+    });
+
+    res.status(201).json({ category: { id, label, editable: true } });
+  } catch (e) {
+    console.error("[seller/meta/categories:post]", e);
+    res.status(500).json({ error: "Не удалось создать категорию" });
+  }
+});
+
+sellerRouter.patch("/meta/categories/:categoryId", async (req: Request, res: Response) => {
+  try {
+    const shopId = req.sellerShopId!;
+    const categoryId = String(req.params.categoryId);
+    const newLabelRaw = (req.body as { label?: unknown })?.label;
+    const newLabel = typeof newLabelRaw === "string" ? newLabelRaw.trim() : "";
+    if (!newLabel) {
+      res.status(400).json({ error: "Укажите новое название (поле label)" });
+      return;
+    }
+
+    const sellerRow = await prisma.seller.findUnique({
+      where: { id: shopId },
+      select: { customCategories: true },
+    });
+    if (!sellerRow) {
+      res.status(404).json({ error: "Магазин не найден" });
+      return;
+    }
+
+    const list = parseSellerCustomCategories(sellerRow.customCategories);
+    const idx = list.findIndex((c) => c.id === categoryId);
+    if (idx === -1) {
+      res.status(404).json({ error: "Такую категорию нельзя менять здесь или она не найдена" });
+      return;
+    }
+
+    list[idx] = { id: categoryId, label: newLabel };
+    await prisma.seller.update({
+      where: { id: shopId },
+      data: { customCategories: list },
+    });
+
+    res.json({ category: { id: categoryId, label: newLabel, editable: true } });
+  } catch (e) {
+    console.error("[seller/meta/categories:patch]", e);
+    res.status(500).json({ error: "Не удалось сохранить категорию" });
+  }
+});
+
+sellerRouter.delete("/meta/categories/:categoryId", async (req: Request, res: Response) => {
+  try {
+    const shopId = req.sellerShopId!;
+    const categoryId = String(req.params.categoryId);
+
+    const sellerRow = await prisma.seller.findUnique({
+      where: { id: shopId },
+      select: { customCategories: true, hiddenCategoryIds: true },
+    });
+    if (!sellerRow) {
+      res.status(404).json({ error: "Магазин не найден" });
+      return;
+    }
+
+    const customs = parseSellerCustomCategories(sellerRow.customCategories);
+    const isCustom = customs.some((c) => c.id === categoryId);
+
+    const nextCustom = isCustom ? customs.filter((c) => c.id !== categoryId) : customs;
+    const hiddenSet = new Set(sellerRow.hiddenCategoryIds ?? []);
+    if (!isCustom) {
+      hiddenSet.add(categoryId);
+    } else {
+      hiddenSet.delete(categoryId);
+    }
+    const nextHidden = [...hiddenSet];
+
+    await prisma.$transaction(async (tx) => {
+      await tx.seller.update({
+        where: { id: shopId },
+        data: {
+          customCategories: nextCustom,
+          hiddenCategoryIds: nextHidden,
+        },
+      });
+      await tx.$executeRaw`
+        UPDATE "Product"
+        SET "categoryIds" = array_remove("categoryIds", ${categoryId})
+        WHERE "sellerId" = ${shopId}
+      `;
+    });
+
+    res.json({ ok: true });
+  } catch (e) {
+    console.error("[seller/meta/categories:del]", e);
+    res.status(500).json({ error: "Не удалось удалить категорию" });
   }
 });
 
@@ -125,6 +258,7 @@ sellerRouter.post("/products", async (req: Request, res: Response) => {
       brand: string;
       badge: string;
       deliveryEtaMinutes: number;
+      attributes: unknown;
     }>;
 
     if (!body.title || typeof body.price !== "number" || !body.unitLabel || !body.vitrineType) {
@@ -132,9 +266,26 @@ sellerRouter.post("/products", async (req: Request, res: Response) => {
       return;
     }
 
+    const fallbackStock =
+      typeof body.stockQty === "number" && body.stockQty >= 0 ? Math.floor(body.stockQty) : 0;
+    const normalized = normalizeProductAttributes(body.vitrineType, body.attributes ?? {}, fallbackStock);
+
+    if (isClothingVitrine(body.vitrineType)) {
+      const attrs = normalized.attributes;
+      const sizeArr = attrs && Array.isArray(attrs.size) ? (attrs.size as unknown[]) : [];
+      if (sizeArr.length === 0) {
+        res.status(400).json({
+          error:
+            "Для витрины «Одежда» укажите размеры и остатки по каждому размеру (поле attributes: { size, sizeStock }).",
+        });
+        return;
+      }
+    }
+
+    const stockQty = normalized.stockQty;
+    const inStock = body.inStock ?? normalized.inStockImplicit;
+
     const id = randomUUID();
-    const stockQty = typeof body.stockQty === "number" && body.stockQty >= 0 ? Math.floor(body.stockQty) : 0;
-    const inStock = body.inStock ?? stockQty > 0;
 
     const created = await prisma.product.create({
       data: {
@@ -153,6 +304,7 @@ sellerRouter.post("/products", async (req: Request, res: Response) => {
         badge: body.badge?.trim() ?? null,
         brand: body.brand?.trim() ?? null,
         deliveryEtaMinutes: typeof body.deliveryEtaMinutes === "number" ? body.deliveryEtaMinutes : null,
+        ...(normalized.attributes != null ? { attributes: normalized.attributes as Prisma.InputJsonValue } : {}),
       },
     });
 
@@ -174,6 +326,7 @@ sellerRouter.patch("/products/:productId", async (req: Request, res: Response) =
       res.status(404).json({ error: "Товар не найден" });
       return;
     }
+    const prod = existing;
 
     const body = req.body as Partial<{
       vitrineType: string;
@@ -189,6 +342,7 @@ sellerRouter.patch("/products/:productId", async (req: Request, res: Response) =
       brand: string | null;
       badge: string | null;
       deliveryEtaMinutes: number | null;
+      attributes: unknown;
     }>;
 
     const data: Prisma.ProductUpdateInput = {};
@@ -201,7 +355,43 @@ sellerRouter.patch("/products/:productId", async (req: Request, res: Response) =
     if (typeof body.price === "number") data.price = Math.round(body.price);
     if (body.oldPrice !== undefined) data.oldPrice = body.oldPrice === null ? null : Math.round(body.oldPrice);
     if (body.unitLabel !== undefined) data.unitLabel = body.unitLabel.trim();
-    if (typeof body.stockQty === "number" && body.stockQty >= 0) {
+
+    const nextVitrine = (body.vitrineType ?? prod.vitrineType) as string;
+
+    function existingClothingMatrix(): boolean {
+      return (
+        prod.vitrineType === "clothes" &&
+        prod.attributes != null &&
+        typeof prod.attributes === "object" &&
+        !Array.isArray(prod.attributes) &&
+        Array.isArray((prod.attributes as { size?: unknown }).size) &&
+        ((prod.attributes as { size: unknown[] }).size?.length ?? 0) > 0
+      );
+    }
+
+    if (body.attributes !== undefined) {
+      const fallback =
+        typeof body.stockQty === "number" && body.stockQty >= 0
+          ? Math.floor(body.stockQty)
+          : prod.stockQty;
+      const normalized = normalizeProductAttributes(nextVitrine, body.attributes, fallback);
+      if (isClothingVitrine(nextVitrine)) {
+        const attrs = normalized.attributes;
+        const sizeArr = attrs && Array.isArray(attrs.size) ? (attrs.size as unknown[]) : [];
+        if (sizeArr.length === 0) {
+          res.status(400).json({
+            error:
+              "Для витрины «Одежда» укажите размеры и остатки по каждому размеру (attributes.size и sizeStock).",
+          });
+          return;
+        }
+      }
+      data.attributes = (normalized.attributes ?? Prisma.DbNull) as Prisma.InputJsonValue;
+      data.stockQty = normalized.stockQty;
+      if (body.inStock === undefined) {
+        data.inStock = normalized.inStockImplicit;
+      }
+    } else if (typeof body.stockQty === "number" && body.stockQty >= 0 && !existingClothingMatrix()) {
       data.stockQty = Math.floor(body.stockQty);
       if (body.inStock === undefined) {
         data.inStock = body.stockQty > 0;
@@ -213,7 +403,7 @@ sellerRouter.patch("/products/:productId", async (req: Request, res: Response) =
     if (body.deliveryEtaMinutes !== undefined) data.deliveryEtaMinutes = body.deliveryEtaMinutes;
 
     const updated = await prisma.product.update({
-      where: { id: existing.id },
+      where: { id: prod.id },
       data,
     });
 

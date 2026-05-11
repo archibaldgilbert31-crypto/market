@@ -182,6 +182,9 @@ authRouter.get("/me", authenticate, async (req: Request, res: Response) => {
         avatarUrl: true,
         sellerShopId: true,
         createdAt: true,
+        sellerShop: {
+          select: { id: true, name: true },
+        },
       },
     });
 

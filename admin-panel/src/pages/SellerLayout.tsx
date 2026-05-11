@@ -4,16 +4,19 @@ import { apiFetch, readJson, SELLER_ADMIN_TOKEN_KEY } from "../api";
 
 export function SellerLayout({ children }: { children: ReactNode }) {
   const nav = useNavigate();
-  const [email, setEmail] = useState<string>("");
+  const [shopName, setShopName] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
   const [roleError, setRoleError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       const res = await apiFetch("/api/auth/me");
-      let data: { user?: { email?: string; role?: string } };
+      let data: { user?: { email?: string; role?: string; sellerShop?: { id: string; name: string } | null } };
       try {
-        data = await readJson<{ user?: { email?: string; role?: string } }>(res);
+        data = await readJson<{ user?: { email?: string; role?: string; sellerShop?: { id: string; name: string } | null } }>(
+          res,
+        );
       } catch {
         if (cancelled) return;
         localStorage.removeItem(SELLER_ADMIN_TOKEN_KEY);
@@ -30,12 +33,16 @@ export function SellerLayout({ children }: { children: ReactNode }) {
         setRoleError("Доступ только для продавцов (роль SELLER).");
         return;
       }
-      setEmail(data.user?.email ?? "");
+      const name = data.user?.sellerShop?.name?.trim();
+      setShopName(name ?? "");
+      setLoginEmail(data.user?.email ?? "");
     })();
     return () => {
       cancelled = true;
     };
   }, [nav]);
+
+  const headerTitle = shopName || loginEmail || "Магазин";
 
   const logout = () => {
     localStorage.removeItem(SELLER_ADMIN_TOKEN_KEY);
@@ -63,13 +70,21 @@ export function SellerLayout({ children }: { children: ReactNode }) {
       <aside className="w-56 shrink-0 border-r border-slate-200 bg-white flex flex-col">
         <div className="p-4 border-b border-slate-100">
           <p className="text-xs text-slate-500 uppercase tracking-wide">Кабинет продавца</p>
-          <p className="text-sm font-semibold truncate" title={email}>
-            {email || "…"}
+          <p className="text-sm font-semibold truncate leading-snug" title={shopName ? `${shopName} · ${loginEmail}` : loginEmail}>
+            {headerTitle}
           </p>
+          {shopName ? (
+            <p className="text-[11px] text-slate-400 truncate mt-1.5" title={loginEmail}>
+              {loginEmail}
+            </p>
+          ) : null}
         </div>
         <nav className="p-3 space-y-1 flex-1">
           <NavLink to="/products" className={linkCls}>
             Товары
+          </NavLink>
+          <NavLink to="/edit-categories" className={linkCls}>
+            Редактирование категорий
           </NavLink>
           <NavLink to="/analytics" className={linkCls}>
             Анализ

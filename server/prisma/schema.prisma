@@ -33,7 +33,11 @@ model Seller {
   reviewsCount       Int?
   deliveryEtaMinutes Int?
   description        String?
-  products           Product[]
+  /** Категории магазина: { id, label } — дополняют общий filterConfig каталога */
+  customCategories   Json      @default("[]")
+  /** Id категорий из общего справочника, скрытых для этого магазина в админке */
+  hiddenCategoryIds   String[]  @default([])
+  products            Product[]
   sellerUsers        User[]
 }
 
@@ -42,10 +46,10 @@ model Product {
   sellerId           String
   seller             Seller   @relation(fields: [sellerId], references: [id], onDelete: Cascade)
   vitrineType        String
-  categoryIds        String[]
+  categoryIds        String[]  @default([])
   title              String
   description        String?
-  images             String[]
+  images             String[]  @default([])
   price              Int
   oldPrice           Int?
   unitLabel          String
@@ -101,6 +105,7 @@ model OrderItem {
   quantity      Int
   unitPrice     Int
   lineTotal     Int
+  variantId     String?
 
   @@index([sellerId])
   @@index([orderId])

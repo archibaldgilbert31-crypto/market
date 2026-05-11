@@ -71,6 +71,9 @@ const C = {
   all:             "bg-[#f1f5f9]",  // серый
 } as const;
 
+const IMG_PROVIANT = "/assets/marketeat/seller-1";
+const IMG_GASTRONOM = "/assets/marketeat/seller-14";
+
 export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
   /* ═══════════════  ПРОВИАНТ (seller-1)  ═══════════════ */
   "seller-1": [
@@ -93,8 +96,8 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
         ],
         [
           { title: "Сыры", bgClass: C.dairy, categoryIds: ["cheese"], colSpan: 1, image: "/assets/pngcard/food/cheese.png" },
-          { title: "Масло и сметана", bgClass: C.dairy, categoryIds: ["butter_spread"], colSpan: 1 },
-          { title: "Йогурты и творог", bgClass: C.dairy, categoryIds: ["yogurt_cottage"], colSpan: 1 },
+          { title: "Масло и сметана", bgClass: C.dairy, categoryIds: ["butter_spread"], colSpan: 1, image: `${IMG_PROVIANT}/Масло_Сметана.png` },
+          { title: "Йогурты и творог", bgClass: C.dairy, categoryIds: ["yogurt_cottage"], colSpan: 1, image: `${IMG_PROVIANT}/Йогурты_Творог.png` },
         ],
       ],
     },
@@ -102,14 +105,14 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Фрукты и овощи",
       rows: [
         [
-          { title: "Фрукты свежие", bgClass: C.fruits, categoryIds: ["fruits"], colSpan: 1 },
-          { title: "Овощи", bgClass: C.vegetables, categoryIds: ["vegetables"], colSpan: 1 },
-          { title: "Ягоды", bgClass: C.fruits, categoryIds: ["fruits"], colSpan: 1 },
+          { title: "Фрукты свежие", bgClass: C.fruits, categoryIds: ["fruits"], colSpan: 1, image: `${IMG_PROVIANT}/Свежие_Фрукты.png` },
+          { title: "Овощи", bgClass: C.vegetables, categoryIds: ["vegetables"], colSpan: 1, image: `${IMG_PROVIANT}/Овощи.png` },
+          { title: "Ягоды", bgClass: C.fruits, categoryIds: ["fruits"], colSpan: 1, image: `${IMG_PROVIANT}/Ягоды.png` },
         ],
         [
-          { title: "Зелень и салаты", bgClass: C.greens, categoryIds: ["greens"], colSpan: 1 },
-          { title: "Экзотика", bgClass: C.fruits, categoryIds: ["fruits"], colSpan: 1 },
-          { title: "Грибы", bgClass: C.vegetables, categoryIds: ["vegetables"], colSpan: 1 },
+          { title: "Зелень и салаты", bgClass: C.greens, categoryIds: ["greens"], colSpan: 1, image: `${IMG_PROVIANT}/Салат_Зелень.png` },
+          { title: "Экзотика", bgClass: C.fruits, categoryIds: ["fruits"], colSpan: 1, image: `${IMG_PROVIANT}/Экзотика.png` },
+          { title: "Грибы", bgClass: C.vegetables, categoryIds: ["vegetables"], colSpan: 1, image: `${IMG_PROVIANT}/Грибы.png` },
         ],
       ],
     },
@@ -118,12 +121,12 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       rows: [
         [
           { title: "Мясо и птица", bgClass: C.meat, categoryIds: ["meat"], colSpan: 2, image: "/assets/pngcard/food/meat.png" },
-          { title: "Рыба и морепродукты", bgClass: C.fish, categoryIds: ["fish"], colSpan: 1 },
+          { title: "Рыба и морепродукты", bgClass: C.fish, categoryIds: ["fish"], colSpan: 1, image: `${IMG_PROVIANT}/Рыба_Морепродукты.png` },
         ],
         [
           { title: "Колбасы и сосиски", bgClass: C.meat, categoryIds: ["meat"], colSpan: 1, image: "/assets/pngcard/food/meat_slicing.png" },
-          { title: "Фарш", bgClass: C.meat, categoryIds: ["meat"], colSpan: 1 },
-          { title: "Деликатесы", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1 },
+          { title: "Фарш", bgClass: C.meat, categoryIds: ["meat"], colSpan: 1, image: `${IMG_PROVIANT}/Фарш.png` },
+          { title: "Деликатесы", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1, image: `${IMG_PROVIANT}/Мясные_деликатесы.png` },
         ],
       ],
     },
@@ -131,9 +134,9 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Хлеб и выпечка",
       rows: [
         [
-          { title: "Хлеб свежий", bgClass: C.bakery, categoryIds: ["bakery"], colSpan: 1 },
-          { title: "Булочки и круассаны", bgClass: C.bakery, categoryIds: ["bakery"], colSpan: 1 },
-          { title: "Лаваш и лепёшки", bgClass: C.bakery, categoryIds: ["bakery"], colSpan: 1 },
+          { title: "Хлеб свежий", bgClass: C.bakery, categoryIds: ["bakery"], colSpan: 1, image: `${IMG_PROVIANT}/Хлеб.png` },
+          { title: "Булочки и круассаны", bgClass: C.bakery, categoryIds: ["bakery"], colSpan: 1, image: `${IMG_PROVIANT}/Круассаны_Булочки.png` },
+          { title: "Лаваш и лепёшки", bgClass: C.bakery, categoryIds: ["bakery"], colSpan: 1, image: `${IMG_PROVIANT}/Лаваш.png` },
         ],
       ],
     },
@@ -141,14 +144,14 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Бакалея",
       rows: [
         [
-          { title: "Крупы и злаки", bgClass: C.pasta_cereal, categoryIds: ["grocery"], colSpan: 1 },
-          { title: "Макароны", bgClass: C.pasta_cereal, categoryIds: ["grocery"], colSpan: 1 },
-          { title: "Мука", bgClass: C.grocery, categoryIds: ["grocery"], colSpan: 1 },
+          { title: "Крупы и злаки", bgClass: C.pasta_cereal, categoryIds: ["grocery"], colSpan: 1, image: `${IMG_PROVIANT}/Крупы_Злаки.png` },
+          { title: "Макароны", bgClass: C.pasta_cereal, categoryIds: ["grocery"], colSpan: 1, image: `${IMG_PROVIANT}/Макароны.png` },
+          { title: "Мука", bgClass: C.grocery, categoryIds: ["grocery"], colSpan: 1, image: `${IMG_PROVIANT}/Мука.png` },
         ],
         [
-          { title: "Масло растительное", bgClass: C.oil_spice, categoryIds: ["grocery"], colSpan: 1 },
-          { title: "Специи и приправы", bgClass: C.oil_spice, categoryIds: ["grocery"], colSpan: 1 },
-          { title: "Сахар и соль", bgClass: C.grocery, categoryIds: ["grocery"], colSpan: 1 },
+          { title: "Масло растительное", bgClass: C.oil_spice, categoryIds: ["grocery"], colSpan: 1, image: `${IMG_PROVIANT}/Растительное_Масло.png` },
+          { title: "Специи и приправы", bgClass: C.oil_spice, categoryIds: ["grocery"], colSpan: 1, image: `${IMG_PROVIANT}/Специи_Приправы.png` },
+          { title: "Сахар и соль", bgClass: C.grocery, categoryIds: ["grocery"], colSpan: 1, image: `${IMG_PROVIANT}/Сахар.png` },
         ],
       ],
     },
@@ -156,17 +159,17 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Сладкое, торты",
       rows: [
         [
-          { title: "Торты и пирожные", bgClass: C.sweets, categoryIds: ["sweets"], colSpan: 2 },
+          { title: "Торты и пирожные", bgClass: C.sweets, categoryIds: ["sweets"], colSpan: 2, image: `${IMG_PROVIANT}/Торты_Пирожное.png` },
           { title: "Шоколад, конфеты, батончики", bgClass: C.chocolate, categoryIds: ["chocolate"], colSpan: 1, image: "/assets/pngcard/food/m&m.png" },
         ],
         [
-          { title: "Мармелад, зефир, леденцы", bgClass: C.sweets, categoryIds: ["sweets"], colSpan: 1 },
-          { title: "Печенье, вафли, пряники", bgClass: C.sweets, categoryIds: ["sweets"], colSpan: 1 },
+          { title: "Мармелад, зефир, леденцы", bgClass: C.sweets, categoryIds: ["sweets"], colSpan: 1, image: `${IMG_PROVIANT}/Мармелад.png` },
+          { title: "Печенье, вафли, пряники", bgClass: C.sweets, categoryIds: ["sweets"], colSpan: 1, image: `${IMG_PROVIANT}/Печенье.png` },
           { title: "Полезные сладости", bgClass: C.fruits, categoryIds: ["sweets"], colSpan: 1 },
         ],
         [
-          { title: "Восточные сладости", bgClass: C.chocolate, categoryIds: ["sweets"], colSpan: 1 },
-          { title: "Варенье, мёд, сиропы", bgClass: C.bakery, categoryIds: ["sweets"], colSpan: 2 },
+          { title: "Восточные сладости", bgClass: C.chocolate, categoryIds: ["sweets"], colSpan: 1, image: `${IMG_PROVIANT}/Восточные_Сладости.png` },
+          { title: "Варенье, мёд, сиропы", bgClass: C.bakery, categoryIds: ["sweets"], colSpan: 2, image: `${IMG_PROVIANT}/Мёд.png` },
         ],
       ],
     },
@@ -174,14 +177,14 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Напитки",
       rows: [
         [
-          { title: "Соки и нектары", bgClass: C.drinks, categoryIds: ["drinks"], colSpan: 1 },
-          { title: "Вода", bgClass: C.drinks, categoryIds: ["drinks"], colSpan: 1 },
-          { title: "Лимонады и газировка", bgClass: C.drinks, categoryIds: ["drinks"], colSpan: 1 },
+          { title: "Соки и нектары", bgClass: C.drinks, categoryIds: ["drinks"], colSpan: 1, image: `${IMG_PROVIANT}/Соки.png` },
+          { title: "Вода", bgClass: C.drinks, categoryIds: ["drinks"], colSpan: 1, image: `${IMG_PROVIANT}/Вода.png` },
+          { title: "Лимонады и газировка", bgClass: C.drinks, categoryIds: ["drinks"], colSpan: 1, image: `${IMG_PROVIANT}/Газировка.png` },
         ],
         [
-          { title: "Чай", bgClass: C.tea_coffee, categoryIds: ["tea_coffee"], colSpan: 1 },
-          { title: "Кофе", bgClass: C.tea_coffee, categoryIds: ["tea_coffee"], colSpan: 1 },
-          { title: "Какао и горячий шоколад", bgClass: C.chocolate, categoryIds: ["tea_coffee"], colSpan: 1 },
+          { title: "Чай", bgClass: C.tea_coffee, categoryIds: ["tea_coffee"], colSpan: 1, image: `${IMG_PROVIANT}/Чай.png` },
+          { title: "Кофе", bgClass: C.tea_coffee, categoryIds: ["tea_coffee"], colSpan: 1, image: `${IMG_PROVIANT}/Кофе.png` },
+          { title: "Какао и горячий шоколад", bgClass: C.chocolate, categoryIds: ["tea_coffee"], colSpan: 1, image: `${IMG_PROVIANT}/Какао.png` },
         ],
       ],
     },
@@ -189,8 +192,8 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Замороженные продукты",
       rows: [
         [
-          { title: "Пельмени и вареники", bgClass: C.frozen, categoryIds: ["frozen"], colSpan: 1 },
-          { title: "Замороженные овощи", bgClass: C.frozen, categoryIds: ["frozen"], colSpan: 1 },
+          { title: "Пельмени и вареники", bgClass: C.frozen, categoryIds: ["frozen"], colSpan: 1, image: `${IMG_PROVIANT}/Вареники.png` },
+          { title: "Замороженные овощи", bgClass: C.frozen, categoryIds: ["frozen"], colSpan: 1, image: `${IMG_PROVIANT}/Замороженные_Овощи.png` },
           { title: "Мороженое", bgClass: C.frozen, categoryIds: ["frozen"], colSpan: 1 },
         ],
         [
@@ -637,13 +640,13 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Деликатесы",
       rows: [
         [
-          { title: "Мясные деликатесы", bgClass: C.deli, categoryIds: ["deli"], colSpan: 2 },
-          { title: "Рыбные закуски", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1 },
+          { title: "Мясные деликатесы", bgClass: C.deli, categoryIds: ["deli"], colSpan: 2, image: `${IMG_GASTRONOM}/Мясные_деликатесы.png` },
+          { title: "Рыбные закуски", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1, image: `${IMG_GASTRONOM}/Рыбные_закуски.png` },
         ],
         [
-          { title: "Сырная тарелка", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1 },
-          { title: "Оливки и маслины", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1 },
-          { title: "Паштеты и террины", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1 },
+          { title: "Сырная тарелка", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1, image: `${IMG_GASTRONOM}/Сырная_Тарелка.png` },
+          { title: "Оливки и маслины", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1, image: `${IMG_GASTRONOM}/Оливки.png` },
+          { title: "Паштеты и террины", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1, image: `${IMG_GASTRONOM}/Паштет.png` },
         ],
       ],
     },
@@ -651,9 +654,9 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Соусы и заправки",
       rows: [
         [
-          { title: "Песто и заправки", bgClass: C.sauces, categoryIds: ["sauces"], colSpan: 1 },
-          { title: "Кетчуп и горчица", bgClass: C.sauces, categoryIds: ["sauces"], colSpan: 1 },
-          { title: "Соевый и азиатские", bgClass: C.sauces, categoryIds: ["sauces"], colSpan: 1 },
+          { title: "Песто и заправки", bgClass: C.sauces, categoryIds: ["sauces"], colSpan: 1, image: `${IMG_GASTRONOM}/Песто.png` },
+          { title: "Кетчуп и горчица", bgClass: C.sauces, categoryIds: ["sauces"], colSpan: 1, image: `${IMG_GASTRONOM}/Кетчуп_Горчица.png` },
+          { title: "Соевый и азиатские", bgClass: C.sauces, categoryIds: ["sauces"], colSpan: 1, image: `${IMG_GASTRONOM}/Соевый_Соус.png` },
         ],
       ],
     },
@@ -661,8 +664,8 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
       title: "Для праздничного стола",
       rows: [
         [
-          { title: "Сеты закусок", bgClass: C.combo, categoryIds: ["deli", "sauces"], colSpan: 2 },
-          { title: "Подарочные наборы", bgClass: C.gift, categoryIds: ["deli", "sauces"], colSpan: 1 },
+          { title: "Сеты закусок", bgClass: C.combo, categoryIds: ["deli", "sauces"], colSpan: 2, image: `${IMG_GASTRONOM}/Сеты_закусок.png` },
+          { title: "Подарочные наборы", bgClass: C.gift, categoryIds: ["deli", "sauces"], colSpan: 1, image: `${IMG_GASTRONOM}/Подарочные_наборы.png` },
         ],
       ],
     },

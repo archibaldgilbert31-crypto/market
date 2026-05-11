@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bell, CreditCard, HelpCircle, LogIn, LogOut, MapPin, Settings, ChevronRight, Shield, Store, TrendingUp } from "lucide-react";
+import { Bell, CreditCard, Heart, HelpCircle, LogIn, LogOut, MapPin, Settings, ChevronRight, Shield, Store, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router";
 import { Header } from "@/ui/shared/Header";
 import { useAuthStore } from "@/ui/state/authStore";
@@ -70,6 +70,7 @@ export function Profile() {
     ...(user?.role === "SELLER"
       ? [{ icon: <Store size={20} />, label: "Мой магазин", action: () => nav("/seller-cabinet") }]
       : []),
+    { icon: <Heart size={20} />, label: "Избранное", action: () => nav("/favorites") },
     { icon: <CreditCard size={20} />, label: "Способы оплаты", action: () => alert("Скоро") },
     { icon: <Bell size={20} />, label: "Уведомления", badge: "3", action: () => alert("Скоро") },
     { icon: <HelpCircle size={20} />, label: "Помощь и поддержка", action: () => alert("Скоро") },
