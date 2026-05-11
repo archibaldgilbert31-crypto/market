@@ -3,6 +3,7 @@ import type { Prisma } from "@prisma/client";
 import { prisma } from "../utils/prisma.js";
 import { optionalAuthenticate } from "../middleware/optionalAuth.js";
 import { decrementProductStock } from "../utils/productSizeStock.js";
+import { isRestaurantVitrine } from "../utils/vitrineKinds.js";
 
 export const ordersRouter = Router();
 
@@ -107,19 +108,26 @@ ordersRouter.post("/", optionalAuthenticate, async (req: Request, res: Response)
           res.status(400).json({ error: `Недопустимый размер для «${productRow.title}»` });
           return;
         }
-        const mq = getMatrixSkuQty(sizesAttrs, v);
-        if (mq !== null) {
-          if (mq < ln.quantity) {
-            res.status(400).json({ error: `Недостаточно единиц размера ${v} («${productRow.title}»)` });
+      }
+
+      if (!isRestaurantVitrine(productRow.vitrineType)) {
+        if (hasSizeMatrix(productRow)) {
+          const v = typeof ln.variantId === "string" && ln.variantId.trim() ? ln.variantId.trim() : "";
+          const sizesAttrs = productRow.attributes;
+          const mq = getMatrixSkuQty(sizesAttrs, v);
+          if (mq !== null) {
+            if (mq < ln.quantity) {
+              res.status(400).json({ error: `Недостаточно единиц размера ${v} («${productRow.title}»)` });
+              return;
+            }
+          } else if (productRow.stockQty < ln.quantity) {
+            res.status(400).json({ error: `Недостаточно товара на складе: «${productRow.title}»` });
             return;
           }
         } else if (productRow.stockQty < ln.quantity) {
           res.status(400).json({ error: `Недостаточно товара на складе: «${productRow.title}»` });
           return;
         }
-      } else if (productRow.stockQty < ln.quantity) {
-        res.status(400).json({ error: `Недостаточно товара на складе: «${productRow.title}»` });
-        return;
       }
     }
 
@@ -160,15 +168,17 @@ ordersRouter.post("/", optionalAuthenticate, async (req: Request, res: Response)
           },
         });
 
-        const nextStock = decrementProductStock(product, ln.quantity, variantKey);
-        await tx.product.update({
-          where: { id: product.id },
-          data: {
-            stockQty: nextStock.stockQty,
-            inStock: nextStock.inStock,
-            attributes: nextStock.attributes as Prisma.InputJsonValue,
-          },
-        });
+        if (!isRestaurantVitrine(product.vitrineType)) {
+          const nextStock = decrementProductStock(product, ln.quantity, variantKey);
+          await tx.product.update({
+            where: { id: product.id },
+            data: {
+              stockQty: nextStock.stockQty,
+              inStock: nextStock.inStock,
+              attributes: nextStock.attributes as Prisma.InputJsonValue,
+            },
+          });
+        }
       }
 
       return created.id;

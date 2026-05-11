@@ -1,5 +1,6 @@
 import type { CartItem } from "@/ui/state/types";
 import type { Product } from "@/ui/state/types";
+import { isRestaurantVitrine } from "@/ui/lib/vitrineKinds";
 
 export const OUT_OF_STOCK_LABEL = "Нет в наличии";
 
@@ -59,6 +60,7 @@ export function productHasSizeOptions(product: Product): boolean {
 
 export function productLevelAvailable(product: Product): boolean {
   if (!product.inStock) return false;
+  if (isRestaurantVitrine(product.vitrineType)) return true;
   const sq = product.stockQty;
   if (sq !== undefined && sq <= 0) return false;
   return true;
@@ -66,6 +68,11 @@ export function productLevelAvailable(product: Product): boolean {
 
 /** Доступна ли позиция (без размера или конкретный variantId размера). */
 export function isVariantAvailable(product: Product, variantId?: string): boolean {
+  if (isRestaurantVitrine(product.vitrineType)) {
+    if (!productHasSizeOptions(product)) return product.inStock !== false;
+    const vid = variantId !== undefined && variantId !== null ? normalizeSku(String(variantId)) : "";
+    return Boolean(vid && sizeDeclared(product, vid) && product.inStock !== false);
+  }
   if (!productHasSizeOptions(product)) {
     return productLevelAvailable(product);
   }
@@ -83,6 +90,11 @@ export function isVariantAvailable(product: Product, variantId?: string): boolea
 export function firstAvailableSize(product: Product): string | null {
   const sizes = product.attributes?.size;
   if (!Array.isArray(sizes) || sizes.length === 0) return null;
+
+  if (isRestaurantVitrine(product.vitrineType)) {
+    const first = sizes[0];
+    return first != null ? normalizeSku(String(first)) : null;
+  }
 
   const map = parseSizeStock(product);
   if (map && Object.keys(map).length > 0) {

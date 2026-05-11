@@ -6,6 +6,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { normalizeRussianPhone } from "../src/utils/phone.js";
+import { isRestaurantVitrine } from "../src/utils/vitrineKinds.js";
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
@@ -57,19 +58,33 @@ type CatalogFile = {
   filterConfig: Record<string, unknown>;
 };
 
-/** Одежда с `size`, но без sizeStock → заполняем дефолтным остатком; иначе stockQty синхронизируем с матрицей. */
+const DEFAULT_SHELF_UNITS = 50;
+const PER_CLOTHING_SIZE_UNITS = 50;
+
+/** Одежда: по каждому размеру одинаковый остаток; прочие витрины — общий stockQty. Рестораны без склада на карточке. */
 function materializeStockForProduct(p: CatalogProduct): {
   attributes: object | undefined;
   stockQty: number;
   inStock: boolean;
 } {
   const attrsRaw = p.attributes;
-  const defaultShelf = 100;
+
+  if (isRestaurantVitrine(p.vitrineType)) {
+    const attrs =
+      attrsRaw && typeof attrsRaw === "object" && !Array.isArray(attrsRaw)
+        ? { ...(attrsRaw as Record<string, unknown>) }
+        : undefined;
+    return {
+      attributes: attrs as object | undefined,
+      stockQty: 0,
+      inStock: p.inStock ?? true,
+    };
+  }
 
   if (!attrsRaw || typeof attrsRaw !== "object" || Array.isArray(attrsRaw)) {
     return {
       attributes: attrsRaw === undefined ? undefined : (attrsRaw as object),
-      stockQty: defaultShelf,
+      stockQty: DEFAULT_SHELF_UNITS,
       inStock: p.inStock ?? true,
     };
   }
@@ -77,30 +92,22 @@ function materializeStockForProduct(p: CatalogProduct): {
   const attrs = { ...(attrsRaw as Record<string, unknown>) };
 
   if (p.vitrineType !== "clothes") {
-    return { attributes: attrs as object, stockQty: defaultShelf, inStock: p.inStock ?? true };
+    return { attributes: attrs as object, stockQty: DEFAULT_SHELF_UNITS, inStock: p.inStock ?? true };
   }
 
   const sz = attrs.size;
   if (!Array.isArray(sz) || sz.length === 0) {
-    return { attributes: attrs as object, stockQty: defaultShelf, inStock: p.inStock ?? true };
+    return { attributes: attrs as object, stockQty: DEFAULT_SHELF_UNITS, inStock: p.inStock ?? true };
   }
 
-  const existing = attrs.sizeStock;
-  if (!existing || typeof existing !== "object" || Array.isArray(existing)) {
-    const generated: Record<string, number> = {};
-    for (const s of sz) {
-      const k = String(s).trim();
-      if (k) generated[k] = 10;
-    }
-    attrs.sizeStock = generated;
+  const generated: Record<string, number> = {};
+  for (const s of sz) {
+    const k = String(s).trim();
+    if (k) generated[k] = PER_CLOTHING_SIZE_UNITS;
   }
+  attrs.sizeStock = generated;
 
-  const map = attrs.sizeStock as Record<string, unknown>;
-  let sum = 0;
-  for (const v of Object.values(map)) {
-    const n = typeof v === "number" ? v : Number(String(v));
-    if (Number.isFinite(n)) sum += Math.max(0, Math.floor(n));
-  }
+  const sum = PER_CLOTHING_SIZE_UNITS * Object.keys(generated).length;
 
   return {
     attributes: attrs as object,

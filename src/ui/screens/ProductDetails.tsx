@@ -19,6 +19,7 @@ import {
   sizeChartTableLabels,
   sizeChartUsesThirdColumn,
 } from "@/ui/lib/clothingSizeGridKind";
+import { isRestaurantVitrine } from "@/ui/lib/vitrineKinds";
 
 export function ProductDetails() {
   const nav = useNavigate();
@@ -165,12 +166,18 @@ export function ProductDetails() {
             </button>
             <span
               className={`text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider ${
-                lineUnavailable
-                  ? "bg-gray-100 text-gray-600"
-                  : "bg-green-50 text-green-700"
+                isRestaurantVitrine(product.vitrineType)
+                  ? "bg-amber-50 text-amber-800"
+                  : lineUnavailable
+                    ? "bg-gray-100 text-gray-600"
+                    : "bg-green-50 text-green-700"
               }`}
             >
-              {lineUnavailable ? "Нет в наличии" : "В наличии"}
+              {isRestaurantVitrine(product.vitrineType)
+                ? "Готовим к заказу"
+                : lineUnavailable
+                  ? "Нет в наличии"
+                  : "В наличии"}
             </span>
             <span
               className={`text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider ${
