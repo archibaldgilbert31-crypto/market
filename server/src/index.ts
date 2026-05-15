@@ -8,6 +8,7 @@ import { catalogRouter } from "./routes/catalog.js";
 import { ordersRouter } from "./routes/orders.js";
 import { sellerRouter } from "./routes/seller.js";
 import { ensureProductUploadDir } from "./utils/productImageUpload.js";
+import { syncFilterConfigFromCatalog } from "./utils/syncFilterConfigFromCatalog.js";
 
 dotenv.config();
 
@@ -41,6 +42,9 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.listen(PORT, () => {
-  console.log(`[server] Сервер запущен на http://localhost:${PORT}`);
-});
+void (async () => {
+  await syncFilterConfigFromCatalog();
+  app.listen(PORT, () => {
+    console.log(`[server] Сервер запущен на http://localhost:${PORT}`);
+  });
+})();
