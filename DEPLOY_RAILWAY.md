@@ -16,7 +16,9 @@
 | Build Command | `npm ci` (или `npm install`) затем `npm run build` |
 | Start Command | `npm run start` |
 
-По умолчанию в `package.json`: перед сборкой очищается `dist` (`prebuild`), затем `build` = `prisma generate && tsc`, `start` = `prisma migrate deploy && node dist/index.js`. Клиент Prisma — `prisma-client-js` в `node_modules/@prisma/client` (импорт `import { PrismaClient } from "@prisma/client"`).
+По умолчанию в `package.json`: перед сборкой очищается `dist` (`prebuild`), затем `build` = `prisma generate && tsc`, после чего **`postbuild`** копирует `prisma/seed-data/catalog.json` в **`dist/seed-data/`** (чтобы на хостинге точно был файл для синхронизации `filterConfig`). `start` = `prisma migrate deploy && node dist/index.js`.
+
+**Важно:** в Custom Build Command Railway указывайте именно **`npm run build`** из папки `server`, а не голый `tsc`, иначе **`postbuild`** не выполнится и копия `catalog.json` не попадёт в образ.
 
 ### Переменные окружения (Backend)
 

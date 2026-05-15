@@ -23,7 +23,9 @@ export const useCatalogStore = create<CatalogState>((set) => ({
   fetchBootstrap: async () => {
     set({ loadError: null });
     try {
-      const res = await fetch(`${API_BASE_URL}/api/catalog/bootstrap`);
+      const res = await fetch(`${API_BASE_URL}/api/catalog/bootstrap`, {
+        cache: "no-store",
+      });
       if (!res.ok) {
         const text = await res.text();
         throw new Error(text || res.statusText);

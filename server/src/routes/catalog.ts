@@ -5,6 +5,9 @@ import { parseSellerCustomCategories } from "../utils/sellerCategories.js";
 export const catalogRouter = Router();
 
 catalogRouter.get("/bootstrap", async (_req, res) => {
+  /** Витрина не должна кэшировать JSON каталога (CDN/браузер), иначе после изменений в БД «ничего не меняется». */
+  res.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+
   try {
     const [sellers, products, settings] = await Promise.all([
       prisma.seller.findMany({ orderBy: { id: "asc" } }),
