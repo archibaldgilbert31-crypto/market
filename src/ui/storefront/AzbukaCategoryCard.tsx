@@ -4,6 +4,8 @@ type Props = {
   title: string;
   bgClass: string;
   imageSrc?: string;
+  /** Только текст на цветном фоне, без фото и без плейсхолдера */
+  textOnly?: boolean;
   discountBadge?: string;
   colSpan: StorefrontCardSpan;
   onClick: () => void;
@@ -15,8 +17,18 @@ const SPAN_MAP: Record<StorefrontCardSpan, string> = {
   3: "col-span-3",
 };
 
-export function AzbukaCategoryCard({ title, bgClass, imageSrc, discountBadge, colSpan, onClick }: Props) {
+export function AzbukaCategoryCard({
+  title,
+  bgClass,
+  imageSrc,
+  textOnly,
+  discountBadge,
+  colSpan,
+  onClick,
+}: Props) {
   const isWide = colSpan >= 2;
+  const showPhoto = Boolean(imageSrc);
+  const showPlaceholder = !textOnly && !showPhoto;
 
   return (
     <button
@@ -25,6 +37,7 @@ export function AzbukaCategoryCard({ title, bgClass, imageSrc, discountBadge, co
       className={`
         group relative ${SPAN_MAP[colSpan]} rounded-[20px] overflow-hidden text-left
         transition-all duration-200 active:scale-[0.97]
+        ${textOnly ? "flex flex-col justify-center items-stretch" : ""}
         ${bgClass}
       `}
       style={{ minHeight: isWide ? 130 : 140 }}
@@ -33,7 +46,10 @@ export function AzbukaCategoryCard({ title, bgClass, imageSrc, discountBadge, co
       <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-black/[0.03] pointer-events-none" />
 
       {/* text content */}
-      <div className="relative z-10 p-3.5 pb-2" style={{ maxWidth: imageSrc ? (isWide ? "65%" : "60%") : "100%" }}>
+      <div
+        className={`relative z-10 ${textOnly ? "px-4 py-4 flex flex-col justify-center flex-1 w-full" : "p-3.5 pb-2"}`}
+        style={{ maxWidth: textOnly ? undefined : showPhoto ? (isWide ? "65%" : "60%") : "100%" }}
+      >
         <span className="text-[13px] leading-[1.25] font-bold text-gray-900 block">
           {title}
         </span>
@@ -45,7 +61,7 @@ export function AzbukaCategoryCard({ title, bgClass, imageSrc, discountBadge, co
       </div>
 
       {/* product image */}
-      {imageSrc ? (
+      {showPhoto ? (
         <img
           src={imageSrc}
           alt=""
@@ -57,9 +73,9 @@ export function AzbukaCategoryCard({ title, bgClass, imageSrc, discountBadge, co
             ${isWide ? "w-[44%] max-h-[90%]" : "w-[56%] max-h-[80%]"}
           `}
         />
-      ) : (
+      ) : showPlaceholder ? (
         <div className="pointer-events-none absolute bottom-2 right-3 w-14 h-14 rounded-2xl bg-white/30" />
-      )}
+      ) : null}
     </button>
   );
 }

@@ -159,7 +159,8 @@
       "categoryIds": [
         "groceries",
         "dairy",
-        "milk"
+        "milk",
+        "milk_drink"
       ],
       "title": "Молоко Простоквашино 3.2%",
       "brand": "Простоквашино",
@@ -224,7 +225,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "bakery"
+        "bakery",
+        "bakery_bread"
       ],
       "title": "Хлеб Бородинский",
       "price": 45,
@@ -271,7 +273,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "fruits"
+        "fruits",
+        "fruit_apples"
       ],
       "title": "Яблоки Гренни Смит",
       "price": 159,
@@ -386,7 +389,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "eggs"
+        "eggs",
+        "eggs_chicken"
       ],
       "title": "Яйца куриные С0 10шт",
       "price": 120,
@@ -407,7 +411,8 @@
       "categoryIds": [
         "groceries",
         "dairy",
-        "cheese"
+        "cheese",
+        "cheese_hard"
       ],
       "title": "Сыр Гауда 45%",
       "price": 340,
@@ -427,7 +432,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "drinks"
+        "drinks",
+        "drinks_juice"
       ],
       "title": "Сок яблочный прямого отжима 1 л",
       "price": 149,
@@ -437,6 +443,118 @@
       "unitLabel": "1 л",
       "rating": 4.6,
       "reviewsCount": 28,
+      "inStock": true,
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-meat-beef-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "meat", "meat_beef"],
+      "title": "Стейк говяжий «Рибай» охлаждённый",
+      "price": 890,
+      "images": [
+        "https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "ок. 450 г",
+      "rating": 4.85,
+      "reviewsCount": 63,
+      "inStock": true,
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-meat-pork-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "meat", "meat_pork"],
+      "title": "Свиная вырезка без кости",
+      "price": 520,
+      "images": [
+        "https://images.unsplash.com/photo-1602470520998-f4fac6c88796?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "ок. 600 г",
+      "rating": 4.72,
+      "reviewsCount": 41,
+      "inStock": true,
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-meat-chicken-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "meat", "meat_poultry"],
+      "title": "Филе куриное грудка охлаждённое",
+      "price": 289,
+      "images": [
+        "https://images.unsplash.com/photo-1612180156184-da7e8838e97d?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "ок. 900 г",
+      "rating": 4.91,
+      "reviewsCount": 204,
+      "inStock": true,
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-meat-mince-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "meat", "meat_mince"],
+      "title": "Фарш мясной говядина-свинина, охлаждённый",
+      "price": 319,
+      "images": [
+        "/assets/marketeat/seller-1/Фарш.png"
+      ],
+      "unitLabel": "500 г",
+      "rating": 4.58,
+      "reviewsCount": 88,
+      "inStock": true,
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-meat-sausage-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "meat", "meat_sausage"],
+      "title": "Сосиски молочные классические",
+      "price": 229,
+      "images": [
+        "/assets/pngcard/food/meat_slicing.png"
+      ],
+      "unitLabel": "450 г",
+      "rating": 4.63,
+      "reviewsCount": 112,
+      "inStock": true,
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-fish-fresh-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fish", "fish_fresh"],
+      "title": "Филе лосося охлаждённое",
+      "price": 780,
+      "images": [
+        "/assets/marketeat/seller-1/Рыба_Морепродукты.png"
+      ],
+      "unitLabel": "ок. 350 г",
+      "rating": 4.88,
+      "reviewsCount": 97,
+      "inStock": true,
+      "deliveryEtaMinutes": 15
+    },
+    {
+      "id": "food-fish-smoked-1",
+      "sellerId": "seller-1",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fish", "fish_smoked"],
+      "title": "Форель слабосолёная филе",
+      "price": 590,
+      "images": [
+        "/assets/marketeat/seller-14/Рыба.png"
+      ],
+      "unitLabel": "200 г",
+      "rating": 4.71,
+      "reviewsCount": 54,
       "inStock": true,
       "deliveryEtaMinutes": 15
     },
@@ -1495,7 +1613,8 @@
       "vitrineType": "ready_food",
       "categoryIds": [
         "ready_food",
-        "soups"
+        "soups",
+        "soup_hot"
       ],
       "title": "Борщ с говядиной",
       "price": 180,
@@ -1515,7 +1634,8 @@
       "vitrineType": "ready_food",
       "categoryIds": [
         "ready_food",
-        "second_courses"
+        "second_courses",
+        "second_meat"
       ],
       "title": "Пюре с котлетой",
       "price": 210,
@@ -1535,7 +1655,8 @@
       "vitrineType": "ready_food",
       "categoryIds": [
         "ready_food",
-        "salads"
+        "salads",
+        "salad_meat"
       ],
       "title": "Салат «Цезарь» с курицей",
       "price": 220,
@@ -1970,7 +2091,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "vegetables"
+        "vegetables",
+        "veg_tomato"
       ],
       "title": "Помидоры черри на ветке",
       "price": 189,
@@ -1989,7 +2111,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "greens"
+        "greens",
+        "greens_bundle"
       ],
       "title": "Укроп и петрушка (пучок)",
       "price": 69,
@@ -2008,7 +2131,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "fruits"
+        "fruits",
+        "fruit_bananas"
       ],
       "title": "Бананы Эквадор",
       "price": 129,
@@ -2022,12 +2146,340 @@
       "deliveryEtaMinutes": 25
     },
     {
+      "id": "green-fruit-2",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": [
+        "groceries",
+        "fruits",
+        "fruit_berries"
+      ],
+      "title": "Голубика свежая",
+      "price": 249,
+      "oldPrice": 329,
+      "images": [
+        "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "125 г",
+      "rating": 4.78,
+      "reviewsCount": 56,
+      "badge": "-24%",
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-2",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_cucumber"],
+      "title": "Огурцы короткоплодные свежие",
+      "price": 99,
+      "images": [
+        "https://images.unsplash.com/photo-1589533610925-381eb02f0936?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "500 г",
+      "rating": 4.74,
+      "reviewsCount": 31,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-3",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_potato"],
+      "title": "Картофель молодой мытый",
+      "price": 79,
+      "images": [
+        "https://images.unsplash.com/photo-1518977827872-f00448629977?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "1 кг",
+      "rating": 4.82,
+      "reviewsCount": 67,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-4",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_mushrooms"],
+      "title": "Шампиньоны свежие",
+      "price": 169,
+      "images": [
+        "https://images.unsplash.com/photo-1567336207868-bc679475968c?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "400 г",
+      "rating": 4.69,
+      "reviewsCount": 22,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-3",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits", "fruit_stone"],
+      "title": "Персики спелые",
+      "price": 219,
+      "images": [
+        "https://images.unsplash.com/photo-1596591606975-97ee6cef747a?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "600 г",
+      "rating": 4.76,
+      "reviewsCount": 48,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-4",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits", "fruit_melon"],
+      "title": "Арбуз без косточек",
+      "price": 189,
+      "images": [
+        "https://images.unsplash.com/photo-1587735243475-61d785fa438f?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "ок. 4 кг",
+      "rating": 4.65,
+      "reviewsCount": 91,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-5",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits"],
+      "title": "Курага без косточки",
+      "price": 159,
+      "images": [
+        "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=400&q=80"
+      ],
+      "unitLabel": "250 г",
+      "rating": 4.71,
+      "reviewsCount": 18,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-mandarin",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits", "fruit_mandarin"],
+      "title": "Мандарины Марокко",
+      "price": 179,
+      "images": ["https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "1 кг",
+      "rating": 4.73,
+      "reviewsCount": 62,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-orange",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits", "fruit_orange"],
+      "title": "Апельсины для сока",
+      "price": 119,
+      "images": ["https://images.unsplash.com/photo-1582979512210-99b6a53386f9?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "1 кг",
+      "rating": 4.68,
+      "reviewsCount": 41,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-carrot",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_carrot"],
+      "title": "Морковь мытая",
+      "price": 59,
+      "images": ["https://images.unsplash.com/photo-1598170845887-336453d3528f?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "1 кг",
+      "rating": 4.81,
+      "reviewsCount": 54,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-onion",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_onion"],
+      "title": "Лук репчатый",
+      "price": 49,
+      "images": ["https://images.unsplash.com/photo-1618512496249-a77252fe7526?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "1 кг",
+      "rating": 4.7,
+      "reviewsCount": 88,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-garlic",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_garlic"],
+      "title": "Чеснок сухой",
+      "price": 129,
+      "images": ["https://images.unsplash.com/photo-1540148426945-6cfb22b786f5?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "200 г",
+      "rating": 4.65,
+      "reviewsCount": 29,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-cabbage",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_cabbage"],
+      "title": "Капуста белокочанная",
+      "price": 69,
+      "images": ["https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "ок. 2 кг",
+      "rating": 4.77,
+      "reviewsCount": 36,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-pepper",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_pepper"],
+      "title": "Перец болгарский микс",
+      "price": 189,
+      "images": ["https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "500 г",
+      "rating": 4.74,
+      "reviewsCount": 47,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-beet",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_beet"],
+      "title": "Свёкла столовая",
+      "price": 55,
+      "images": ["https://images.unsplash.com/photo-1592419047056-3ef83370be3a?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "1 кг",
+      "rating": 4.69,
+      "reviewsCount": 22,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-zucchini",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_zucchini"],
+      "title": "Кабачки молодые",
+      "price": 99,
+      "images": ["https://images.unsplash.com/photo-1599974579688-8dbddb97542d?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "1 кг",
+      "rating": 4.62,
+      "reviewsCount": 19,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-eggplant",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_eggplant"],
+      "title": "Баклажаны свежие",
+      "price": 149,
+      "images": ["https://images.unsplash.com/photo-1628773827859-f89518252836?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "600 г",
+      "rating": 4.71,
+      "reviewsCount": 15,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-veg-leaves-romaine",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "vegetables", "veg_leaves"],
+      "title": "Салат романо",
+      "price": 119,
+      "images": ["https://images.unsplash.com/photo-1628595351029-c2bf17511435?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "1 шт.",
+      "rating": 4.58,
+      "reviewsCount": 27,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-pear",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits", "fruit_pears"],
+      "title": "Груши конференция",
+      "price": 199,
+      "images": ["https://images.unsplash.com/photo-1514756331096-242fdeb70d4a?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "500 г",
+      "rating": 4.83,
+      "reviewsCount": 33,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-grapes",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits", "fruit_grapes"],
+      "title": "Виноград тёмный без косточек",
+      "price": 259,
+      "images": ["https://images.unsplash.com/photo-1596363505729-4190a9506133?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "500 г",
+      "rating": 4.79,
+      "reviewsCount": 58,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-kiwi",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits", "fruit_kiwi"],
+      "title": "Киви «Хайв»",
+      "price": 229,
+      "images": ["https://images.unsplash.com/photo-1585059898004-6635b5a68d8a?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "500 г",
+      "rating": 4.66,
+      "reviewsCount": 44,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
+      "id": "green-fruit-avocado",
+      "sellerId": "seller-13",
+      "vitrineType": "groceries",
+      "categoryIds": ["groceries", "fruits", "fruit_avocado"],
+      "title": "Авокадо Хасс",
+      "price": 349,
+      "images": ["https://images.unsplash.com/photo-1523049673851-eb196282d6a0?auto=format&fit=crop&w=400&q=80"],
+      "unitLabel": "2 шт.",
+      "rating": 4.87,
+      "reviewsCount": 71,
+      "inStock": true,
+      "deliveryEtaMinutes": 25
+    },
+    {
       "id": "green-grocery-1",
       "sellerId": "seller-13",
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "grocery"
+        "grocery",
+        "grocery_grains"
       ],
       "title": "Гречка ядрица 900 г",
       "price": 95,
@@ -2046,7 +2498,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "deli"
+        "deli",
+        "deli_cuts"
       ],
       "title": "Прошутто пармская нарезка",
       "price": 420,
@@ -2065,7 +2518,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "sauces"
+        "sauces",
+        "sauces_pesto"
       ],
       "title": "Соус песто базиликовый",
       "price": 210,
@@ -2084,7 +2538,8 @@
       "vitrineType": "groceries",
       "categoryIds": [
         "groceries",
-        "deli"
+        "deli",
+        "deli_olives"
       ],
       "title": "Оливки каламата без косточки",
       "price": 185,
@@ -2123,19 +2578,43 @@
         },
         {
           "id": "milk",
-          "label": "Молоко и кефир"
+          "label": "Молоко и кефир",
+          "subcategories": [
+            { "id": "milk_drink", "label": "Молоко" },
+            { "id": "milk_kefir", "label": "Кефир и ряженка" },
+            { "id": "milk_yogurt", "label": "Йогурты питьевые" }
+          ]
         },
         {
           "id": "eggs",
-          "label": "Яйца"
+          "label": "Яйца",
+          "subcategories": [
+            { "id": "eggs_chicken", "label": "Куриные" },
+            { "id": "eggs_quail", "label": "Перепелиные" }
+          ]
         },
         {
           "id": "cheese",
-          "label": "Сыры"
+          "label": "Сыры",
+          "subcategories": [
+            { "id": "cheese_slice", "label": "Нарезка" },
+            { "id": "cheese_hard", "label": "Твёрдый и полутвёрдый" },
+            { "id": "cheese_soft", "label": "Мягкий" },
+            { "id": "cheese_cream", "label": "Творожный и сливочный" },
+            { "id": "cheese_melt", "label": "Плавленый" },
+            { "id": "cheese_brine", "label": "Рассольный" },
+            { "id": "cheese_mold", "label": "С плесенью" },
+            { "id": "cheese_halal", "label": "Халяль" }
+          ]
         },
         {
           "id": "bakery",
           "label": "Хлеб и выпечка",
+          "subcategories": [
+            { "id": "bakery_bread", "label": "Хлеб" },
+            { "id": "bakery_buns", "label": "Булочки и выпечка" },
+            { "id": "bakery_lavash", "label": "Лаваш и лепёшки" }
+          ],
           "attributes": [
             {
               "id": "flour",
@@ -2156,6 +2635,19 @@
         {
           "id": "fruits",
           "label": "Фрукты",
+          "subcategories": [
+            { "id": "fruit_bananas", "label": "Бананы" },
+            { "id": "fruit_apples", "label": "Яблоки" },
+            { "id": "fruit_mandarin", "label": "Мандарины" },
+            { "id": "fruit_orange", "label": "Апельсины" },
+            { "id": "fruit_grapes", "label": "Виноград" },
+            { "id": "fruit_pears", "label": "Груши" },
+            { "id": "fruit_berries", "label": "Ягоды" },
+            { "id": "fruit_stone", "label": "Персики и сливы" },
+            { "id": "fruit_melon", "label": "Арбузы и дыни" },
+            { "id": "fruit_kiwi", "label": "Киви" },
+            { "id": "fruit_avocado", "label": "Авокадо" }
+          ],
           "attributes": [
             {
               "id": "color",
@@ -2189,27 +2681,98 @@
         },
         {
           "id": "drinks",
-          "label": "Напитки"
+          "label": "Напитки",
+          "subcategories": [
+            { "id": "drinks_juice", "label": "Соки и нектары" },
+            { "id": "drinks_water", "label": "Вода" },
+            { "id": "drinks_soda", "label": "Лимонады и газировка" },
+            { "id": "drinks_tea", "label": "Чай и холодный чай" }
+          ]
         },
         {
           "id": "vegetables",
-          "label": "Овощи"
+          "label": "Овощи",
+          "subcategories": [
+            { "id": "veg_cucumber", "label": "Огурцы" },
+            { "id": "veg_tomato", "label": "Помидоры" },
+            { "id": "veg_potato", "label": "Картофель" },
+            { "id": "veg_carrot", "label": "Морковь" },
+            { "id": "veg_onion", "label": "Лук" },
+            { "id": "veg_garlic", "label": "Чеснок" },
+            { "id": "veg_cabbage", "label": "Капуста" },
+            { "id": "veg_pepper", "label": "Болгарский перец" },
+            { "id": "veg_beet", "label": "Свёкла" },
+            { "id": "veg_zucchini", "label": "Кабачки" },
+            { "id": "veg_eggplant", "label": "Баклажаны" },
+            { "id": "veg_mushrooms", "label": "Грибы" },
+            { "id": "veg_leaves", "label": "Салат и зелень" }
+          ]
+        },
+        {
+          "id": "meat",
+          "label": "Мясо и птица",
+          "subcategories": [
+            { "id": "meat_beef", "label": "Говядина" },
+            { "id": "meat_pork", "label": "Свинина" },
+            { "id": "meat_poultry", "label": "Курица и индейка" },
+            { "id": "meat_lamb", "label": "Баранина" },
+            { "id": "meat_mince", "label": "Фарш" },
+            { "id": "meat_sausage", "label": "Колбасы и сосиски" },
+            { "id": "meat_bacon", "label": "Бекон и грудинка" },
+            { "id": "meat_offal", "label": "Субпродукты" },
+            { "id": "meat_marinated", "label": "Шашлык и маринады" }
+          ]
+        },
+        {
+          "id": "fish",
+          "label": "Рыба и морепродукты",
+          "subcategories": [
+            { "id": "fish_fresh", "label": "Свежая рыба" },
+            { "id": "fish_smoked", "label": "Копчёная и слабосолёная" },
+            { "id": "fish_frozen", "label": "Замороженная" },
+            { "id": "fish_seafood", "label": "Морепродукты" },
+            { "id": "fish_canned", "label": "Консервы" }
+          ]
         },
         {
           "id": "greens",
-          "label": "Зелень"
+          "label": "Зелень",
+          "subcategories": [
+            { "id": "greens_bundle", "label": "Пучки и наборы" },
+            { "id": "greens_micro", "label": "Микрозелень" }
+          ]
         },
         {
           "id": "grocery",
-          "label": "Бакалея"
+          "label": "Бакалея",
+          "subcategories": [
+            { "id": "grocery_grains", "label": "Крупы и злаки" },
+            { "id": "grocery_pasta", "label": "Макароны" },
+            { "id": "grocery_flour", "label": "Мука и смеси" },
+            { "id": "grocery_sugar", "label": "Сахар и соль" },
+            { "id": "grocery_oil", "label": "Масло растительное" },
+            { "id": "grocery_spice", "label": "Специи и приправы" }
+          ]
         },
         {
           "id": "deli",
-          "label": "Деликатесы"
+          "label": "Деликатесы",
+          "subcategories": [
+            { "id": "deli_cuts", "label": "Нарезка" },
+            { "id": "deli_cured", "label": "Вяленое и сухое" },
+            { "id": "deli_olives", "label": "Оливки и маслины" },
+            { "id": "deli_antipasti", "label": "Антипасти" }
+          ]
         },
         {
           "id": "sauces",
-          "label": "Соусы и заправки"
+          "label": "Соусы и заправки",
+          "subcategories": [
+            { "id": "sauces_pesto", "label": "Песто и соусы для пасты" },
+            { "id": "sauces_ketchup", "label": "Кетчуп и майонез" },
+            { "id": "sauces_oilvinegar", "label": "Масло и уксус" },
+            { "id": "sauces_asian", "label": "Азиатские соусы" }
+          ]
         }
       ]
     },
@@ -2217,15 +2780,30 @@
       "categories": [
         {
           "id": "soups",
-          "label": "Супы"
+          "label": "Супы",
+          "subcategories": [
+            { "id": "soup_hot", "label": "Горячие супы" },
+            { "id": "soup_cold", "label": "Холодные супы" },
+            { "id": "soup_puree", "label": "Пюре-супы" }
+          ]
         },
         {
           "id": "second_courses",
-          "label": "Вторые блюда"
+          "label": "Вторые блюда",
+          "subcategories": [
+            { "id": "second_meat", "label": "Мясные" },
+            { "id": "second_fish", "label": "Рыбные" },
+            { "id": "second_side", "label": "Гарниры" }
+          ]
         },
         {
           "id": "salads",
-          "label": "Салаты"
+          "label": "Салаты",
+          "subcategories": [
+            { "id": "salad_veg", "label": "Овощные" },
+            { "id": "salad_meat", "label": "С мясом и рыбой" },
+            { "id": "salad_fruit", "label": "Фруктовые" }
+          ]
         }
       ]
     },

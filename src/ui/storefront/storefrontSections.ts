@@ -83,7 +83,7 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
         [
           { title: "Успей купить", bgClass: C.discount, discountBadge: "−25%", categoryIds: ["dairy", "fruits"], colSpan: 1, image: "/assets/pngcard/food/milk.png" },
           { title: "Скидки на молочку", bgClass: C.discount, discountBadge: "−20%", categoryIds: ["dairy"], colSpan: 1, image: "/assets/pngcard/food/cheese.png" },
-          { title: "Новинки недели", bgClass: C.new_arrivals, categoryIds: [], colSpan: 1 },
+          { title: "Новинки недели", bgClass: C.new_arrivals, categoryIds: [], colSpan: 1, hideImage: true },
         ],
       ],
     },
@@ -124,8 +124,22 @@ export const STOREFRONT_SECTIONS: Record<string, StorefrontSectionDef[]> = {
           { title: "Рыба и морепродукты", bgClass: C.fish, categoryIds: ["fish"], colSpan: 1, image: `${IMG_PROVIANT}/Рыба_Морепродукты.png` },
         ],
         [
-          { title: "Колбасы и сосиски", bgClass: C.meat, categoryIds: ["meat"], colSpan: 1, image: "/assets/pngcard/food/meat_slicing.png" },
-          { title: "Фарш", bgClass: C.meat, categoryIds: ["meat"], colSpan: 1, image: `${IMG_PROVIANT}/Фарш.png` },
+          {
+            title: "Колбасы и сосиски",
+            bgClass: C.meat,
+            categoryIds: ["meat", "meat_sausage"],
+            categoryMatch: "all",
+            colSpan: 1,
+            image: "/assets/pngcard/food/meat_slicing.png",
+          },
+          {
+            title: "Фарш",
+            bgClass: C.meat,
+            categoryIds: ["meat", "meat_mince"],
+            categoryMatch: "all",
+            colSpan: 1,
+            image: `${IMG_PROVIANT}/Фарш.png`,
+          },
           { title: "Деликатесы", bgClass: C.deli, categoryIds: ["deli"], colSpan: 1, image: `${IMG_PROVIANT}/Мясные_деликатесы.png` },
         ],
       ],

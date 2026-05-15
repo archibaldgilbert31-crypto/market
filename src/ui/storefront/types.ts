@@ -12,6 +12,8 @@ export type StorefrontCardDef = {
   colSpan: StorefrontCardSpan;
   /** Статическая картинка карточки (приоритет над автоподбором из товаров) */
   image?: string;
+  /** Без картинки и без плейсхолдера — только фон и текст */
+  hideImage?: boolean;
 };
 
 export type StorefrontSectionDef = {

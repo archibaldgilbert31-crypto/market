@@ -6,8 +6,9 @@ import { useCatalogStore } from "@/ui/state/catalogStore";
 import { Star } from "lucide-react";
 import { isRestaurantSeller } from "@/ui/constants/sellers";
 import { SellerAzbukaStorefront } from "@/ui/storefront/SellerAzbukaStorefront";
-import { filterProductsByCard } from "@/ui/storefront/resolveStorefront";
+import { BrowseCategoryChipBar } from "@/ui/storefront/BrowseCategoryChipBar";
 import type { StorefrontCategoryMatch } from "@/ui/storefront/types";
+import { productMatchesBrowseCategories } from "@/ui/lib/browseCategoryAliases";
 
 const FOOD_CATEGORIES = [
   { id: "all", label: "Все товары" },
@@ -25,10 +26,12 @@ export function SellerPage() {
   const { id } = useParams();
   const sellers = useCatalogStore((s) => s.sellers);
   const products = useCatalogStore((s) => s.products);
+  const filterConfig = useCatalogStore((s) => s.filterConfig);
   const loaded = useCatalogStore((s) => s.loaded);
   const [activeCategory, setActiveCategory] = useState("all");
   const [browse, setBrowse] = useState<{
     title: string;
+    rootCategoryIds: string[];
     categoryIds: string[];
     categoryMatch?: StorefrontCategoryMatch;
   } | null>(null);
@@ -58,11 +61,10 @@ export function SellerPage() {
 
   const browseList = useMemo(() => {
     if (!browse) return [];
-    const list = filterProductsByCard(
-      sellerProducts,
-      browse.categoryIds,
-      browse.categoryMatch ?? "any",
-    );
+    const match = browse.categoryMatch ?? "any";
+    const ids = browse.categoryIds;
+    if (ids.length === 0) return [...sellerProducts].sort((a, b) => a.title.localeCompare(b.title, "ru"));
+    const list = sellerProducts.filter((p) => productMatchesBrowseCategories(p.categoryIds, ids, match));
     return [...list].sort((a, b) => a.title.localeCompare(b.title, "ru"));
   }, [browse, sellerProducts]);
 
@@ -181,12 +183,26 @@ export function SellerPage() {
     );
   }
 
+  const showBrowseSubfilters = vitrineType === "groceries" || vitrineType === "ready_food";
+
   /* ─── Продукты, готовая еда, электроника, инструменты: витрина «Азбука» ─── */
   if (browse) {
     return (
       <div className="min-h-screen bg-[var(--fresh-bg)] pb-24">
         <Header title={browse.title} onBack={() => setBrowse(null)} />
         <div className="px-4 pt-2">
+          {showBrowseSubfilters ? (
+            <BrowseCategoryChipBar
+              vitrineType={vitrineType}
+              filterConfig={filterConfig}
+              sectionTitle={browse.title}
+              rootCategoryIds={browse.rootCategoryIds}
+              activeCategoryIds={browse.categoryIds}
+              onSelectFilter={(nextIds) =>
+                setBrowse((prev) => (prev ? { ...prev, categoryIds: [...nextIds] } : null))
+              }
+            />
+          ) : null}
           <p className="text-sm text-gray-500 mb-3">Найдено позиций: {browseList.length}</p>
           <div className="grid grid-cols-2 gap-3">
             {browseList.map((p) => (
@@ -253,7 +269,12 @@ export function SellerPage() {
         vitrineType={vitrineType}
         products={sellerProducts}
         onOpenCategory={(title, categoryIds, categoryMatch) =>
-          setBrowse({ title, categoryIds, categoryMatch })
+          setBrowse({
+            title,
+            rootCategoryIds: [...categoryIds],
+            categoryIds: [...categoryIds],
+            categoryMatch,
+          })
         }
       />
     </div>

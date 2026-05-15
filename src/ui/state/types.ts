@@ -49,7 +49,13 @@ export type Product = {
 
 export type FilterOption = { id: string; label: string };
 export type AttributeFilter = { id: string; label: string; options: FilterOption[] };
-export type CategoryFilter = { id: string; label: string; attributes?: AttributeFilter[] };
+export type CategoryFilter = {
+  id: string;
+  label: string;
+  /** Подразделы — чипы на экране категории магазина продуктов */
+  subcategories?: { id: string; label: string }[];
+  attributes?: AttributeFilter[];
+};
 export type VitrineFilterConfig = { categories: CategoryFilter[] };
 
 export type CartItem = {

@@ -66,7 +66,12 @@ export function SellerAzbukaStorefront({
                         bgClass={card.bgClass}
                         discountBadge={card.discountBadge}
                         colSpan={card.colSpan}
-                        imageSrc={card.image ?? pickHeroImage(products, card.categoryIds, card.categoryMatch ?? "any")}
+                        textOnly={card.hideImage}
+                        imageSrc={
+                          card.hideImage
+                            ? undefined
+                            : (card.image ?? pickHeroImage(products, card.categoryIds, card.categoryMatch ?? "any"))
+                        }
                         onClick={() => onOpenCategory(card.title, card.categoryIds, card.categoryMatch)}
                       />
                     ))}
